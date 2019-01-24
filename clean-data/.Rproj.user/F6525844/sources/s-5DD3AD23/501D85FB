@@ -7,14 +7,14 @@
     "folds" : "",
     "hash" : "0",
     "id" : "501D85FB",
-    "lastKnownWriteTime" : 1548338916,
-    "last_content_update" : 1548338916594,
+    "lastKnownWriteTime" : 1548362081,
+    "last_content_update" : 1548362081272,
     "path" : "~/GitHub/ICCS/ICCS/clean-data/README.Rmd",
     "project_path" : "README.Rmd",
     "properties" : {
         "chunk_output_type" : "console",
-        "cursorPosition" : "13,14",
-        "scrollLine" : "0"
+        "cursorPosition" : "586,16",
+        "scrollLine" : "581"
     },
     "relative_order" : 1,
     "source_on_save" : false,
