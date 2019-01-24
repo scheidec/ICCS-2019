@@ -269,7 +269,7 @@ tbl %>% count(BS3B1,BS3B1_binary)
 
 Use "select" to rename mutated variable and display first five lines of dataframe for 1st mutated indicator
 ```{r}
-tbl %>% select(obey=BS3B1_bin) %>% head
+tbl %>% select(obey=BS3B1_binary) %>% head
 ```
 
 Copy recode for 1st cit norm indicator and - add in additonal indicators. NOTE: BS3B12 does not mutate correctly because of typo in string variable.
@@ -320,7 +320,7 @@ Use "select" to rename 2 mutated variables and display first five lines of dataf
 tbl %>% select(obey=BS3B1_bin,vote=BS3B2_bin) %>% as_tibble %>% head
 ```
 
-Use "select" to rename all 12 mutated variables and display first five lines of dataframe to confirm if coded correctly - listed by 1999 descending means (IJCS article). Notes: (1) BS3B12 does not mutate correctly because of error in string variable spelling, so coded separately in next set of code. (2) Indicate name "local" used in IJCS article cannot be used here for mutate select command because dataset already has with this name, so command below uses var name "local_" to be recoded alter
+Use "select" to rename all 12 mutated variables and display first five lines of dataframe to confirm if coded correctly - listed by 1999 descending means (IJCS article). Notes: Indicate name "local" used in IJCS article cannot be used here for mutate select command because dataset already has with this name, so command below uses var name "local_" to be recoded alter
 ```{r}
 tbl %>% select(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,local=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
   as_tibble %>% head
@@ -360,6 +360,21 @@ Base R checking recode - command useful for items that have the same coding
 table(tbl_reduced$BS3B1,tbl$BS3B1)
 ```
 
+XX
+Unique id per observation creation across binded country files
+```{r}
+id <- 1:93882; tbl <- cbind(id,tbl)
+```
+
+Same type of variable creation, except without noting precise number range ("n" instead)
+```{r}
+n <- dim(tbl)[1]; id <- 1:n; tbl <- cbind(id,tbl)
+```
+
+XX
+
+Select variables for latent gold analysis
+select(id,COUNTRY, JO add cit norm variablesXX )
 
 
 ## 2009 data loading and merging
@@ -596,10 +611,38 @@ load("c:/Users/user/Documents/GitHub/ICCS/ICCS/data/36997-0138-Data.rda")
 select(da36997.0138, COUNTRY, IDCNTRY, IS2P21A)
 ```
 
-Bind all 2009 files; Note, total observations of resulting tbl (140,650) concur with xls documentation of expected total n
+Bind all 2009 files; Note, total observations of resulting tbl2 (140,650) concur with xls documentation of expected total n
 ```{r}
-tbl<-rbind (da36997.0101, da36997.0102, da36997.0103, da36997.0104, da36997.0105, da36997.0106, da36997.0107, da36997.0108, da36997.0109, da36997.0110, da36997.0111, da36997.0112, da36997.0113, da36997.0114, da36997.0115, da36997.0116, da36997.0117, da36997.0118, da36997.0119, da36997.0120, da36997.0121, da36997.0122, da36997.0123, da36997.0124, da36997.0125, da36997.0126, da36997.0127, da36997.0128, da36997.0129, da36997.0130, da36997.0131, da36997.0132, da36997.0133, da36997.0134, da36997.0135, da36997.0136, da36997.0137, da36997.0138)
+tbl2<-rbind (da36997.0101, da36997.0102, da36997.0103, da36997.0104, da36997.0105, da36997.0106, da36997.0107, da36997.0108, da36997.0109, da36997.0110, da36997.0111, da36997.0112, da36997.0113, da36997.0114, da36997.0115, da36997.0116, da36997.0117, da36997.0118, da36997.0119, da36997.0120, da36997.0121, da36997.0122, da36997.0123, da36997.0124, da36997.0125, da36997.0126, da36997.0127, da36997.0128, da36997.0129, da36997.0130, da36997.0131, da36997.0132, da36997.0133, da36997.0134, da36997.0135, da36997.0136, da36997.0137, da36997.0138)
 ```
+
+TBL <- rbind(tbl1,tbl2,tbl3)
+
+XX
+For ICCS year variable - 
+
+RdM code for exporting data: 
+write.table(TBL,"TBL.dat", row.names=FALSE, quote = FALSE)
+
+savepath <- "c:/Users/user/Dropbox/Jenny/"
+
+
+write.table(tbl,paste(savepath,"tbl.dat",sep=""), row.names=FALSE, quote = FALSE)
+
+
+XX Adapt this for tbl2
+Creating survey year variable
+```{r}
+tbl <- tbl  %>% 
+  mutate(`ICCS Year` = 1) %>% 
+  select(`ICCS Year`, everything())
+```
+
+XX
+
+TBL_TEST <- read.table(paste(savepath,"TBL.dat",sep="")
+, header=T, sep=" ", dec=".")
+
 
 
 ## 2016 data loading and merging
