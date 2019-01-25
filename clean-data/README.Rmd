@@ -303,8 +303,6 @@ tbl1 %>% count(BS3B5)
 tbl1 %>% count(BS3B12) 
 tbl1 %>% count(BS3B3) 
 ```
-
-
 Recode all cit norm indicators by expanding prior successful code of 1st indicator. NOTE: BS3B12 recoded separately below b/c of typo in string variable.
 ```{r}
 tbl1 <-tbl1 %>% 
@@ -978,12 +976,12 @@ XXX
 
 XXX
 Combining recoded 1999, 2009 and 2016 data frames - RdM suggested code - Error message re: number of columns of arguments don't match
-```{r}
+```{r, eval=FALSE}
 TBL <- rbind(tbl1,tbl2,tbl3)
 ```
 
 1999-2009-2016, exporting recoded data for LCA - RdM suggested code, JO has to test when recode completed.
-```{r}
+```{reval=FALSE}
 TBL_TEST <- read.table(paste(savepath,"TBL.dat",sep="")
 , header=T, sep=" ", dec=".")
 
