@@ -1,20 +1,20 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1548152156800.000,
+    "created" : 1548423845351.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "0",
-    "id" : "501D85FB",
+    "id" : "E963FE26",
     "lastKnownWriteTime" : 1548420905,
-    "last_content_update" : 1548420905092,
+    "last_content_update" : 1548420905,
     "path" : "~/GitHub/ICCS/ICCS/clean-data/README.Rmd",
     "project_path" : "README.Rmd",
     "properties" : {
         "chunk_output_type" : "console",
-        "cursorPosition" : "50,44",
-        "scrollLine" : "35"
+        "cursorPosition" : "8,3",
+        "scrollLine" : "12"
     },
     "relative_order" : 1,
     "source_on_save" : false,
