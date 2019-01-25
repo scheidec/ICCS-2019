@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1337346426",
     "id" : "E963FE26",
-    "lastKnownWriteTime" : 1548420905,
-    "last_content_update" : 1548420905,
+    "lastKnownWriteTime" : 1548426542,
+    "last_content_update" : 1548426542345,
     "path" : "~/GitHub/ICCS/ICCS/clean-data/README.Rmd",
     "project_path" : "README.Rmd",
     "properties" : {
         "chunk_output_type" : "console",
-        "cursorPosition" : "8,3",
-        "scrollLine" : "12"
+        "cursorPosition" : "2,15",
+        "scrollLine" : "0"
     },
     "relative_order" : 1,
     "source_on_save" : false,
