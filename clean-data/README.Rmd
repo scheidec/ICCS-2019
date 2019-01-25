@@ -242,50 +242,72 @@ load("c:/Users/user/Documents/GitHub/ICCS/ICCS/data/21661-0028-Data.rda")
 select(da21661.0028, COUNTRY, IDCNTRY, BS3B1)
 ```
 
-Bind all 1999 files. Note, total observations of resulting tbl (93,882) concur with xls documentation of expected total n
+Bind all 1999 files. Note, total observations of resulting tbl1 (93,882) concur with xls documentation of expected total n
 ```{r}
-tbl<-rbind (da21661.0001,da21661.0002,da21661.0003,da21661.0004,da21661.0005,da21661.0006,da21661.0007,da21661.0008,da21661.0009,da21661.0010,da21661.0011,da21661.0012,da21661.0013,da21661.0014,da21661.0015,da21661.0016,da21661.0017,da21661.0018,da21661.0019,da21661.0020,da21661.0021,da21661.0022,da21661.0023,da21661.0024,da21661.0025,da21661.0026,da21661.0027,da21661.0028)
+tbl1<-rbind (da21661.0001,da21661.0002,da21661.0003,da21661.0004,da21661.0005,da21661.0006,da21661.0007,da21661.0008,da21661.0009,da21661.0010,da21661.0011,da21661.0012,da21661.0013,da21661.0014,da21661.0015,da21661.0016,da21661.0017,da21661.0018,da21661.0019,da21661.0020,da21661.0021,da21661.0022,da21661.0023,da21661.0024,da21661.0025,da21661.0026,da21661.0027,da21661.0028)
 ```
 
 Display all variable names in binded file
 ```{r}
-names (tbl)
+names (tbl1)
 ```
-View 1st 5 lines of dataframe only - added eval=FALSE to eliminate processing delay when run all code
+View 1st 5 lines only in dataframe of all columns (vars) - added eval=FALSE to eliminate processing delay when run all code
 ```{r, eval=FALSE}
-head(tbl) %>% View
+head(tbl1) %>% View
 ```
 
 Survey year variable creation
 ```{r}
-tbl <- tbl  %>% 
-  mutate(`ICCS Year` = 1) %>% 
-  select(`ICCS Year`, everything())
+tbl1 <- tbl1  %>% 
+  mutate(`ICCS_year` = 1) %>% 
+  select(`ICCS_year`, everything())
 ```
-View 1st 5 lines of specific selected variable
+Select a specific variable to output in console 1st 5 lines of data
 ```{r}
-select(tbl,`ICCS Year`) %>% head()
+select(tbl1,`ICCS_year`) %>% head()
 ```
 
-1st cit norm indicator recode - example recode of single indicator
+Cit norm, count 1st indicator to begin recode
 ```{r}
-tbl <-tbl %>% 
+tbl1 %>% count(BS3B1) 
+```
+Cit norm, recode 1st indicator as example 
+```{r}
+tbl1 <-tbl1 %>% 
   mutate (BS3B1_binary = fct_collapse(BS3B1, 
   "not important"=c("(1) not important", "(2) somewhat unimportant"),
   "important"=c("(3) somewhat important", "(4) very important")))
 ```
 Confirm correct recode
 ```{r}
-tbl %>% count(BS3B1,BS3B1_binary) 
+tbl1 %>% count(BS3B1,BS3B1_binary) 
 ```
-Use "select" to rename variable and display first lines
+Select to rename variable and display first lines
 ```{r}
-tbl %>% select(obey=BS3B1_binary) %>% head
+tbl1 %>% select(obey=BS3B1_binary) %>% head
 ```
+
+
+Cit norm, count all indicators to begin recode - in order of 1999 descending means (IJCS article)
+```{r}
+tbl1 %>% count(BS3B1)
+tbl1 %>% count(BS3B11)
+tbl1 %>% count(BS3B9) 
+tbl1 %>% count(BS3B4) 
+tbl1 %>% count(BS3B13) 
+tbl1 %>% count(BS3B2) 
+tbl1 %>% count(BS3B6) 
+tbl1 %>% count(BS3B10) 
+tbl1 %>% count(BS3B8) 
+tbl1 %>% count(BS3B5) 
+tbl1 %>% count(BS3B12) 
+tbl1 %>% count(BS3B3) 
+```
+
 
 Recode all cit norm indicators by expanding prior successful code of 1st indicator. NOTE: BS3B12 recoded separately below b/c of typo in string variable.
 ```{r}
-tbl <-tbl %>% 
+tbl1 <-tbl1 %>% 
   mutate_at (vars(BS3B1, BS3B2,BS3B3, BS3B4, BS3B5, BS3B6,BS3B8, BS3B9, BS3B10, BS3B11, BS3B13),
     funs(bin = fct_collapse(.,
   "not important"=c("(1) not important", "(2) somewhat unimportant"),
@@ -295,11 +317,11 @@ tbl <-tbl %>%
 
 BS3B12 "mutate" error troubleshoot when included in prior chunk. Count table command below yields console output showing that string text of 1st category "importnat"  spelled incorrectly, i.e. "a" and "n" transposed.
 ```{r}
-tbl %>% count(BS3B12) 
+tbl1 %>% count(BS3B12) 
 ```
 BS3B12 "mutate" command to correctly recode with this typo
 ```{r}
-tbl <-tbl %>% 
+tbl1 <-tbl1 %>% 
   mutate (BS3B12_bin = fct_collapse(BS3B12, 
   "not important"=c("(1) not importnat", "(2) somewhat unimportant"),
   "important"=c("(3) somewhat important", "(4) very important")))
@@ -307,44 +329,45 @@ tbl <-tbl %>%
 
 Confirm successful mutates
 ```{r}
-tbl %>% count(BS3B1,BS3B1_bin)
-tbl %>% count(BS3B2,BS3B2_bin)
-tbl %>% count(BS3B3,BS3B3_bin)
-tbl %>% count(BS3B4,BS3B4_bin)
-tbl %>% count(BS3B5,BS3B5_bin)
-tbl %>% count(BS3B6,BS3B6_bin)
-tbl %>% count(BS3B8,BS3B8_bin)
-tbl %>% count(BS3B9,BS3B9_bin)
-tbl %>% count(BS3B10,BS3B10_bin)
-tbl %>% count(BS3B12,BS3B12_bin) 
-tbl %>% count(BS3B11,BS3B11_bin)
-tbl %>% count(BS3B13,BS3B13_bin)
+tbl1 %>% count(BS3B1,BS3B1_bin)
+tbl1 %>% count(BS3B2,BS3B2_bin)
+tbl1 %>% count(BS3B3,BS3B3_bin)
+tbl1 %>% count(BS3B4,BS3B4_bin)
+tbl1 %>% count(BS3B5,BS3B5_bin)
+tbl1 %>% count(BS3B6,BS3B6_bin)
+tbl1 %>% count(BS3B8,BS3B8_bin)
+tbl1 %>% count(BS3B9,BS3B9_bin)
+tbl1 %>% count(BS3B10,BS3B10_bin)
+tbl1 %>% count(BS3B12,BS3B12_bin) 
+tbl1 %>% count(BS3B11,BS3B11_bin)
+tbl1 %>% count(BS3B13,BS3B13_bin)
 ```
 
 
 Select to rename 2 mutated variables and display first five lines of data frame
 ```{r}
-tbl %>% select(obey=BS3B1_bin,vote=BS3B2_bin) %>% as_tibble %>% head
+tbl1 %>% select(obey=BS3B1_bin,vote=BS3B2_bin) %>% as_tibble %>% head
 ```
 
-Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: Indicate name "local" used in IJCS article cannot be used here for mutate select command because dataset already has this var name - so code below uses var name "local_", to be recoded later
+Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: Indicator name "local" used in IJCS article cannot be used here for mutate select command because dataset already has this var name - so code below uses var name "local_", to be recoded later
 ```{r}
-tbl %>% select(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,local=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
+tbl1 %>% select(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,local=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
   as_tibble %>% head
 ```
 
+
 Create unique id per observation across binded country files
 ```{r}
-id <- 1:93882; tbl <- cbind(id,tbl)
+id <- 1:93882; tbl1 <- cbind(id,tbl1)
 ```
 
 Select for LCA vars - JO attempt to adapt RdM code, unsuccessful
 ```{r,eval=FALSE}
-tbl1<-tbl[,c("id","COUNTRY","obey","rights","local","work","envir","vote","history","respect","news","protest","discuss","party")]
+tbl1<-tbl1[,c("id","ICCS_year","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
 ```
 
 
-## 2009 data loading and merging
+## 2009 dataloading and merging
 2009 data: https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36997 
 Downloaded Jan 17, 2019
 
@@ -583,19 +606,107 @@ Bind all 2009 files; Note, total observations of resulting tbl2 (140,650) concur
 tbl2<-rbind (da36997.0101, da36997.0102, da36997.0103, da36997.0104, da36997.0105, da36997.0106, da36997.0107, da36997.0108, da36997.0109, da36997.0110, da36997.0111, da36997.0112, da36997.0113, da36997.0114, da36997.0115, da36997.0116, da36997.0117, da36997.0118, da36997.0119, da36997.0120, da36997.0121, da36997.0122, da36997.0123, da36997.0124, da36997.0125, da36997.0126, da36997.0127, da36997.0128, da36997.0129, da36997.0130, da36997.0131, da36997.0132, da36997.0133, da36997.0134, da36997.0135, da36997.0136, da36997.0137, da36997.0138)
 ```
 
-
-XX Adapt this for tbl2
-Creating survey year variable
+Display all variable names in binded file
 ```{r}
-tbl <- tbl  %>% 
-  mutate(`ICCS Year` = 1) %>% 
-  select(`ICCS Year`, everything())
+names (tbl2)
+```
+View 1st 5 lines only in dataframe of all columns (vars) - added eval=FALSE to eliminate processing delay when run all code
+```{r, eval=FALSE}
+head(tbl2) %>% View
 ```
 
-XX
+Creating survey year variable for 2009, tbl2
+```{r}
+tbl2 <- tbl2  %>% 
+  mutate(`ICCS_year` = 2) %>% 
+  select(`ICCS_year`, everything())
+```
+Select a specific variable to output in console 1st 5 lines of data
+```{r}
+select(tbl2,`ICCS_year`) %>% head()
+```
 
-TBL_TEST <- read.table(paste(savepath,"TBL.dat",sep="")
-, header=T, sep=" ", dec=".")
+
+Cit norm count 1st indicator to begin recode
+```{r}
+tbl2 %>% count(IS2P21L) 
+```
+Cit norm 1st indicator recode - example recode of single indicator
+```{r}
+tbl2 <-tbl2 %>% 
+  mutate (IS2P21L_binary = fct_collapse(IS2P21L, 
+  "not important"=c("(3) NOT VERY IMPORTANT", "(4) NOT IMPORTANT AT ALL"),
+  "important"=c("(1) VERY IMPORTANT", "(2) QUITE IMPORTANT")))
+```
+Confirm correct recode
+```{r}
+tbl2 %>% count(IS2P21L,IS2P21L_binary) 
+```
+Select to rename variable and display first lines
+```{r}
+tbl2 %>% select(obey=IS2P21L_binary) %>% head
+```
+
+Cit norm count all indicators to begin 12var recode
+```{r}
+tbl2 %>% count(IS2P21L)
+tbl2 %>% count(IS2P21I)
+tbl2 %>% count(IS2P21H)
+tbl2 %>% count(IS2P21K)
+tbl2 %>% count(IS2P21J)
+tbl2 %>% count(IS2P21A)
+tbl2 %>% count(IS2P21C)
+tbl2 %>% count(IS2P21E)
+tbl2 %>% count(IS2P21D)
+tbl2 %>% count(IS2P21G)
+tbl2 %>% count(IS2P21F)
+tbl2 %>% count(IS2P21B)
+```
+Recode all cit norm indicators by expanding prior successful code of 1st indicator. 
+```{r}
+tbl2 <-tbl2 %>% 
+  mutate_at (vars(IS2P21L,IS2P21I,IS2P21H,IS2P21K,IS2P21J,IS2P21A,IS2P21C,IS2P21E,IS2P21D,IS2P21G,IS2P21F,IS2P21B),
+    funs(bin = fct_collapse(.,
+  "not important"=c("(3) NOT VERY IMPORTANT", "(4) NOT IMPORTANT AT ALL"),
+  "important"=c("(1) VERY IMPORTANT", "(2) QUITE IMPORTANT")))
+  )
+```
+
+Confirm successful mutates
+```{r}
+tbl2 %>% count(IS2P21L,IS2P21L_bin)
+tbl2 %>% count(IS2P21I,IS2P21I_bin)
+tbl2 %>% count(IS2P21H,IS2P21H_bin)
+tbl2 %>% count(IS2P21K,IS2P21K_bin)
+tbl2 %>% count(IS2P21J,IS2P21J_bin)
+tbl2 %>% count(IS2P21A,IS2P21A_bin)
+tbl2 %>% count(IS2P21C,IS2P21C_bin)
+tbl2 %>% count(IS2P21E,IS2P21E_bin)
+tbl2 %>% count(IS2P21D,IS2P21D_bin)
+tbl2 %>% count(IS2P21G,IS2P21G_bin)
+tbl2 %>% count(IS2P21F,IS2P21F_bin)
+tbl2 %>% count(IS2P21B,IS2P21B_bin)
+```
+
+Select to rename 2 mutated variables and display first five lines of data frame
+```{r}
+tbl2 %>% select(obey=IS2P21L_bin,rights=IS2P21I_bin) %>% as_tibble %>% head
+```
+
+Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: no problem in 2009 data with using "local" indicator name, but to remain consistent with 1999 coding, used var name "local_", to be recoded later
+```{r}
+tbl2 %>% select(obey=IS2P21L_bin,rights=IS2P21I_bin,local_=IS2P21H_bin,work=IS2P21K_bin,envir=IS2P21J_bin,vote=IS2P21A_bin,history=IS2P21C_bin,respect=IS2P21E_bin,news=IS2P21D_bin,protest=IS2P21G_bin,discuss=IS2P21F_bin,party=IS2P21B_bin) %>% 
+  as_tibble %>% head
+```
+
+Create unique id per observation across binded country files = 93882 in tbl1 + 140650 in tbl2
+```{r}
+id <- 93883:234532; tbl2 <- cbind(id,tbl2)
+```
+Select to output in console 1st 5 lines of data
+```{r}
+select(tbl2,`id`) %>% head()
+```
 
 
 
@@ -753,16 +864,129 @@ select(da37147.0087, COUNTRY, IDCNTRY, IS3G23A)
 
 Bind all 2016 country files. Note, total observations of resulting tbl (94,603) concur with xls documentation of expected total n
 ```{r}
-tbl<-rbind (da37147.0064,da37147.0065,da37147.0066, da37147.0067,da37147.0068,da37147.0069,da37147.0070,da37147.0071,da37147.0072,da37147.0073,da37147.0074,da37147.0075,da37147.0076,da37147.0077,da37147.0078,da37147.0079,da37147.0080,da37147.0081,da37147.0082,da37147.0083,da37147.0084,da37147.0085,da37147.0086,da37147.0087)
+tbl3<-rbind (da37147.0064,da37147.0065,da37147.0066, da37147.0067,da37147.0068,da37147.0069,da37147.0070,da37147.0071,da37147.0072,da37147.0073,da37147.0074,da37147.0075,da37147.0076,da37147.0077,da37147.0078,da37147.0079,da37147.0080,da37147.0081,da37147.0082,da37147.0083,da37147.0084,da37147.0085,da37147.0086,da37147.0087)
 ```
 
-Combining recoded 1999, 2009 and 2016 data frames - RdM suggested code to test: 
+Display all variable names in binded file
+```{r}
+names (tbl3)
+```
+View 1st 5 lines only in dataframe of all columns (vars) - added eval=FALSE to eliminate processing delay when run all code
+```{r, eval=FALSE}
+head(tbl3) %>% View
+```
+
+Creating survey year variable for 2016, tbl3
+```{r}
+tbl3 <- tbl3  %>% 
+  mutate(`ICCS_year` = 3) %>% 
+  select(`ICCS_year`, everything())
+```
+Select a specific variable to output in console 1st 5 lines of data
+```{r}
+select(tbl3,`ICCS_year`) %>% head()
+```
+
+
+Cit norm count 1st indicator to begin recode
+```{r}
+tbl3 %>% count(IS3G23L) 
+```
+Cit norm 1st indicator recode - example recode of single indicator
+```{r}
+tbl3 <-tbl3 %>% 
+  mutate (IS3G23L_binary = fct_collapse(IS3G23L, 
+  "not important"=c("(3) Not very important", "(4) Not important at all"),
+  "important"=c("(1) Very important", "(2) Quite important")))
+```
+Confirm correct recode
+```{r}
+tbl3 %>% count(IS3G23L,IS3G23L_binary) 
+```
+Select to rename variable and display first lines
+```{r}
+tbl3 %>% select(obey=IS3G23L_binary) %>% head
+```
+
+
+
+Cit norm count all indicators to begin 12var recode
+```{r}
+tbl3 %>% count(IS3G23L)
+tbl3 %>% count(IS3G23I)
+tbl3 %>% count(IS3G23H)
+tbl3 %>% count(IS3G23K)
+tbl3 %>% count(IS3G23J)
+tbl3 %>% count(IS3G23A)
+tbl3 %>% count(IS3G23C)
+tbl3 %>% count(IS3G23E)
+tbl3 %>% count(IS3G23D)
+tbl3 %>% count(IS3G23G)
+tbl3 %>% count(IS3G23F)
+tbl3 %>% count(IS3G23B)
+```
+
+Recode all cit norm indicators by expanding prior successful code of 1st indicator. 
+```{r}
+tbl3 <-tbl3 %>% 
+  mutate_at (vars(IS3G23L,IS3G23I,IS3G23H,IS3G23K,IS3G23J,IS3G23A,IS3G23C,IS3G23E,IS3G23D,IS3G23G,IS3G23F,IS3G23B),
+    funs(bin = fct_collapse(.,
+  "not important"=c("(3) Not very important", "(4) Not important at all"),
+  "important"=c("(1) Very important", "(2) Quite important")))
+  )
+```
+COnfirm successful mutates
+```{r}
+tbl3 %>% count(IS3G23L,IS3G23L_bin)
+tbl3 %>% count(IS3G23I,IS3G23I_bin)
+tbl3 %>% count(IS3G23H,IS3G23H_bin)
+tbl3 %>% count(IS3G23K,IS3G23K_bin)
+tbl3 %>% count(IS3G23J,IS3G23J_bin)
+tbl3 %>% count(IS3G23A,IS3G23A_bin)
+tbl3 %>% count(IS3G23C,IS3G23C_bin)
+tbl3 %>% count(IS3G23E,IS3G23E_bin)
+tbl3 %>% count(IS3G23D,IS3G23D_bin)
+tbl3 %>% count(IS3G23G,IS3G23G_bin)
+tbl3 %>% count(IS3G23F,IS3G23F_bin)
+tbl3 %>% count(IS3G23B,IS3G23B_bin)
+```
+
+Select to rename 2 mutated variables and display first five lines of data frame
+```{r}
+tbl3 %>% select(obey=IS3G23L_bin,rights=IS3G23I_bin) %>% as_tibble %>% head
+```
+
+Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: no problem in 2016 data with using "local" indicator name, but to remain consistent with 1999 coding, used var name "local_", to be recoded later
+```{r}
+tbl3 %>% select(obey=IS3G23L_bin,rights=IS3G23I_bin,local_=IS3G23H_bin,work=IS3G23K_bin,envir=IS3G23J_bin,vote=IS3G23A_bin,history=IS3G23C_bin,respect=IS3G23E_bin,news=IS3G23D_bin,protest=IS3G23G_bin,discuss=IS3G23F_bin,party=IS3G23B_bin) %>% 
+  as_tibble %>% head
+```
+
+Create unique id per observation across binded country files = 93882 tbl1 + 140650 tbl2 + 94603 tbl3
+```{r}
+id <- 234533:329135; tbl3 <- cbind(id,tbl3)
+```
+Select to output in console 1st 5 lines of data
+```{r}
+select(tbl3,`id`) %>% head()
+```
+XXX
+Vars to be selected for LCA: 
+"id","ICCS_year","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party
+XXX
+
+
+XXX
+Combining recoded 1999, 2009 and 2016 data frames - RdM suggested code - Error message re: number of columns of arguments don't match
 ```{r}
 TBL <- rbind(tbl1,tbl2,tbl3)
 ```
 
 1999-2009-2016, exporting recoded data for LCA - RdM suggested code, JO has to test when recode completed.
 ```{r}
+TBL_TEST <- read.table(paste(savepath,"TBL.dat",sep="")
+, header=T, sep=" ", dec=".")
+
 write.table(TBL,"TBL.dat", row.names=FALSE, quote = FALSE)
 
 savepath <- "c:/Users/user/Dropbox/Jenny/"
