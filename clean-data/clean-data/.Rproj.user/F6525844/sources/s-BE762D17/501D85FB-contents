@@ -364,6 +364,21 @@ Select for LCA vars - JO attempt to adapt RdM code, unsuccessful
 tbl1<-tbl1[,c("id","ICCS_year","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
 ```
 
+XXMeans for cit norm indicators, documenting means for each indicator. Then, group by country for mean. JO experimented with different code, not sucessful yet.
+```{r,eval=FALSE}
+
+tbl1 %>% mean("obey") 
+
+XXMaybe try to adapt this type of code from Grolemund & Wikham Ch. 6.1:
+library(dplyr)
+library(nycflights13)
+not_cancelled <- flights %>%
+filter(!is.na(dep_delay)█, !is.na(arr_delay))
+not_cancelled %>%
+group_by(year, month, day) %>%
+summarise(mean = mean(dep_delay))
+XX
+```
 
 ## 2009 dataloading and merging
 2009 data: https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36997 
