@@ -315,6 +315,11 @@ tbl1 <-tbl1 %>%
  mutate(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,work=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12_bin,party=BS3B3_bin)
 ```
 
+Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
+```{r}
+tbl1_<-tbl1 %>% 
+select(ICCS_year,COUNTRY,IDSTUD,obey,rights,local_,work,envir,vote,history,respect,news,protest,discuss,party)
+```
 
 ## 2009 dataloading and merging
 2009 data: https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36997 
@@ -614,11 +619,16 @@ tbl2 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=IS2P21L_bin,rights=IS2P21I_bin,loc
   as_tibble %>% head
 ```
 
-
 Mutate to create renamed cit norm variables, standardized across years
 ```{r}
 tbl2 <-tbl2 %>% 
  mutate(obey=IS2P21L_bin,rights=IS2P21I_bin,local_=IS2P21H_bin,work=IS2P21K_bin,envir=IS2P21J_bin,vote=IS2P21A_bin,history=IS2P21C_bin,respect=IS2P21E_bin,news=IS2P21D_bin,protest=IS2P21G_bin,discuss=IS2P21F_bin,party=IS2P21B_bin)
+```
+
+Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
+```{r}
+tbl2_<-tbl2 %>% 
+select(ICCS_year,COUNTRY,IDSTUD,obey,rights,local_,work,envir,vote,history,respect,news,protest,discuss,party)
 ```
 
 
@@ -633,139 +643,116 @@ Load DS64 Belgium (Flemish) & verify loaded correctly
 load("../data/37147-0064-Data.rda")
 select(da37147.0064, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS65 Bulgaria & verify loaded correctly
 ```{r}
 load("../data/37147-0065-Data.rda")
 select(da37147.0065, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS66 Chile & verify loaded correctly
 ```{r}
 load("../data/37147-0066-Data.rda")
 select(da37147.0066, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS67 Colombia & verify loaded correctly
 ```{r}
 load("../data/37147-0067-Data.rda")
 select(da37147.0067, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS68 Denmark & verify loaded correctly
 ```{r}
 load("../data/37147-0068-Data.rda")
 select(da37147.0068, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS69 North Rhine-Westphalia, Germany & verify loaded correctly
 ```{r}
 load("../data/37147-0069-Data.rda")
 select(da37147.0069, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS70 Dominican Republic & verify loaded correctly
 ```{r}
 load("../data/37147-0070-Data.rda")
 select(da37147.0070, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS71 Estonia & verify loaded correctly
 ```{r}
 load("../data/37147-0071-Data.rda")
 select(da37147.0071, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 Load DS72 Finland & verify loaded correctly
 ```{r}
 load("../data/37147-0072-Data.rda")
 select(da37147.0072, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS73 Hong Kong - load & verify loaded correctly
 ```{r}
 load("../data/37147-0073-Data.rda")
 select(da37147.0073, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS74 Croatia - load & verify loaded correctly
 ```{r}
 load("../data/37147-0074-Data.rda")
 select(da37147.0074, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS75 Italy - load & verify loaded correctly
 ```{r}
 load("../data/37147-0075-Data.rda")
 select(da37147.0075, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS76 Korea - load & verify loaded correctly
 ```{r}
 load("../data/37147-0076-Data.rda")
 select(da37147.0076, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS77 Lithuania - load & verify loaded correctly
 ```{r}
 load("../data/37147-0077-Data.rda")
 select(da37147.0077, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS78 Latvia - load & verify loaded correctly
 ```{r}
 load("../data/37147-0078-Data.rda")
 select(da37147.0078, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS79 Mexico - load & verify loaded correctly
 ```{r}
 load("../data/37147-0079-Data.rda")
 select(da37147.0079, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS80 Malta - load & verify loaded correctly
 ```{r}
 load("../data/37147-0080-Data.rda")
 select(da37147.0080, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS81 Netherlands - load & verify loaded correctly
 ```{r}
 load("../data/37147-0081-Data.rda")
 select(da37147.0081, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS82 Norway - load & verify loaded correctly
 ```{r}
 load("../data/37147-0082-Data.rda")
 select(da37147.0082, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS83 Peru - load & verify loaded correctly
 ```{r}
 load("../data/37147-0083-Data.rda")
 select(da37147.0083, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS84 Russia - load & verify loaded correctly
 ```{r}
 load("../data/37147-0084-Data.rda")
 select(da37147.0084, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS85 Slovenia - load & verify loaded correctly
 ```{r}
 load("../data/37147-0085-Data.rda")
 select(da37147.0085, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS86 Sweden - load & verify loaded correctly
 ```{r}
 load("../data/37147-0086-Data.rda")
 select(da37147.0086, COUNTRY, IDCNTRY, IS3G23A)
 ```
-
 DS87 Chinese Taipei - load & verify loaded correctly
 ```{r}
 load("../data/37147-0087-Data.rda")
@@ -867,32 +854,29 @@ tbl3 %>% select(obey=IS3G23L_bin,rights=IS3G23I_bin) %>% as_tibble %>% head
 
 Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: no problem in 2016 data with using "local" indicator name, but to remain consistent with 1999 coding, used var name "local_", to be recoded later
 ```{r}
-tbl3 %>% select(obey=IS3G23L_bin,rights=IS3G23I_bin,local_=IS3G23H_bin,work=IS3G23K_bin,envir=IS3G23J_bin,vote=IS3G23A_bin,history=IS3G23C_bin,respect=IS3G23E_bin,news=IS3G23D_bin,protest=IS3G23G_bin,discuss=IS3G23F_bin,party=IS3G23B_bin) %>% 
+tbl3 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=IS3G23L_bin,rights=IS3G23I_bin,local_=IS3G23H_bin,work=IS3G23K_bin,envir=IS3G23J_bin,vote=IS3G23A_bin,history=IS3G23C_bin,respect=IS3G23E_bin,news=IS3G23D_bin,protest=IS3G23G_bin,discuss=IS3G23F_bin,party=IS3G23B_bin) %>% 
   as_tibble %>% head
 ```
 
-Create unique id per observation across binded country files = 93882 tbl1 + 140650 tbl2 + 94603 tbl3
+Mutate to create renamed cit norm variables, standardized across years
 ```{r}
-id <- 234533:329135; tbl3 <- cbind(id,tbl3)
+tbl3 <-tbl3 %>% 
+ mutate(obey=IS3G23L_bin,rights=IS3G23I_bin,local_=IS3G23H_bin,work=IS3G23K_bin,envir=IS3G23J_bin,vote=IS3G23A_bin,history=IS3G23C_bin,respect=IS3G23E_bin,news=IS3G23D_bin,protest=IS3G23G_bin,discuss=IS3G23F_bin,party=IS3G23B_bin)
 ```
-Select to output in console 1st 5 lines of data
+
+Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
 ```{r}
-select(tbl3,`id`) %>% head()
-```
-XXX
-Vars to be selected for LCA: 
-"id","ICCS_year","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party
-XXX
-
-
-XXX
-Combining recoded 1999, 2009 and 2016 data frames - RdM suggested code - Error message re: number of columns of arguments don't match
-```{r, eval=FALSE}
-TBL <- rbind(tbl1,tbl2,tbl3)
+tbl3_<-tbl3 %>% 
+select(ICCS_year,COUNTRY,IDSTUD,obey,rights,local_,work,envir,vote,history,respect,news,protest,discuss,party)
 ```
 
-Once combined datafile successfully created:
-Create unique id per observation across binded country files
+
+Combining recoded 1999, 2009 and 2016 data frames 
+```{r}
+TBL <- rbind(tbl1_,tbl2_,tbl3_)
+```
+
+Create unique id per observation across binded country files to be able to import Latent Gold class assignment for each unique observation
 ```{r}
 TBL<-TBL %>% 
   mutate(id=row_number(),
@@ -900,30 +884,25 @@ TBL<-TBL %>%
 
 ```
 
-
-XXX
-Select for LCA vars, JO attempt to adapt RdM code using base R. Unsuccessful b/c starting with "obey" variable names are not saved into the dataframe
+1999-2009-2016, exporting recoded data for LCA - RdM suggested code, needs to be corrected.
 ```{r,eval=FALSE}
-tbl1<-tbl1[,c("ICCS_year","IDSTUD","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
-```
-XX
-
-
-1999-2009-2016, exporting recoded data for LCA - RdM suggested code, JO has to test when recode completed.
-```{reval=FALSE}
-TBL_TEST <- read.table(paste(savepath,"TBL.dat",sep="")
-, header=T, sep=" ", dec=".")
-
-write.table(TBL,"TBL.dat", row.names=FALSE, quote = FALSE)
 
 savepath <- "c:/Users/user/Dropbox/Jenny/"
 
-write.table(tbl,paste(savepath,"tbl.dat",sep=""), row.names=FALSE, quote = FALSE)
+write.table(TBL,paste(savepath,"TBL.dat",sep=""), row.names=FALSE, quote = FALSE)
+
 ```
 
 
+Attempt to produce summary tables / figures
+```{r, eval=FALSE}
+TBL %>%
+  group_by(ICCS_year) %>% 
+  summarise(mean = mean(obey, na.rm = TRUE))
+```
 
-XX - here down is template Rmd txt
+
+XXXXXXXXXXXXXXXXXX- here down is template Rmd txt
 ## Including Plots
 
 You can also embed plots, for example:
