@@ -304,20 +304,16 @@ tbl1 %>% select(obey=BS3B1_bin,rights=BS3B11_bin) %>% as_tibble %>% head
 
 Select for LCA vars tibble, including rename all 12 mutated variables and display first five lines of dataframe. NOTE: Indicator name "local" used in IJCS article cannot be used here for mutate select command because ICCS 1999 dataset has an existing var with this this var name. Code below uses var name "local_", to be recoded
 ```{r}
-tbl1 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,work=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
+tbl1 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,work=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12_bin,party=BS3B3_bin) %>% 
   as_tibble %>% head
 ```
 
-XX
-CODING NOTE to prep 1999 data for binding: The next necessary step in this coding framework is to save the vars in the prior chunk in a tbl1 dataframe (or tbl1_) in prep for binding the recoded 1999 data with the subsequent 2009 and 2016 data. JO has experimented with different coding attempts, not yet successful - coding suggestions are welcome.
-XX
 
-XX
-Select for LCA vars, JO attempt to adapt RdM code using base R. Unsuccessful b/c starting with "obey" variable names are not saved into the dataframe
-```{r,eval=FALSE}
-tbl1<-tbl1[,c("ICCS_year","IDSTUD","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
+Mutate to create renamed cit norm variables, standardized across years
+```{r}
+tbl1 <-tbl1 %>% 
+ mutate(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,work=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12_bin,party=BS3B3_bin)
 ```
-XX
 
 
 ## 2009 dataloading and merging
@@ -331,103 +327,86 @@ Load DS101 Austria & verify loaded correctly
 load("../data/36997-0101-Data.rda")
 select(da36997.0101, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS102 Belgium (Flemish) & verify loaded correctly
 ```{r}
 load("../data/36997-0102-Data.rda")
 select(da36997.0102, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS103 Bulgaria & verify loaded correctly
 ```{r}
 load("../data/36997-0103-Data.rda")
 select(da36997.0103, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS104 Switzerland & verify loaded correctly
 ```{r}
 load("../data/36997-0104-Data.rda")
 select(da36997.0104, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS105 Chile & verify loaded correctly
 ```{r}
 load("../data/36997-0105-Data.rda")
 select(da36997.0105, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS106 Colombia & verify loaded correctly
 ```{r}
 load("../data/36997-0106-Data.rda")
 select(da36997.0106, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS107 Cyprus & verify loaded correctly
 ```{r}
 load("../data/36997-0107-Data.rda")
 select(da36997.0107, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS108 Czech Republic & verify loaded correctly
 ```{r}
 load("../data/36997-0108-Data.rda")
 select(da36997.0108, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS109 Denmark & verify loaded correctly
 ```{r}
 load("../data/36997-0109-Data.rda")
 select(da36997.0109, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS110 Dominican Republic & verify loaded correctly
 ```{r}
 load("../data/36997-0110-Data.rda")
 select(da36997.0110, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS111 England & verify loaded correctly
 ```{r}
 load("../data/36997-0111-Data.rda")
 select(da36997.0111, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS112 Spain & verify loaded correctly
 ```{r}
 load("../data/36997-0112-Data.rda")
 select(da36997.0112, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS113 Estonia & verify loaded correctly
 ```{r}
 load("../data/36997-0113-Data.rda")
 select(da36997.0113, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS114 Finland & verify loaded correctly
 ```{r}
 load("../data/36997-0114-Data.rda")
 select(da36997.0114, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS115 Greece & verify loaded correctly
 ```{r}
 load("../data/36997-0115-Data.rda")
 select(da36997.0115, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS116 Guatemala & verify loaded correctly
 ```{r}
 load("../data/36997-0116-Data.rda")
 select(da36997.0116, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS117 Hong Kong & verify loaded correctly
 ```{r}
 load("../data/36997-0117-Data.rda")
 select(da36997.0117, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS118 Indonesia & verify loaded correctly
 ```{r}
 load("../data/36997-0118-Data.rda")
@@ -439,61 +418,51 @@ Load DS119 Ireland & verify loaded correctly
 load("../data/36997-0119-Data.rda")
 select(da36997.0119, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS120 Italy & verify loaded correctly
 ```{r}
 load("../data/36997-0120-Data.rda")
 select(da36997.0120, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS121 Korea & verify loaded correctly
 ```{r}
 load("../data/36997-0121-Data.rda")
 select(da36997.0121, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS122 Liechtenstein & verify loaded correctly
 ```{r}
 load("../data/36997-0122-Data.rda")
 select(da36997.0122, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS123 Lithuania & verify loaded correctly
 ```{r}
 load("../data/36997-0123-Data.rda")
 select(da36997.0123, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS124 Luxembourg & verify loaded correctly
 ```{r}
 load("../data/36997-0124-Data.rda")
 select(da36997.0124, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS125 Latvia & verify loaded correctly
 ```{r}
 load("../data/36997-0125-Data.rda")
 select(da36997.0125, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS126 Mexico & verify loaded correctly
 ```{r}
 load("../data/36997-0126-Data.rda")
 select(da36997.0126, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS127 Malta & verify loaded correctly
 ```{r}
 load("../data/36997-0127-Data.rda")
 select(da36997.0127, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS128 Netherlands & verify loaded correctly
 ```{r}
 load("../data/36997-0128-Data.rda")
 select(da36997.0128, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS129 Norway & verify loaded correctly
 ```{r}
 load("../data/36997-0129-Data.rda")
@@ -505,25 +474,21 @@ Load DS130 New Zealand & verify loaded correctly
 load("../data/36997-0130-Data.rda")
 select(da36997.0130, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS131 Poland & verify loaded correctly
 ```{r}
 load("../data/36997-0131-Data.rda")
 select(da36997.0131, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS132 Paraguay & verify loaded correctly
 ```{r}
 load("../data/36997-0132-Data.rda")
 select(da36997.0132, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS133 Russia & verify loaded correctly
 ```{r}
 load("../data/36997-0133-Data.rda")
 select(da36997.0133, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS134 Slovak Republic & verify loaded correctly
 ```{r}
 load("../data/36997-0134-Data.rda")
@@ -535,19 +500,16 @@ Load DS135 Slovenia & verify loaded correctly
 load("../data/36997-0135-Data.rda")
 select(da36997.0135, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS136 Sweden & verify loaded correctly
 ```{r}
 load("../data/36997-0136-Data.rda")
 select(da36997.0136, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS137 Thailand & verify loaded correctly
 ```{r}
 load("../data/36997-0137-Data.rda")
 select(da36997.0137, COUNTRY, IDCNTRY, IS2P21A)
 ```
-
 Load DS138 Chinese Taipei & verify loaded correctly
 ```{r}
 load("../data/36997-0138-Data.rda")
@@ -568,7 +530,7 @@ View 1st 5 lines only in dataframe of all columns (vars) - added eval=FALSE to e
 head(tbl2) %>% View
 ```
 
-Creating survey year variable for 2009, tbl2
+Survey year variable creation
 ```{r}
 tbl2 <- tbl2  %>% 
   mutate(`ICCS_year` = 2) %>% 
@@ -648,19 +610,16 @@ tbl2 %>% select(obey=IS2P21L_bin,rights=IS2P21I_bin) %>% as_tibble %>% head
 
 Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: no problem in 2009 data with using "local" indicator name, but to remain consistent with 1999 coding, used var name "local_", to be recoded later
 ```{r}
-tbl2 %>% select(obey=IS2P21L_bin,rights=IS2P21I_bin,local_=IS2P21H_bin,work=IS2P21K_bin,envir=IS2P21J_bin,vote=IS2P21A_bin,history=IS2P21C_bin,respect=IS2P21E_bin,news=IS2P21D_bin,protest=IS2P21G_bin,discuss=IS2P21F_bin,party=IS2P21B_bin) %>% 
+tbl2 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=IS2P21L_bin,rights=IS2P21I_bin,local_=IS2P21H_bin,work=IS2P21K_bin,envir=IS2P21J_bin,vote=IS2P21A_bin,history=IS2P21C_bin,respect=IS2P21E_bin,news=IS2P21D_bin,protest=IS2P21G_bin,discuss=IS2P21F_bin,party=IS2P21B_bin) %>% 
   as_tibble %>% head
 ```
 
-Create unique id per observation across binded country files = 93882 in tbl1 + 140650 in tbl2
-```{r}
-id <- 93883:234532; tbl2 <- cbind(id,tbl2)
-```
-Select to output in console 1st 5 lines of data
-```{r}
-select(tbl2,`id`) %>% head()
-```
 
+Mutate to create renamed cit norm variables, standardized across years
+```{r}
+tbl2 <-tbl2 %>% 
+ mutate(obey=IS2P21L_bin,rights=IS2P21I_bin,local_=IS2P21H_bin,work=IS2P21K_bin,envir=IS2P21J_bin,vote=IS2P21A_bin,history=IS2P21C_bin,respect=IS2P21E_bin,news=IS2P21D_bin,protest=IS2P21G_bin,discuss=IS2P21F_bin,party=IS2P21B_bin)
+```
 
 
 ## 2016 data loading and merging
@@ -941,6 +900,13 @@ TBL<-TBL %>%
 
 ```
 
+
+XXX
+Select for LCA vars, JO attempt to adapt RdM code using base R. Unsuccessful b/c starting with "obey" variable names are not saved into the dataframe
+```{r,eval=FALSE}
+tbl1<-tbl1[,c("ICCS_year","IDSTUD","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
+```
+XX
 
 
 1999-2009-2016, exporting recoded data for LCA - RdM suggested code, JO has to test when recode completed.
