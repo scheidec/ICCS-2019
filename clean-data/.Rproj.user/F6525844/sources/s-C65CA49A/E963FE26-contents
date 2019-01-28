@@ -11,8 +11,8 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-library(readr)
 library(tidyverse)
+library(readr)
 library(purrr)
 ```
 
@@ -20,7 +20,8 @@ library(purrr)
 
 This file documents the data cleaning for the ICCS 1999-2009-2016 Citizenship Norms Project
 
-First, read in and merge data for separate country files from ICPSR for international student questionnaire files
+Note that for citizenship norm recodes in all three survey waves, the norms are coded in the descending mean order of the 1999 data: obey,rights,local,work,envir,vote,history,respect,news,protest,discuss,party
+
 
 ## 1999 data loading and merging
 1999 data: https://www.icpsr.umich.edu/icpsrweb/civicleads/studies/21661/datadocumentation  
@@ -34,189 +35,162 @@ load("../data/21661-0001-Data.rda")
 
 select(da21661.0001, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS2 Belgium & verify loaded correctly
 ```{r}
 load("../data/21661-0002-Data.rda")
 
 select(da21661.0002, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS3 Bulgaria & verify loaded correctly
 ```{r}
 load("../data/21661-0003-Data.rda")
 
 select(da21661.0003, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS4 Switzerland & verify loaded correctly
 ```{r}
 load("../data/21661-0004-Data.rda")
 
 select(da21661.0004, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS5 Chile & verify loaded correctly
 ```{r}
 load("../data/21661-0005-Data.rda")
 
 select(da21661.0005, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS6 Colombia & verify loaded correctly
 ```{r}
 load("../data/21661-0006-Data.rda")
 
 select(da21661.0006, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS7 Cyprus & verify loaded correctly
 ```{r}
 load("../data/21661-0007-Data.rda")
 
 select(da21661.0007, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS8 Czech Republic & verify loaded correctly
 ```{r}
 load("../data/21661-0008-Data.rda")
 
 select(da21661.0008, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS9 Germany & verify loaded correctly
 ```{r}
 load("../data/21661-0009-Data.rda")
 
 select(da21661.0009, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS10 Denmark & verify loaded correctly
 ```{r}
 load("../data/21661-0010-Data.rda")
 
 select(da21661.0010, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS11 England & verify loaded correctly
 ```{r}
 load("../data/21661-0011-Data.rda")
 
 select(da21661.0011, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS12 Estonia & verify loaded correctly
 ```{r}
 load("../data/21661-0012-Data.rda")
 
 select(da21661.0012, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS13 Finland & verify loaded correctly
 ```{r}
 load("../data/21661-0013-Data.rda")
 
 select(da21661.0013, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS14 Greece & verify loaded correctly
 ```{r}
 load("../data/21661-0014-Data.rda")
 
 select(da21661.0014, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS15 Hong Kong (SAR) & verify loaded correctly
 ```{r}
 load("../data/21661-0015-Data.rda")
 
 select(da21661.0015, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS16 Hungary & verify loaded correctly
 ```{r}
 load("../data/21661-0016-Data.rda")
 
 select(da21661.0016, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS17 Italy & verify loaded correctly
 ```{r}
 load("../data/21661-0017-Data.rda")
 
 select(da21661.0017, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS18 Lithuania & verify loaded correctly
 ```{r}
 load("../data/21661-0018-Data.rda")
 
 select(da21661.0018, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS19 Latvia & verify loaded correctly
 ```{r}
 load("../data/21661-0019-Data.rda")
 
 select(da21661.0019, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS20 Norway & verify loaded correctly
 ```{r}
 load("../data/21661-0020-Data.rda")
 
 select(da21661.0020, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS21 Poland & verify loaded correctly
 ```{r}
 load("../data/21661-0021-Data.rda")
 
 select(da21661.0021, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS22 Portugal & verify loaded correctly
 ```{r}
 load("../data/21661-0022-Data.rda")
 
 select(da21661.0022, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS23 Romania & verify loaded correctly
 ```{r}
 load("../data/21661-0023-Data.rda")
 
 select(da21661.0023, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS24 Russia & verify loaded correctly
 ```{r}
 load("../data/21661-0024-Data.rda")
 
 select(da21661.0024, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS25 Slovak Repubic & verify loaded correctly
 ```{r}
 load("../data/21661-0025-Data.rda")
 
 select(da21661.0025, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS26 Slovenia & verify loaded correctly
 ```{r}
 load("../data/21661-0026-Data.rda")
 
 select(da21661.0026, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS27 Sweden & verify loaded correctly
 ```{r}
 load("../data/21661-0027-Data.rda")
 
 select(da21661.0027, COUNTRY, IDCNTRY, BS3B1)
 ```
-
 Load DS28 United States & verify loaded correctly
 ```{r}
 load("../data/21661-0028-Data.rda")
@@ -269,17 +243,7 @@ Select to rename variable and display first lines
 tbl1 %>% select(obey=BS3B1_binary) %>% head
 ```
 
-XX
-Attempt to do next chunk more parsimoniously - not successful yet
-```{r,eval=FALSE}
-tbl1 %>% 
-  select(BS3B1,BS3B2) %>% 
-  map(count)
-```
-XX
-
-
-Cit norm, count all indicators to begin recode - in order of 1999 descending means (IJCS article)
+Cit norm, count all indicators to begin full recode
 ```{r}
 tbl1 %>% count(BS3B1)
 tbl1 %>% count(BS3B11)
@@ -297,7 +261,7 @@ tbl1 %>% count(BS3B3)
 Recode all cit norm indicators by expanding prior successful code of 1st indicator. NOTE: BS3B12 recoded separately below b/c of typo in string variable.
 ```{r}
 tbl1 <-tbl1 %>% 
-  mutate_at (vars(BS3B1, BS3B2,BS3B3, BS3B4, BS3B5, BS3B6,BS3B8, BS3B9, BS3B10, BS3B11, BS3B13),
+  mutate_at (vars(BS3B1,BS3B11,BS3B9,BS3B4,BS3B13,BS3B2,BS3B6,BS3B10,BS3B8,BS3B5,BS3B3),
     funs(bin = fct_collapse(.,
   "not important"=c("(1) not important", "(2) somewhat unimportant"),
   "important"=c("(3) somewhat important", "(4) very important")))
@@ -316,67 +280,45 @@ tbl1 <-tbl1 %>%
   "important"=c("(3) somewhat important", "(4) very important")))
 ```
 
-Confirm successful mutates
+Confirm successful mutates for all indicators
 ```{r}
 tbl1 %>% count(BS3B1,BS3B1_bin)
-tbl1 %>% count(BS3B2,BS3B2_bin)
-tbl1 %>% count(BS3B3,BS3B3_bin)
-tbl1 %>% count(BS3B4,BS3B4_bin)
-tbl1 %>% count(BS3B5,BS3B5_bin)
-tbl1 %>% count(BS3B6,BS3B6_bin)
-tbl1 %>% count(BS3B8,BS3B8_bin)
-tbl1 %>% count(BS3B9,BS3B9_bin)
-tbl1 %>% count(BS3B10,BS3B10_bin)
-tbl1 %>% count(BS3B12,BS3B12_bin) 
 tbl1 %>% count(BS3B11,BS3B11_bin)
+tbl1 %>% count(BS3B9,BS3B9_bin)
+tbl1 %>% count(BS3B4,BS3B4_bin)
 tbl1 %>% count(BS3B13,BS3B13_bin)
+tbl1 %>% count(BS3B2,BS3B2_bin)
+tbl1 %>% count(BS3B6,BS3B6_bin)
+tbl1 %>% count(BS3B10,BS3B10_bin)
+tbl1 %>% count(BS3B8,BS3B8_bin)
+tbl1 %>% count(BS3B5,BS3B5_bin)
+tbl1 %>% count(BS3B12,BS3B12_bin) 
+tbl1 %>% count(BS3B3,BS3B3_bin)
 ```
-
 
 Select to rename 2 mutated variables and display first five lines of data frame
 ```{r}
-tbl1 %>% select(obey=BS3B1_bin,vote=BS3B2_bin) %>% as_tibble %>% head
+tbl1 %>% select(obey=BS3B1_bin,rights=BS3B11_bin) %>% as_tibble %>% head
 ```
 
-Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). NOTE: Indicator name "local" used in IJCS article cannot be used here for mutate select command because dataset already has this var name - so code below uses var name "local_", to be recoded later
+
+Select for LCA vars tibble, including rename all 12 mutated variables and display first five lines of dataframe. NOTE: Indicator name "local" used in IJCS article cannot be used here for mutate select command because ICCS 1999 dataset has an existing var with this this var name. Code below uses var name "local_", to be recoded
 ```{r}
-tbl1 %>% select(obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,local=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
+tbl1 %>% select(ICCS_year,COUNTRY,IDSTUD,obey=BS3B1_bin,rights=BS3B11_bin,local_=BS3B9_bin,work=BS3B4_bin,envir=BS3B13_bin,vote=BS3B2_bin,history=BS3B6_bin,respect=BS3B10_bin,news=BS3B8_bin,protest=BS3B5_bin,discuss=BS3B12,party=BS3B3_bin) %>% 
   as_tibble %>% head
 ```
 
-
-Create unique id per observation across binded country files
-```{r}
-tbl1<-tbl1 %>% 
-  mutate(id=row_number(),
-         id2=paste0(COUNTRY,IDSTUD))
-
-```
-
 XX
-id <- 1:93882; tbl1 <- cbind(id,tbl1)
+CODING NOTE to prep 1999 data for binding: The next necessary step in this coding framework is to save the vars in the prior chunk in a tbl1 dataframe (or tbl1_) in prep for binding the recoded 1999 data with the subsequent 2009 and 2016 data. JO has experimented with different coding attempts, not yet successful - coding suggestions are welcome.
 XX
 
-Select for LCA vars - JO attempt to adapt RdM code, unsuccessful
+XX
+Select for LCA vars, JO attempt to adapt RdM code using base R. Unsuccessful b/c starting with "obey" variable names are not saved into the dataframe
 ```{r,eval=FALSE}
-tbl1<-tbl1[,c("id","ICCS_year","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
+tbl1<-tbl1[,c("ICCS_year","IDSTUD","COUNTRY","obey","rights","local_","work","envir","vote","history","respect","news","protest","discuss","party")]
 ```
-
-XXMeans for cit norm indicators, documenting means for each indicator. Then, group by country for mean. JO experimented with different code, not sucessful yet.
-```{r,eval=FALSE}
-
-tbl1 %>% mean("obey") 
-
-XXMaybe try to adapt this type of code from Grolemund & Wikham Ch. 6.1:
-library(dplyr)
-library(nycflights13)
-not_cancelled <- flights %>%
-filter(!is.na(dep_delay)█, !is.na(arr_delay))
-not_cancelled %>%
-group_by(year, month, day) %>%
-summarise(mean = mean(dep_delay))
 XX
-```
+
 
 ## 2009 dataloading and merging
 2009 data: https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36997 
@@ -989,6 +931,17 @@ Combining recoded 1999, 2009 and 2016 data frames - RdM suggested code - Error m
 ```{r, eval=FALSE}
 TBL <- rbind(tbl1,tbl2,tbl3)
 ```
+
+Once combined datafile successfully created:
+Create unique id per observation across binded country files
+```{r}
+TBL<-TBL %>% 
+  mutate(id=row_number(),
+         id2=paste0(COUNTRY,IDSTUD))
+
+```
+
+
 
 1999-2009-2016, exporting recoded data for LCA - RdM suggested code, JO has to test when recode completed.
 ```{reval=FALSE}
