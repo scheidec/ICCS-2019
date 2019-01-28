@@ -26,24 +26,6 @@ First, read in and merge data for separate country files from ICPSR for internat
 1999 data: https://www.icpsr.umich.edu/icpsrweb/civicleads/studies/21661/datadocumentation  
 Downloaded Jan 17, 2019
 
-XX
-Attempt to load all country files at once - unsuccessful, will revisit after complete coding variables country by country.
-```{r, eval=FALSE}
-files<-list.files("../data", full.names = T)
-
-fancy_loader <- function(file) {
-  e <- new.env()
-  load(file, envir = e)
-  
-  stopifnot(length(e) == 1)  # safety first
-  
-  get(names(e)[1], envir = e)
-}
-
-map(files, fancy_loader)
-```
-XX
-
 Load 1999 country files, in chronological order of file names
 
 Load DS1 Australia & verify loaded correctly
