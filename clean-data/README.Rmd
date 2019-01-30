@@ -9,11 +9,12 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 10)
 
 library(tidyverse)
 library(readr)
 library(purrr)
+library(writexl)
 ```
 
 ## Introduction
@@ -57,12 +58,22 @@ tbl1 <- files %>%
   select(`ICCS_year`, everything())
 ```
 
-Cit norm, count and recode 1st indicator as example .
+Cit norm, count all indicators to begin recode.
 
 ```{r}
 
-# count
-tbl1 %>% count(BS3B1) 
+original_vars <- tbl1 %>% 
+  select(BS3B1, BS3B11, BS3B9, BS3B4, BS3B13, BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3) %>% 
+  colnames() 
+
+original_vars %>% 
+  map(~ tbl1 %>% count(!!sym(.x)))
+```
+
+
+Cit norm, count and recode 1st indicator as example.
+
+```{r}
 
 # recode
 tbl1 <- tbl1 %>% 
@@ -96,25 +107,20 @@ tbl1 %>% count(BS3B12)
 
 # recode
 tbl1 <- tbl1 %>% 
-  mutate (BS3B12_bin = fct_collapse(BS3B12, 
-  "not important" = c("(1) not importnat", "(2) somewhat unimportant"),
-  "important"     = c("(3) somewhat important", "(4) very important")))
+  mutate(BS3B12_bin = fct_collapse(BS3B12, 
+                                   "not important" = c("(1) not importnat", "(2) somewhat unimportant"),
+                                   "important"     = c("(3) somewhat important", "(4) very important"))
+  )
 ```
 
-Confirm successful mutates for all indicators
+Confirm successful mutates for all indicators.
+
 ```{r}
-tbl1 %>% count(BS3B1,BS3B1_bin)
-tbl1 %>% count(BS3B11,BS3B11_bin)
-tbl1 %>% count(BS3B9,BS3B9_bin)
-tbl1 %>% count(BS3B4,BS3B4_bin)
-tbl1 %>% count(BS3B13,BS3B13_bin)
-tbl1 %>% count(BS3B2,BS3B2_bin)
-tbl1 %>% count(BS3B6,BS3B6_bin)
-tbl1 %>% count(BS3B10,BS3B10_bin)
-tbl1 %>% count(BS3B8,BS3B8_bin)
-tbl1 %>% count(BS3B5,BS3B5_bin)
-tbl1 %>% count(BS3B12,BS3B12_bin) 
-tbl1 %>% count(BS3B3,BS3B3_bin)
+
+bin_vars <- original_vars %>% 
+  paste0("_bin")
+
+map2(original_vars, bin_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
 Select for LCA vars tibble, including rename all 12 mutated variables and display first five lines of dataframe.  Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
@@ -163,6 +169,18 @@ tbl2 <- files %>%
   select(`ICCS_year`, everything())
 ```
 
+Cit norm, count all indicators to begin recode.
+
+```{r}
+
+original_vars <- tbl2 %>% 
+  select(IS2P21L, IS2P21I, IS2P21H, IS2P21K, IS2P21J, IS2P21A, IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B) %>% 
+  colnames() 
+
+original_vars %>% 
+  map(~ tbl2 %>% count(!!sym(.x)))
+```
+
 Recode all cit norm indicators. 
 
 ```{r}
@@ -179,18 +197,10 @@ Confirm successful recodes.
 
 ```{r}
 
-tbl2 %>% count(IS2P21L,IS2P21L_bin)
-tbl2 %>% count(IS2P21I,IS2P21I_bin)
-tbl2 %>% count(IS2P21H,IS2P21H_bin)
-tbl2 %>% count(IS2P21K,IS2P21K_bin)
-tbl2 %>% count(IS2P21J,IS2P21J_bin)
-tbl2 %>% count(IS2P21A,IS2P21A_bin)
-tbl2 %>% count(IS2P21C,IS2P21C_bin)
-tbl2 %>% count(IS2P21E,IS2P21E_bin)
-tbl2 %>% count(IS2P21D,IS2P21D_bin)
-tbl2 %>% count(IS2P21G,IS2P21G_bin)
-tbl2 %>% count(IS2P21F,IS2P21F_bin)
-tbl2 %>% count(IS2P21B,IS2P21B_bin)
+bin_vars <- original_vars %>% 
+  paste0("_bin")
+
+map2(original_vars, bin_vars, ~ tbl2 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
 Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article).  Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
@@ -239,8 +249,20 @@ tbl3 <- files %>%
   select(`ICCS_year`, everything())
 ```
 
+Cit norm, count all indicators to begin recode.
 
-Recode all cit norm indicators by expanding prior successful code of 1st indicator. 
+```{r}
+
+original_vars <- tbl3 %>% 
+  select(IS3G23L, IS3G23I, IS3G23H, IS3G23K, IS3G23J, IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B) %>% 
+  colnames() 
+
+original_vars %>% 
+  map(~ tbl3 %>% count(!!sym(.x)))
+```
+
+
+Recode all cit norm indicators. 
 
 ```{r}
 
@@ -256,18 +278,10 @@ Confirm successful mutates.
 
 ```{r}
 
-tbl3 %>% count(IS3G23L,IS3G23L_bin)
-tbl3 %>% count(IS3G23I,IS3G23I_bin)
-tbl3 %>% count(IS3G23H,IS3G23H_bin)
-tbl3 %>% count(IS3G23K,IS3G23K_bin)
-tbl3 %>% count(IS3G23J,IS3G23J_bin)
-tbl3 %>% count(IS3G23A,IS3G23A_bin)
-tbl3 %>% count(IS3G23C,IS3G23C_bin)
-tbl3 %>% count(IS3G23E,IS3G23E_bin)
-tbl3 %>% count(IS3G23D,IS3G23D_bin)
-tbl3 %>% count(IS3G23G,IS3G23G_bin)
-tbl3 %>% count(IS3G23F,IS3G23F_bin)
-tbl3 %>% count(IS3G23B,IS3G23B_bin)
+bin_vars <- original_vars %>% 
+  paste0("_bin")
+
+map2(original_vars, bin_vars, ~ tbl3 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
 Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
@@ -302,30 +316,141 @@ Combine the three data frames and create unique id per observation across binded
 ```{r}
 
 tbl <- rbind(tbl1, tbl2, tbl3) %>% 
-  mutate(id = row_number(),
+  mutate(id  = row_number(),
          id2 = paste0(COUNTRY, IDSTUD))
 ```
 
-A couple example summary tables:
-
+Check number of observations by survey year of the combined data frame.
 ```{r}
 
-# count observations by survey year
+# number of observations by survey year
 tbl %>% 
   count(ICCS_year) %>% 
   knitr::kable()
+```
 
-# count and percent of responses to "obey" grouped by year
-tbl %>%
-  group_by(ICCS_year) %>% 
-  count(obey) %>% 
-  mutate(percent = (n / sum(n)) * 100) %>% 
-  knitr::kable()
+
+## Exporting final combined datafile
+
+Before exporting, convert citizenship norm indicators to integer (0 = "not important", 1 = "important").
+
+```{r}
+
+cit_norm_indicators <- vars(obey, rights, local, work, envir, vote, history, respect, news, protest, discuss, party)
+
+tbl <- tbl %>% 
+  mutate_at(cit_norm_indicators,
+            funs(case_when(
+              . == "not important" ~ 0,
+              . == "important"     ~ 1
+            ))
+  ) %>% 
+  mutate_if(is.double, as.integer) %>% 
+  mutate(COUNTRY = as.character(COUNTRY))
+
+tbl %>% head()
+```
+
+We can also attach factor labels to the citizenship norm indicators for internal use in R, but won't export the factor labels to the output text file (we'd have to save as an R object .e.g `.rds`).  An example of how we can do this:
+
+```{r}
+
+example <- tbl %>% 
+  mutate_at(cit_norm_indicators,
+            funs(haven::labelled(., labels = c("not important" = 0, "important" = 1))))
+
+# cit norm indicator vars are now int+lbl type
+example %>% 
+  glimpse()
+
+# access labels by converting those vars to factors
+example %>% 
+  mutate_at(cit_norm_indicators, funs(as_factor(.)))
 ```
 
 Export recoded data for LCA - RdM to current `ICCS-2019/clean-data` directory.
 
 ```{r}
 
-write.table(tbl, "clean_tbl.dat", row.names=FALSE, quote = FALSE)
+write_delim(tbl, "output/clean_tbl.dat", na = ".")
+```
+
+## Tables:
+
+Means of citizenship norm indicators by country and year.
+
+```{r}
+
+# count and percent of responses to "obey" grouped by year
+means <- tbl %>%
+  group_by(COUNTRY, ICCS_year) %>% 
+  summarize_at(cit_norm_indicators, funs(mean(., na.rm = TRUE)))
+
+means %>% 
+  knitr::kable()
+```
+
+Count and percentage of missing values for each indicator by country and year.
+
+```{r}
+
+missing <- tbl %>% 
+  group_by(COUNTRY, ICCS_year) %>% 
+  summarize_at(cit_norm_indicators,
+               funs(paste0(sum(is.na(.)), " (", (round(sum(is.na(.)) / length(.) * 100, 2)), "%)")))
+
+missing %>% 
+  knitr::kable()
+```
+
+Write tables to excel.
+
+```{r}
+
+write_xlsx(list(means = means, missing = missing), "output/citizenship-norm-indicator-tables.xlsx")
+```
+
+
+## Figures:
+
+Means for twelve citizenship norm indicators for only the 14 countries that are included in all three waves of the survey.
+
+```{r plots}
+
+all_wave_countries <- tbl %>%
+  count(COUNTRY, ICCS_year) %>% 
+  count(COUNTRY) %>%
+  filter(nn == 3) %>% 
+  pull(COUNTRY)
+
+plot_tbl <- tbl %>% 
+  filter(COUNTRY %in% all_wave_countries) %>% 
+  group_by(ICCS_year) %>% 
+  summarize_at(cit_norm_indicators, funs(mean(., na.rm = TRUE)))
+
+plot_tbl %>% 
+  knitr::kable()
+
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  gather(Indicator, value, -ICCS_year) %>% 
+  ggplot(aes(x = ICCS_year, y = value, group = Indicator, colour = Indicator)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
+
+ggsave("output/mean-citizenship-norm-line-plot-by-year.png")
+
+# bar plot with indicators on x-axis, lines colored by year
+plot_tbl %>% 
+  gather(Indicator, value, -ICCS_year) %>% 
+  mutate(Year = as.factor(ICCS_year),
+         Indicator = factor(Indicator, ordered = TRUE, levels = c("obey", "rights", "local", "work", "envir", "vote", "history",
+                                                                  "respect", "news", "protest", "discuss", "party"))) %>% 
+  ggplot(aes(x = Indicator, y = value, fill = Year)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(x = "Indicator", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
+
+ggsave("output/mean-citizenship-norm-bar-plot-by-indicator.png")
+
 ```
