@@ -41,7 +41,7 @@ tbl1 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, BS3B1, BS3B11, BS3B9, BS3B4, BS3B13,
-               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3)) %>% 
+               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3,TOTWGT)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 1999) %>%     # add survey year variable
@@ -381,6 +381,7 @@ tbl1 <- tbl1 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGTS = TOTWGT,
          obey    = BS3B1_bin,
          rights  = BS3B11_bin,
          local   = BS3B9_bin,
@@ -397,17 +398,17 @@ tbl1 <- tbl1 %>%
 tbl1 %>% head()
 ```
 
-    ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
-    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
-    ## 1      1999 AUS      10302 impo~ not i~ impo~ impo~ impo~ impo~ import~
-    ## 2      1999 AUS      10305 impo~ not i~ impo~ impo~ impo~ impo~ not im~
-    ## 3      1999 AUS      10311 impo~ <NA>   <NA>  impo~ impo~ not ~ not im~
-    ## 4      1999 AUS      10313 impo~ not i~ not ~ not ~ not ~ impo~ not im~
-    ## 5      1999 AUS      10317 impo~ impor~ impo~ not ~ impo~ not ~ import~
-    ## 6      1999 AUS      10319 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
-    ## #   discuss <fct>, party <fct>
+    ## # A tibble: 6 x 16
+    ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
+    ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
+    ## 1      1999 AUS      10302    57.2 impo~ not i~ impo~ impo~ impo~ impo~
+    ## 2      1999 AUS      10305    57.2 impo~ not i~ impo~ impo~ impo~ impo~
+    ## 3      1999 AUS      10311    57.2 impo~ <NA>   <NA>  impo~ impo~ not ~
+    ## 4      1999 AUS      10313    57.2 impo~ not i~ not ~ not ~ not ~ impo~
+    ## 5      1999 AUS      10317    57.2 impo~ impor~ impo~ not ~ impo~ not ~
+    ## 6      1999 AUS      10319    57.2 impo~ impor~ impo~ impo~ impo~ impo~
+    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>
 
 ## 2009 dataloading and merging
 
@@ -424,7 +425,7 @@ tbl2 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS2P21L, IS2P21I, IS2P21H, IS2P21K, IS2P21J, IS2P21A,
-               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B)) %>% 
+               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B,TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 2009) %>%     # survey year variable creation
@@ -712,6 +713,7 @@ tbl2 <- tbl2 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGTS,
          obey    = IS2P21L_bin,
          rights  = IS2P21I_bin,
          local   = IS2P21H_bin,
@@ -728,17 +730,17 @@ tbl2 <- tbl2 %>%
 tbl2 %>% head()
 ```
 
-    ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
-    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
-    ## 1      2009 AUT     1.00e7 not ~ impor~ impo~ not ~ impo~ impo~ not im~
-    ## 2      2009 AUT     1.00e7 impo~ impor~ impo~ not ~ impo~ not ~ import~
-    ## 3      2009 AUT     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
-    ## 4      2009 AUT     1.00e7 impo~ impor~ impo~ not ~ impo~ impo~ import~
-    ## 5      2009 AUT     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
-    ## 6      2009 AUT     1.00e7 impo~ impor~ not ~ impo~ impo~ impo~ import~
-    ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
-    ## #   discuss <fct>, party <fct>
+    ## # A tibble: 6 x 16
+    ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
+    ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
+    ## 1      2009 AUT     1.00e7    26.6 not ~ impor~ impo~ not ~ impo~ impo~
+    ## 2      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ not ~ impo~ not ~
+    ## 3      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 4      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ not ~ impo~ impo~
+    ## 5      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 6      2009 AUT     1.00e7    26.6 impo~ impor~ not ~ impo~ impo~ impo~
+    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>
 
 ## 2016 data loading and merging
 
@@ -755,7 +757,7 @@ tbl3 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS3G23L, IS3G23I, IS3G23H, IS3G23K, IS3G23J,
-               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B)) %>% 
+               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B,TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble()%>% 
   mutate(`ICCS_year` = 2016) %>%    # create survey year variable
@@ -1043,6 +1045,7 @@ tbl3 <- tbl3 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGTS,
          obey    = IS3G23L_bin,
          rights  = IS3G23I_bin,
          local   = IS3G23H_bin,
@@ -1059,17 +1062,17 @@ tbl3 <- tbl3 %>%
 tbl3 %>% head()
 ```
 
-    ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
-    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
-    ## 1      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ## 2      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ## 3      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ## 4      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
-    ## 5      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ## 6      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ not ~ not im~
-    ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
-    ## #   discuss <fct>, party <fct>
+    ## # A tibble: 6 x 16
+    ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
+    ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
+    ## 1      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 2      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 3      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 4      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 5      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
+    ## 6      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ not ~
+    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>
 
 ## Combining recoded 1999, 2009 and 2016 data frames
 
@@ -1125,17 +1128,17 @@ tbl <- tbl %>%
 tbl %>% head()
 ```
 
-    ## # A tibble: 6 x 17
-    ##   ICCS_year COUNTRY IDSTUD  obey rights local  work envir  vote history
-    ##       <int> <chr>    <int> <int>  <int> <int> <int> <int> <int>   <int>
-    ## 1      1999 AUS      10302     1      0     1     1     1     1       1
-    ## 2      1999 AUS      10305     1      0     1     1     1     1       0
-    ## 3      1999 AUS      10311     1     NA    NA     1     1     0       0
-    ## 4      1999 AUS      10313     1      0     0     0     0     1       0
-    ## 5      1999 AUS      10317     1      1     1     0     1     0       1
-    ## 6      1999 AUS      10319     1      1     1     1     1     1       0
-    ## # ... with 7 more variables: respect <int>, news <int>, protest <int>,
-    ## #   discuss <int>, party <int>, id <int>, id2 <chr>
+    ## # A tibble: 6 x 18
+    ##   ICCS_year COUNTRY IDSTUD TOTWGTS  obey rights local  work envir  vote
+    ##       <int> <chr>    <int>   <int> <int>  <int> <int> <int> <int> <int>
+    ## 1      1999 AUS      10302      57     1      0     1     1     1     1
+    ## 2      1999 AUS      10305      57     1      0     1     1     1     1
+    ## 3      1999 AUS      10311      57     1     NA    NA     1     1     0
+    ## 4      1999 AUS      10313      57     1      0     0     0     0     1
+    ## 5      1999 AUS      10317      57     1      1     1     0     1     0
+    ## 6      1999 AUS      10319      57     1      1     1     1     1     1
+    ## # ... with 8 more variables: history <int>, respect <int>, news <int>,
+    ## #   protest <int>, discuss <int>, party <int>, id <int>, id2 <chr>
 
 We can also attach factor labels to the citizenship norm indicators for
 internal use in R, but won’t export the factor labels to the output text
@@ -1153,10 +1156,11 @@ example %>%
 ```
 
     ## Observations: 329,135
-    ## Variables: 17
+    ## Variables: 18
     ## $ ICCS_year <int> 1999, 1999, 1999, 1999, 1999, 1999, 1999, 1999, 1999...
     ## $ COUNTRY   <chr> "AUS", "AUS", "AUS", "AUS", "AUS", "AUS", "AUS", "AU...
     ## $ IDSTUD    <int> 10302, 10305, 10311, 10313, 10317, 10319, 10324, 103...
+    ## $ TOTWGTS   <int> 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 53, 53, 53, ...
     ## $ obey      <int+lbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
     ## $ rights    <int+lbl> 0, 0, NA, 0, 1, 1, 1, NA, 1, 1, 1, 1, 1, 1, 1, 1...
     ## $ local     <int+lbl> 1, 1, NA, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
@@ -1178,22 +1182,22 @@ example %>%
   mutate_at(cit_norm_indicators, funs(as_factor(.)))
 ```
 
-    ## # A tibble: 329,135 x 17
-    ##    ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
-    ##        <int> <chr>    <int> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
-    ##  1      1999 AUS      10302 impo~ not i~ impo~ impo~ impo~ impo~ import~
-    ##  2      1999 AUS      10305 impo~ not i~ impo~ impo~ impo~ impo~ not im~
-    ##  3      1999 AUS      10311 impo~ <NA>   <NA>  impo~ impo~ not ~ not im~
-    ##  4      1999 AUS      10313 impo~ not i~ not ~ not ~ not ~ impo~ not im~
-    ##  5      1999 AUS      10317 impo~ impor~ impo~ not ~ impo~ not ~ import~
-    ##  6      1999 AUS      10319 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ##  7      1999 AUS      10324 impo~ impor~ impo~ impo~ impo~ impo~ not im~
-    ##  8      1999 AUS      10325 impo~ <NA>   impo~ impo~ impo~ impo~ import~
-    ##  9      1999 AUS      10326 impo~ impor~ impo~ impo~ impo~ not ~ not im~
-    ## 10      1999 AUS      10327 impo~ impor~ impo~ impo~ impo~ impo~ import~
-    ## # ... with 329,125 more rows, and 7 more variables: respect <fct>,
-    ## #   news <fct>, protest <fct>, discuss <fct>, party <fct>, id <int>,
-    ## #   id2 <chr>
+    ## # A tibble: 329,135 x 18
+    ##    ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
+    ##        <int> <chr>    <int>   <int> <fct> <fct>  <fct> <fct> <fct> <fct>
+    ##  1      1999 AUS      10302      57 impo~ not i~ impo~ impo~ impo~ impo~
+    ##  2      1999 AUS      10305      57 impo~ not i~ impo~ impo~ impo~ impo~
+    ##  3      1999 AUS      10311      57 impo~ <NA>   <NA>  impo~ impo~ not ~
+    ##  4      1999 AUS      10313      57 impo~ not i~ not ~ not ~ not ~ impo~
+    ##  5      1999 AUS      10317      57 impo~ impor~ impo~ not ~ impo~ not ~
+    ##  6      1999 AUS      10319      57 impo~ impor~ impo~ impo~ impo~ impo~
+    ##  7      1999 AUS      10324      57 impo~ impor~ impo~ impo~ impo~ impo~
+    ##  8      1999 AUS      10325      57 impo~ <NA>   impo~ impo~ impo~ impo~
+    ##  9      1999 AUS      10326      57 impo~ impor~ impo~ impo~ impo~ not ~
+    ## 10      1999 AUS      10327      57 impo~ impor~ impo~ impo~ impo~ impo~
+    ## # ... with 329,125 more rows, and 8 more variables: history <fct>,
+    ## #   respect <fct>, news <fct>, protest <fct>, discuss <fct>, party <fct>,
+    ## #   id <int>, id2 <chr>
 
 Export recoded data for LCA - RdM to current `ICCS-2019/clean-data`
 directory.
