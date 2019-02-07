@@ -398,14 +398,14 @@ tbl1 %>% head()
 ```
 
     ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY IDSTUD obey   rights  local  work  envir vote  history
-    ##       <dbl> <fct>    <dbl> <fct>  <fct>   <fct>  <fct> <fct> <fct> <fct>  
-    ## 1      1999 AUS      10302 impor… not im… impor… impo… impo… impo… import…
-    ## 2      1999 AUS      10305 impor… not im… impor… impo… impo… impo… not im…
-    ## 3      1999 AUS      10311 impor… <NA>    <NA>   impo… impo… not … not im…
-    ## 4      1999 AUS      10313 impor… not im… not i… not … not … impo… not im…
-    ## 5      1999 AUS      10317 impor… import… impor… not … impo… not … import…
-    ## 6      1999 AUS      10319 impor… import… impor… impo… impo… impo… not im…
+    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
+    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
+    ## 1      1999 AUS      10302 impo~ not i~ impo~ impo~ impo~ impo~ import~
+    ## 2      1999 AUS      10305 impo~ not i~ impo~ impo~ impo~ impo~ not im~
+    ## 3      1999 AUS      10311 impo~ <NA>   <NA>  impo~ impo~ not ~ not im~
+    ## 4      1999 AUS      10313 impo~ not i~ not ~ not ~ not ~ impo~ not im~
+    ## 5      1999 AUS      10317 impo~ impor~ impo~ not ~ impo~ not ~ import~
+    ## 6      1999 AUS      10319 impo~ impor~ impo~ impo~ impo~ impo~ not im~
     ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
     ## #   discuss <fct>, party <fct>
 
@@ -729,14 +729,14 @@ tbl2 %>% head()
 ```
 
     ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY  IDSTUD obey   rights  local work  envir vote  history
-    ##       <dbl> <fct>     <dbl> <fct>  <fct>   <fct> <fct> <fct> <fct> <fct>  
-    ## 1      2009 AUT      1.00e7 not i… import… impo… not … impo… impo… not im…
-    ## 2      2009 AUT      1.00e7 impor… import… impo… not … impo… not … import…
-    ## 3      2009 AUT      1.00e7 impor… import… impo… impo… impo… impo… import…
-    ## 4      2009 AUT      1.00e7 impor… import… impo… not … impo… impo… import…
-    ## 5      2009 AUT      1.00e7 impor… import… impo… impo… impo… impo… import…
-    ## 6      2009 AUT      1.00e7 impor… import… not … impo… impo… impo… import…
+    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
+    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
+    ## 1      2009 AUT     1.00e7 not ~ impor~ impo~ not ~ impo~ impo~ not im~
+    ## 2      2009 AUT     1.00e7 impo~ impor~ impo~ not ~ impo~ not ~ import~
+    ## 3      2009 AUT     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
+    ## 4      2009 AUT     1.00e7 impo~ impor~ impo~ not ~ impo~ impo~ import~
+    ## 5      2009 AUT     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
+    ## 6      2009 AUT     1.00e7 impo~ impor~ not ~ impo~ impo~ impo~ import~
     ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
     ## #   discuss <fct>, party <fct>
 
@@ -1060,14 +1060,14 @@ tbl3 %>% head()
 ```
 
     ## # A tibble: 6 x 15
-    ##   ICCS_year COUNTRY  IDSTUD obey   rights  local work  envir vote  history
-    ##       <dbl> <fct>     <dbl> <fct>  <fct>   <fct> <fct> <fct> <fct> <fct>  
-    ## 1      2016 BFL      1.00e7 impor… import… impo… impo… impo… impo… not im…
-    ## 2      2016 BFL      1.00e7 impor… import… impo… impo… impo… impo… not im…
-    ## 3      2016 BFL      1.00e7 impor… import… impo… impo… impo… impo… not im…
-    ## 4      2016 BFL      1.00e7 impor… import… impo… impo… impo… impo… import…
-    ## 5      2016 BFL      1.00e7 impor… import… impo… impo… impo… impo… not im…
-    ## 6      2016 BFL      1.00e7 impor… import… impo… impo… impo… not … not im…
+    ##   ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
+    ##       <dbl> <fct>    <dbl> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
+    ## 1      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ## 2      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ## 3      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ## 4      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ import~
+    ## 5      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ## 6      2016 BFL     1.00e7 impo~ impor~ impo~ impo~ impo~ not ~ not im~
     ## # ... with 5 more variables: respect <fct>, news <fct>, protest <fct>,
     ## #   discuss <fct>, party <fct>
 
@@ -1179,18 +1179,18 @@ example %>%
 ```
 
     ## # A tibble: 329,135 x 17
-    ##    ICCS_year COUNTRY IDSTUD obey   rights  local work  envir vote  history
-    ##        <int> <chr>    <int> <fct>  <fct>   <fct> <fct> <fct> <fct> <fct>  
-    ##  1      1999 AUS      10302 impor… not im… impo… impo… impo… impo… import…
-    ##  2      1999 AUS      10305 impor… not im… impo… impo… impo… impo… not im…
-    ##  3      1999 AUS      10311 impor… <NA>    <NA>  impo… impo… not … not im…
-    ##  4      1999 AUS      10313 impor… not im… not … not … not … impo… not im…
-    ##  5      1999 AUS      10317 impor… import… impo… not … impo… not … import…
-    ##  6      1999 AUS      10319 impor… import… impo… impo… impo… impo… not im…
-    ##  7      1999 AUS      10324 impor… import… impo… impo… impo… impo… not im…
-    ##  8      1999 AUS      10325 impor… <NA>    impo… impo… impo… impo… import…
-    ##  9      1999 AUS      10326 impor… import… impo… impo… impo… not … not im…
-    ## 10      1999 AUS      10327 impor… import… impo… impo… impo… impo… import…
+    ##    ICCS_year COUNTRY IDSTUD obey  rights local work  envir vote  history
+    ##        <int> <chr>    <int> <fct> <fct>  <fct> <fct> <fct> <fct> <fct>  
+    ##  1      1999 AUS      10302 impo~ not i~ impo~ impo~ impo~ impo~ import~
+    ##  2      1999 AUS      10305 impo~ not i~ impo~ impo~ impo~ impo~ not im~
+    ##  3      1999 AUS      10311 impo~ <NA>   <NA>  impo~ impo~ not ~ not im~
+    ##  4      1999 AUS      10313 impo~ not i~ not ~ not ~ not ~ impo~ not im~
+    ##  5      1999 AUS      10317 impo~ impor~ impo~ not ~ impo~ not ~ import~
+    ##  6      1999 AUS      10319 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ##  7      1999 AUS      10324 impo~ impor~ impo~ impo~ impo~ impo~ not im~
+    ##  8      1999 AUS      10325 impo~ <NA>   impo~ impo~ impo~ impo~ import~
+    ##  9      1999 AUS      10326 impo~ impor~ impo~ impo~ impo~ not ~ not im~
+    ## 10      1999 AUS      10327 impo~ impor~ impo~ impo~ impo~ impo~ import~
     ## # ... with 329,125 more rows, and 7 more variables: respect <fct>,
     ## #   news <fct>, protest <fct>, discuss <fct>, party <fct>, id <int>,
     ## #   id2 <chr>

@@ -17,6 +17,7 @@ library(purrr)
 library(writexl)
 ```
 
+
 ## Introduction
 
 This file documents the data cleaning for the ICCS 1999-2009-2016 Citizenship Norms Project
@@ -51,7 +52,7 @@ tbl1 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, BS3B1, BS3B11, BS3B9, BS3B4, BS3B13,
-               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3)) %>% 
+               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3,TOTWGT)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 1999) %>%     # add survey year variable
@@ -131,6 +132,7 @@ tbl1 <- tbl1 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGT,
          obey    = BS3B1_bin,
          rights  = BS3B11_bin,
          local   = BS3B9_bin,
@@ -162,7 +164,7 @@ tbl2 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS2P21L, IS2P21I, IS2P21H, IS2P21K, IS2P21J, IS2P21A,
-               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B)) %>% 
+               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B,TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 2009) %>%     # survey year variable creation
@@ -211,6 +213,7 @@ tbl2 <- tbl2 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGTS,
          obey    = IS2P21L_bin,
          rights  = IS2P21I_bin,
          local   = IS2P21H_bin,
@@ -242,7 +245,7 @@ tbl3 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS3G23L, IS3G23I, IS3G23H, IS3G23K, IS3G23J,
-               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B)) %>% 
+               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B,TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble()%>% 
   mutate(`ICCS_year` = 2016) %>%    # create survey year variable
@@ -292,6 +295,7 @@ tbl3 <- tbl3 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
+         TOTWGTS,
          obey    = IS3G23L_bin,
          rights  = IS3G23I_bin,
          local   = IS3G23H_bin,
