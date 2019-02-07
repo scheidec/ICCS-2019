@@ -132,7 +132,7 @@ tbl1 <- tbl1 %>%
   select(ICCS_year,
          COUNTRY,
          IDSTUD,
-         TOTWGT,
+         TOTWGTS = TOTWGT,
          obey    = BS3B1_bin,
          rights  = BS3B11_bin,
          local   = BS3B9_bin,
