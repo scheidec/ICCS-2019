@@ -31,6 +31,32 @@ Downloaded Jan 17, 2019
 
 Load 1999 country files, in chronological order of file names. Bind all 1999 files. Note, total observations of resulting tbl1 (93,882) concur with xls documentation of expected total n
 
+
+Control variable coding: 
+JO copied 1st chunk of code to try to run 1st lines that produce binded file before selecting variables.
+```{r}
+
+# all files
+files <- list.files("../data", full.names = TRUE)
+
+# helper function to load files
+load_files <- function(file) {
+  e <- new.env()
+  load(file, envir = e)
+  
+  stopifnot(length(e) == 1)  # safety first
+  
+  get(names(e)[1], envir = e)
+}
+
+tbl1 <- files %>%
+  magrittr::extract(1:28) 
+```
+
+JO can't figure out code. 
+See deliverable file for JO coding request.
+
+Caleb original code:
 ```{r}
 
 # all files
@@ -56,6 +82,13 @@ tbl1 <- files %>%
   as_tibble() %>% 
   mutate(`ICCS_year` = 1999) %>%     # add survey year variable
   select(`ICCS_year`, everything())
+```
+
+
+Recode of control vars
+```{r}
+tbl1 <- tbl1 %>% 
+  select(bsgbook)
 ```
 
 Cit norm, count all indicators to begin recode.
@@ -122,6 +155,7 @@ bin_vars <- original_vars %>%
 
 map2(original_vars, bin_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
 ```
+
 
 Select for LCA vars tibble, including rename all 12 mutated variables and display first five lines of dataframe.  Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
 
@@ -542,3 +576,5 @@ country_plot_tbl %>%
 
 ggsave("output/mean-citizenship-norm-bar-plot-by-country-by-indicator-2016-only.png")
 ```
+
+
