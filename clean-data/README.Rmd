@@ -32,31 +32,6 @@ Downloaded Jan 17, 2019
 Load 1999 country files, in chronological order of file names. Bind all 1999 files. Note, total observations of resulting tbl1 (93,882) concur with xls documentation of expected total n
 
 
-Control variable coding: 
-JO copied 1st chunk of code to try to run 1st lines that produce binded file before selecting variables.
-```{r}
-
-# all files
-files <- list.files("../data", full.names = TRUE)
-
-# helper function to load files
-load_files <- function(file) {
-  e <- new.env()
-  load(file, envir = e)
-  
-  stopifnot(length(e) == 1)  # safety first
-  
-  get(names(e)[1], envir = e)
-}
-
-tbl1 <- files %>%
-  magrittr::extract(1:28) 
-```
-
-JO can't figure out code. 
-See deliverable file for JO coding request.
-
-Caleb original code:
 ```{r}
 
 # all files
@@ -77,7 +52,7 @@ tbl1 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, BS3B1, BS3B11, BS3B9, BS3B4, BS3B13,
-               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3, TOTWGT)) %>% 
+               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3, GENDER,BSGBOOK, EXPEDUC, BSGEDUM, BSGEDUF, TOTWGT)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 1999) %>%     # add survey year variable
@@ -87,8 +62,22 @@ tbl1 <- files %>%
 
 Recode of control vars
 ```{r}
+tbl1 %>% 
+  count(BSGBOOK)
+```
+
+```{r}
+
+# recode
 tbl1 <- tbl1 %>% 
-  select(bsgbook)
+  mutate(BSGBOOK_bin = fct_collapse(BSGBOOK, 
+  "0 to 50" = c("(1) None", "(2) 1 - 10", "(3) 11 - 50"),
+  "51-200" = c("(4) 51 - 100", "(5) 101 - 200"),
+  "201+" = "(6) More than 200)"))
+  
+# confirm correct recode
+tbl1 %>%
+  count(BSGBOOK_bin, BSGBOOK) 
 ```
 
 Cit norm, count all indicators to begin recode.
@@ -512,6 +501,62 @@ plot_tbl %>%
   facet_wrap(~Indicator, scales = "free") +
   labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
   theme(legend.position = "none")
+
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+
+
+Adapting y-axis to consistent
+
+```{r line-plots-facet}
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none")
+
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+
+
+Re-ordering to highest mean top left
+
+```{r line-plots-facet}
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  mutate(Indicator=fct_relevel(Indicator,c("obey", "rights", "local", "work", "envir", "vote", "history", "respect", "news", "protest", "discuss", "party"))) %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none")
+
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+
+Adding specific years on x-axis
+
+```{r line-plots-facet}
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  mutate(Indicator=fct_relevel(Indicator,c("obey", "rights", "local", "work", "envir", "vote", "history", "respect", "news", "protest", "discuss", "party"))) %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none", axis.text.x = element_text(size=7)) +
+  scale_x_continuous(breaks=c(1999, 2009, 2016))
 
 ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
 ```
