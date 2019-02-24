@@ -60,26 +60,6 @@ tbl1 <- files %>%
 ```
 
 
-Recode of control vars
-```{r}
-tbl1 %>% 
-  count(BSGBOOK)
-```
-
-```{r}
-
-# recode
-tbl1 <- tbl1 %>% 
-  mutate(BSGBOOK_bin = fct_collapse(BSGBOOK, 
-  "0 to 50" = c("(1) None", "(2) 1 - 10", "(3) 11 - 50"),
-  "51-200" = c("(4) 51 - 100", "(5) 101 - 200"),
-  "201+" = "(6) More than 200)"))
-  
-# confirm correct recode
-tbl1 %>%
-  count(BSGBOOK_bin, BSGBOOK) 
-```
-
 Cit norm, count all indicators to begin recode.
 
 ```{r}
@@ -135,7 +115,7 @@ tbl1 <- tbl1 %>%
   )
 ```
 
-Confirm successful mutates for all indicators.
+Confirm successful mutates for all cit norms indicators.
 
 ```{r}
 
@@ -146,7 +126,133 @@ map2(original_vars, bin_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
 
-Select for LCA vars tibble, including rename all 12 mutated variables and display first five lines of dataframe.  Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
+Recode of individual-level control vars
+
+Gender
+
+```{r}
+tbl1 %>% 
+  count(GENDER)
+```
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(FEMALE_bin = fct_collapse(GENDER, 
+  "0" = "(0) Male",
+  "1" = "(1) Female"))
+
+# confirm correct recode
+tbl1 %>%
+  count(FEMALE_bin, GENDER) 
+```
+
+Books in home
+
+```{r}
+tbl1 %>% 
+  count(BSGBOOK)
+```
+
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(BSGBOOK_3 = fct_collapse(BSGBOOK, 
+  "0 to 50" = c("(1) None", "(2) 1 - 10", "(3) 11 - 50"),
+  "51-200" = c("(4) 51 - 100", "(5) 101 - 200"),
+  "201+" = "(6) More than 200)"))
+  
+# confirm correct recode
+tbl1 %>%
+  count(BSGBOOK_3, BSGBOOK) 
+```
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(BSGBOOK_4 = fct_collapse(BSGBOOK, 
+  "0 to 10 = c("(1) None", "(2) 1 - 10"),
+  "11-100" = c("(3) 11 - 50", "(4) 51 - 100"),
+  "101-200" = "(5) 101 - 200",
+  "201+" = "(6) More than 200)"))
+  
+# confirm correct recode
+tbl1 %>%
+  count(BSGBOOK_4, BSGBOOK) 
+```
+
+
+Expected number of additional education years
+
+```{r}
+tbl1 %>% 
+  count(EXPEDUC)
+```
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(EXPEDUC_3 = fct_collapse(EXPEDUC, 
+  "0 to 4" = c("(0) 0", "(1) 1-2", "(2) 3-4"),
+  "5-8" = c("(3) 5-6", "(4) 7-8"),
+  "9+" = c("(5) 9-10", "(6) 10+")))
+  
+# confirm correct recode
+tbl1 %>%
+  count(EXPEDUC_3, EXPEDUC) 
+```
+
+
+Mother education
+
+```{r}
+tbl1 %>% 
+  count(BSGEDUM)
+```
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(BSGEDUM_3 = fct_collapse(BSGEDUM, 
+  "(0) Less than HS" = c("(1) no.elem.school", "(2) Fin. elem. sch.", "(3) Fin.s.high sch."),
+  "(1) HS" = "(4) Fin.high sch.",
+  "(2) Post-HS" = c("(5) Sme technic.educ. after", "(6) sme college,univ.", "(7) bach. degree")))
+  
+# confirm correct recode
+tbl1 %>%
+  count(BSGEDUM_3, BSGEDUM) 
+```
+
+
+Father education
+
+```{r}
+tbl1 %>% 
+  count(BSGEDUF)
+```
+
+```{r}
+
+# recode
+tbl1 <- tbl1 %>% 
+  mutate(BSGEDUF_3 = fct_collapse(BSGEDUF, 
+  "(0) Less than HS" = c("(1) no.elem.school", "(2) Fin. elem. sch.", "(3) Fin.s.high sch."),
+  "(1) HS" = "(4) Fin.high sch.",
+  "(2) Post-HS" = c("(5) Sme technic.educ. after", "(6) sme college,univ.", "(7) bach. degree")))
+  
+# confirm correct recode
+tbl1 %>%
+  count(BSGEDUF_3, BSGEDUF) 
+```
+
+
+Select for LCA vars tibble, including rename all mutated variables and display first five lines of dataframe.
 
 ```{r}
 
@@ -166,7 +272,12 @@ tbl1 <- tbl1 %>%
          news    = BS3B8_bin,
          protest = BS3B5_bin,
          discuss = BS3B12_bin,
-         party   = BS3B3_bin)
+         party   = BS3B3_bin,
+         female  = FEMALE_bin,
+         books   = BSGBOOK_4,
+         edexp   = EXPEDUC_3,
+         ed_mom  = BSGEDUM_3,
+         ed_dad  = BSGEDUF_3)
 
 tbl1 %>% head()
 ```
@@ -186,7 +297,7 @@ tbl2 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS2P21L, IS2P21I, IS2P21H, IS2P21K, IS2P21J, IS2P21A,
-               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B, TOTWGTS)) %>% 
+               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B, SGENDER, IS2G11, IS2G03, IS2G07, IS2G09, TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 2009) %>%     # survey year variable creation
@@ -227,7 +338,60 @@ bin_vars <- original_vars %>%
 map2(original_vars, bin_vars, ~ tbl2 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
-Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article).  Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
+Gender
+
+```{r}
+tbl2 %>% 
+  count(SGENDER)
+```
+
+```{r}
+
+# recode
+tbl2 <- tbl2 %>% 
+  mutate(FEMALE_bin = fct_collapse(SGENDER, 
+  "0" = "(0) BOY",
+  "1" = "(1) GIRL"))
+
+# confirm correct recode
+tbl2 %>%
+  count(FEMALE_bin, SGENDER) 
+```
+
+Books
+
+```{r}
+tbl2 %>% 
+  count(IS2G11)
+```
+
+```{r}
+
+# recode
+tbl2 <- tbl2 %>% 
+  mutate(BOOK_4 = fct_collapse(IS2G11, 
+  "0 to 10" = "(1) 0-10 BOOKS",
+  "11-100" = c("(2) 11-25 BOOKS", "(3) 26-100 BOOKS"),
+  "101-200" = "(4) 101-200 BOOKS", 
+  "201+" = c("(5) 201-500 BOOKS", "(6) MORE THAN 500 BOOKS")))
+
+  
+# confirm correct recode
+tbl2 %>%
+  count(BOOK_4, IS2G11) 
+```
+
+
+XXNOTE: 
+Still need to recode
+IS2G03 == edexp
+IS2G07 == ed_mom
+IS2G09 == ed_dad
+
+And put in "select" command below
+
+
+Select for LCA vars tibble, including rename all mutated variables and display first five lines of dataframe.
 
 ```{r}
 
@@ -247,7 +411,9 @@ tbl2 <- tbl2 %>%
          news    = IS2P21D_bin,
          protest = IS2P21G_bin,
          discuss = IS2P21F_bin,
-         party   = IS2P21B_bin) 
+         party   = IS2P21B_bin,
+         female =  FEMALE_bin,
+         books   = BOOK_4) 
 
 tbl2 %>% head()
 ```
@@ -267,7 +433,7 @@ tbl3 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS3G23L, IS3G23I, IS3G23H, IS3G23K, IS3G23J,
-               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B, TOTWGTS)) %>% 
+               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B, S_GENDER, IS3G11, IS3G03, IS3G07, IS3G09, TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble()%>% 
   mutate(`ICCS_year` = 2016) %>%    # create survey year variable
@@ -309,7 +475,59 @@ bin_vars <- original_vars %>%
 map2(original_vars, bin_vars, ~ tbl3 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
-Select to rename all 12 mutated variables and display first five lines of dataframe - listed in order of 1999 descending means (IJCS article). Use "select" for key LCA variables to create reduced tbl that can be "binded" with other ICCS years.
+
+Gender
+
+```{r}
+tbl3 %>% 
+  count(S_GENDER)
+```
+
+```{r}
+
+# recode
+tbl3 <- tbl3 %>% 
+  mutate(FEMALE_bin = fct_collapse(S_GENDER, 
+  "0" = "(0) Boy",
+  "1" = "(1) Girl"))
+
+# confirm correct recode
+tbl3 %>%
+  count(FEMALE_bin, S_GENDER) 
+
+```
+
+
+
+Books in home
+
+```{r}
+tbl3 %>% 
+  count(IS3G11)
+```
+
+```{r}
+
+# recode
+tbl3 <- tbl3 %>% 
+  mutate(BOOK_3 = fct_collapse(IS3G11, 
+  "0 to 10" = "(1) None or very few (0–10 books)"),
+  "11-100"  = c("(2) Enough to fill one shelf (11–25 books)", "(3) Enough to fill one bookcase (26–100 books)"),
+  "101-200" = "(4) Enough to fill two bookcase (101–200 books)"),
+  "201+" = "(5) Enough to fill three or more bookcases (more than 200 books"))
+
+# confirm correct recode
+tbl3 %>%
+  count(BOOK_3, IS3G11) 
+```
+
+XX
+still need to recode
+IS3G03 == edexp
+IS3G07 == ed_mom
+IS3G09 == IS3G09
+
+Select for LCA vars tibble, including rename all mutated variables and display first five lines of dataframe.
 
 ```{r}
 
