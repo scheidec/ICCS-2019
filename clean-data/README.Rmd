@@ -824,12 +824,19 @@ tbl %>%
 ```
 
 
-JO noting additional stata code on this var:
+**JO noting additional stata code on this var:
 gen GDP08 = GDP_IMF08/100 // divided by 100							
 egen GDP_m08 = mean(GDP08)							
 gen GDP_c08 = GDP08 - GDP_m08							
 
 
-JO Next step coding task, create variable for GDP 2015 "gdp_imf15"
+**JO Next step coding task, create variable for GDP 2015 "gdp_imf15"
 Identify data on IMF site, and document in xls for all countries in the 2016 wave
+
+
+**JO next step coding task, merge LCA results back into R file:
+New dat file in “lcadata” folder
+JA advice: combine to LCA output to Rproj, follow R for data science book: "full_join"
+c:\Users\user\Documents\GitHub\ICCS\ICCS\lcadata\tbl_14_wclass.dat
+
 
