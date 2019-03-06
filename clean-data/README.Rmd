@@ -752,3 +752,84 @@ ggsave("output/mean-citizenship-norm-bar-plot-by-country-by-indicator-2016-only.
 ```
 
 
+March 6, 2019: JO noting next steps for analysis now that LCA results are complete.
+
+
+
+Adding code for country-level level-2 variables for multi-level regression. For 1999 and 2009, includes all 21 countries from IJCS paper
+
+GDP 1998: gdp_imf98
+```{r}
+tbl <- tbl %>% 
+  mutate(gdp_imf98=case_when(
+	COUNTRY ==	"BGR"	&  ICCS_year == 1 ~	1622.98,
+	COUNTRY ==	"CHE"	&  ICCS_year == 1 ~	39304.07,
+	COUNTRY ==	"CHL"	&  ICCS_year == 1 ~	5437.33,
+	COUNTRY ==	"COL"	&  ICCS_year == 1 ~	2770.85,
+	COUNTRY ==	"CYP"	&  ICCS_year == 1 ~	13829.8,
+	COUNTRY ==	"CZE"	&  ICCS_year == 1 ~	6200.85,
+	COUNTRY ==	"DNK"	&  ICCS_year == 1 ~	32796.45,
+	COUNTRY ==	"ENG"	&  ICCS_year == 1 ~	25275.21,
+	COUNTRY ==	"EST"	&  ICCS_year == 1 ~	4021.33,
+	COUNTRY ==	"FIN"	&  ICCS_year == 1 ~	25184.63,
+	COUNTRY ==	"GRC"	&  ICCS_year == 1 ~	12654.18,
+	COUNTRY ==	"HKG"	&  ICCS_year == 1 ~	25734.93,
+	COUNTRY ==	"ITA"	&  ICCS_year == 1 ~	21547.92,
+	COUNTRY ==	"LTU"	&  ICCS_year == 1 ~	3170.75,
+	COUNTRY ==	"LVA"	&  ICCS_year == 1 ~	2858.356,
+	COUNTRY ==	"NOR"	&  ICCS_year == 1 ~	34036.022,
+	COUNTRY ==	"POL"	&  ICCS_year == 1 ~	4448.938,
+	COUNTRY ==	"RUS"	&  ICCS_year == 1 ~	1837.544,
+	COUNTRY ==	"SVK"	&  ICCS_year == 1 ~	4177.291,
+	COUNTRY ==	"SVN"	&  ICCS_year == 1 ~	11004.326,
+	COUNTRY ==	"SWE"	&  ICCS_year == 1 ~	28768.349
+))
+
+tbl %>% 
+ count(gdp_imf98)
+```
+
+
+
+GDP 2008: gdp_imf08 
+```{r}
+tbl <- tbl %>% 
+  mutate(gdp_imf08=case_when(
+  COUNTRY	==	"BGR"	&  ICCS_year == 2 ~ 6849.48,
+  COUNTRY ==	"CHE"	&  ICCS_year == 2 ~	67378.87,
+  COUNTRY ==	"CHL"	&  ICCS_year == 2 ~	10813.74,
+  COUNTRY ==	"COL"	&  ICCS_year == 2 ~	5174.09,
+  COUNTRY ==	"CYP"	&  ICCS_year == 2 ~	32194.93,
+  COUNTRY ==	"CZE"	&  ICCS_year == 2 ~	21040.64,
+  COUNTRY ==	"DNK"	&  ICCS_year == 2 ~	67386.89,
+  COUNTRY ==	"ENG"	&  ICCS_year == 2 ~	45681,
+  COUNTRY ==	"EST"	&  ICCS_year == 2 ~	18809.06,
+  COUNTRY ==	"FIN"	&  ICCS_year == 2 ~	54577.85,
+  COUNTRY ==	"GRC"	&  ICCS_year == 2 ~	33433.84,
+  COUNTRY ==	"HKG"	&  ICCS_year == 2 ~	31849.05,
+  COUNTRY ==	"ITA"	&  ICCS_year == 2 ~	40449.6,
+  COUNTRY ==	"LTU"	&  ICCS_year == 2 ~	14456.17,
+  COUNTRY ==	"LVA"	&  ICCS_year == 2 ~	14930.12,
+  COUNTRY ==	"NOR"	&  ICCS_year == 2 ~	102524.55,
+  COUNTRY ==	"POL"	&  ICCS_year == 2 ~	14892.8,
+  COUNTRY ==	"RUS"	&  ICCS_year == 2 ~	12578.52,
+  COUNTRY ==	"SVK"	&  ICCS_year == 2 ~	18584.56,
+  COUNTRY ==	"SVN"	&  ICCS_year == 2 ~	28328.22,
+  COUNTRY ==	"SWE"	&  ICCS_year == 2 ~	55623.77
+  ))
+
+tbl %>% 
+ count(gdp_imf08)
+  
+```
+
+
+JO noting additional stata code on this var:
+gen GDP08 = GDP_IMF08/100 // divided by 100							
+egen GDP_m08 = mean(GDP08)							
+gen GDP_c08 = GDP08 - GDP_m08							
+
+
+JO Next step coding task, create variable for GDP 2015 "gdp_imf15"
+Identify data on IMF site, and document in xls for all countries in the 2016 wave
+
