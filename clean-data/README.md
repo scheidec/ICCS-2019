@@ -1990,39 +1990,64 @@ based on POLITY IV dataset (2011)
 ``` r
 tbl <- tbl %>% 
   mutate(demo_98=case_when(
-    COUNTRY ==  "BGR"   &  ICCS_year == 1 ~ 10,
-    COUNTRY ==  "CHE"   &  ICCS_year == 1 ~ 82,
-    COUNTRY ==  "CHL"   &  ICCS_year == 1 ~ 11,
-    COUNTRY ==  "COL"   &  ICCS_year == 1 ~ 21,
-    COUNTRY ==  "CYP"   &  ICCS_year == 1 ~ 29,
-    COUNTRY ==  "CZE"   &  ICCS_year == 1 ~ 7,
-    COUNTRY ==  "DNK"   &  ICCS_year == 1 ~ 77,
-    COUNTRY ==  "ENG"   &  ICCS_year == 1 ~ 82,
-    COUNTRY ==  "EST"   &  ICCS_year == 1 ~ 15,
-    COUNTRY ==  "FIN"   &  ICCS_year == 1 ~ 68,
-    COUNTRY ==  "GRC"   &  ICCS_year == 1 ~ 40,
-    COUNTRY ==  "ITA"   &  ICCS_year == 1 ~ 52,
-    COUNTRY ==  "LTU"   &  ICCS_year == 1 ~ 9,
-    COUNTRY ==  "LVA"   &  ICCS_year == 1 ~ 14,
-    COUNTRY ==  "NOR"   &  ICCS_year == 1 ~ 77,
-    COUNTRY ==  "POL"   &  ICCS_year == 1 ~ 17,
-    COUNTRY ==  "RUS"   &  ICCS_year == 1 ~ 0,
-    COUNTRY ==  "SVK"   &  ICCS_year == 1 ~ 2,
-    COUNTRY ==  "SVN"   &  ICCS_year == 1 ~ 9,
-    COUNTRY ==  "SWE"   &  ICCS_year == 1 ~ 82
+    COUNTRY ==  "BGR"   &  ICCS_year == 1999 ~  10,
+    COUNTRY ==  "CHE"   &  ICCS_year == 1999 ~  82,
+    COUNTRY ==  "CHL"   &  ICCS_year == 1999 ~  11,
+    COUNTRY ==  "COL"   &  ICCS_year == 1999 ~  21,
+    COUNTRY ==  "CYP"   &  ICCS_year == 1999 ~  29,
+    COUNTRY ==  "CZE"   &  ICCS_year == 1999 ~  7,
+    COUNTRY ==  "DNK"   &  ICCS_year == 1999 ~  77,
+    COUNTRY ==  "ENG"   &  ICCS_year == 1999 ~  82,
+    COUNTRY ==  "EST"   &  ICCS_year == 1999 ~  15,
+    COUNTRY ==  "FIN"   &  ICCS_year == 1999 ~  68,
+    COUNTRY ==  "GRC"   &  ICCS_year == 1999 ~  40,
+    COUNTRY ==  "ITA"   &  ICCS_year == 1999 ~  52,
+    COUNTRY ==  "LTU"   &  ICCS_year == 1999 ~  9,
+    COUNTRY ==  "LVA"   &  ICCS_year == 1999 ~  14,
+    COUNTRY ==  "NOR"   &  ICCS_year == 1999 ~  77,
+    COUNTRY ==  "POL"   &  ICCS_year == 1999 ~  17,
+    COUNTRY ==  "RUS"   &  ICCS_year == 1999 ~  0,
+    COUNTRY ==  "SVK"   &  ICCS_year == 1999 ~  2,
+    COUNTRY ==  "SVN"   &  ICCS_year == 1999 ~  9,
+    COUNTRY ==  "SWE"   &  ICCS_year == 1999 ~  82,
+    TRUE ~ NA_real_     #-------- Everything else will be missing
   ))
 
 tbl %>% 
  count(demo_98)
 ```
 
-    ## # A tibble: 1 x 2
-    ##   demo_98      n
-    ##     <dbl>  <int>
-    ## 1      NA 329135
+    ## # A tibble: 17 x 2
+    ##    demo_98      n
+    ##      <dbl>  <int>
+    ##  1       0   2129
+    ##  2       2   3463
+    ##  3       7   3607
+    ##  4       9   6562
+    ##  5      10   2884
+    ##  6      11   5688
+    ##  7      14   2572
+    ##  8      15   3434
+    ##  9      17   3376
+    ## 10      21   4926
+    ## 11      29   3106
+    ## 12      40   3460
+    ## 13      52   3808
+    ## 14      68   2782
+    ## 15      77   6529
+    ## 16      82   9220
+    ## 17      NA 261589
 
 Additional stata code for var used in ML reg: egen D\_m98 =
-mean(DEMO\_98) // center gen D\_c98 = DEMO\_98 - D\_m98 // center
+mean(DEMO\_98) // center gen D\_c98 = DEMO\_98 - D\_m98 //
+center
+
+``` r
+#--------- We don't need the intermediat variable D_m98, do centering in one step
+
+tbl <- tbl %>%
+  mutate(D_c98 = scale(demo_98, scale = F))  #------- If scale = T, new variable will have variance = 1
+```
 
 Democracy 2008: demo\_08 Notes from stata do-file: Years of democracy
 based on POLITY IV dataset (2011)
@@ -2030,36 +2055,60 @@ based on POLITY IV dataset (2011)
 ``` r
 tbl <- tbl %>% 
   mutate(demo_08=case_when(
-    COUNTRY ==  "BGR"   &  ICCS_year == 2 ~ 19,
-    COUNTRY ==  "CHE"   &  ICCS_year == 2 ~ 90,
-    COUNTRY ==  "CHL"   &  ICCS_year == 2 ~ 20,
-    COUNTRY ==  "COL"   &  ICCS_year == 2 ~ 21,
-    COUNTRY ==  "CYP"   &  ICCS_year == 2 ~ 38,
-    COUNTRY ==  "CZE"   &  ICCS_year == 2 ~ 16,
-    COUNTRY ==  "DNK"   &  ICCS_year == 2 ~ 85,
-    COUNTRY ==  "ENG"   &  ICCS_year == 2 ~ 90,
-    COUNTRY ==  "EST"   &  ICCS_year == 2 ~ 24,
-    COUNTRY ==  "FIN"   &  ICCS_year == 2 ~ 76,
-    COUNTRY ==  "GRC"   &  ICCS_year == 2 ~ 49,
-    COUNTRY ==  "ITA"   &  ICCS_year == 2 ~ 61,
-    COUNTRY ==  "LTU"   &  ICCS_year == 2 ~ 18,
-    COUNTRY ==  "LVA"   &  ICCS_year == 2 ~ 23,
-    COUNTRY ==  "NOR"   &  ICCS_year == 2 ~ 85,
-    COUNTRY ==  "POL"   &  ICCS_year == 2 ~ 26,
-    COUNTRY ==  "RUS"   &  ICCS_year == 2 ~ 0,
-    COUNTRY ==  "SVK"   &  ICCS_year == 2 ~ 11,
-    COUNTRY ==  "SVN"   &  ICCS_year == 2 ~ 18,
-    COUNTRY ==  "SWE"   &  ICCS_year == 2 ~ 90
+    COUNTRY ==  "BGR"   &  ICCS_year == 2009 ~  19,
+    COUNTRY ==  "CHE"   &  ICCS_year == 2009 ~  90,
+    COUNTRY ==  "CHL"   &  ICCS_year == 2009 ~  20,
+    COUNTRY ==  "COL"   &  ICCS_year == 2009 ~  21,
+    COUNTRY ==  "CYP"   &  ICCS_year == 2009 ~  38,
+    COUNTRY ==  "CZE"   &  ICCS_year == 2009 ~  16,
+    COUNTRY ==  "DNK"   &  ICCS_year == 2009 ~  85,
+    COUNTRY ==  "ENG"   &  ICCS_year == 2009 ~  90,
+    COUNTRY ==  "EST"   &  ICCS_year == 2009 ~  24,
+    COUNTRY ==  "FIN"   &  ICCS_year == 2009 ~  76,
+    COUNTRY ==  "GRC"   &  ICCS_year == 2009 ~  49,
+    COUNTRY ==  "ITA"   &  ICCS_year == 2009 ~  61,
+    COUNTRY ==  "LTU"   &  ICCS_year == 2009 ~  18,
+    COUNTRY ==  "LVA"   &  ICCS_year == 2009 ~  23,
+    COUNTRY ==  "NOR"   &  ICCS_year == 2009 ~  85,
+    COUNTRY ==  "POL"   &  ICCS_year == 2009 ~  26,
+    COUNTRY ==  "RUS"   &  ICCS_year == 2009 ~  0,
+    COUNTRY ==  "SVK"   &  ICCS_year == 2009 ~  11,
+    COUNTRY ==  "SVN"   &  ICCS_year == 2009 ~  18,
+    COUNTRY ==  "SWE"   &  ICCS_year == 2009 ~  90,
+    TRUE ~ NA_real_
   ))
 
 tbl %>% 
  count(demo_08)
 ```
 
-    ## # A tibble: 1 x 2
-    ##   demo_08      n
-    ##     <dbl>  <int>
-    ## 1      NA 329135
+    ## # A tibble: 17 x 2
+    ##    demo_08      n
+    ##      <dbl>  <int>
+    ##  1       0   4295
+    ##  2      11   2970
+    ##  3      16   4630
+    ##  4      18   6972
+    ##  5      19   3257
+    ##  6      20   5192
+    ##  7      21   6204
+    ##  8      23   2761
+    ##  9      24   2743
+    ## 10      26   3249
+    ## 11      38   3194
+    ## 12      49   3153
+    ## 13      61   3366
+    ## 14      76   3307
+    ## 15      85   7521
+    ## 16      90   9304
+    ## 17      NA 257017
+
+Create centered version.
+
+``` r
+tbl <- tbl %>%
+  mutate(D_c08 = scale(demo_98, scale = F))
+```
 
 Additional stata code for var used in ML reg: egen D\_m08 =
 mean(DEMO\_08) // center gen D\_c08 = DEMO\_08 - D\_m08 // center
@@ -2074,6 +2123,38 @@ directory.
 ``` r
 write_delim(tbl, "output/clean_tbl.dat", delim = ",")
 ```
+
+At this point, LCA was performed in LatentGold. The results were saved,
+now join them back into the original data. Data were created on a
+European computer, so decimals points are commas, which everybody knows
+is as wrong as saying the second floor is the first floor, but Europeans
+are just that way. In addition, the output uses “.” to denote missing.
+To keep it simple, only save the cluster
+variables.
+
+``` r
+lca_tbl <- read_tsv("../lcadata/tbl_14_wclass.dat", locale = locale(decimal_mark = ","), na = ".") %>%
+  dplyr::select(ICCS_year, COUNTRY, id, id2, `Cluster#1`:`Cluster#`)
+```
+
+    ## Warning: Duplicated column names deduplicated: 'TOTWGTS' =>
+    ## 'TOTWGTS_1' [19]
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   .default = col_double(),
+    ##   COUNTRY = col_character(),
+    ##   id2 = col_character()
+    ## )
+
+    ## See spec(...) for full column specifications.
+
+``` r
+tbl <- tbl %>%
+  left_join(lca_tbl)
+```
+
+    ## Joining, by = c("ICCS_year", "COUNTRY", "id", "id2")
 
 ## Tables:
 
@@ -2380,7 +2461,7 @@ plot_tbl %>%
   geom_line() +
   geom_point() +
   lims(y = c(0, 1)) +
-  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") 
 ```
 
 ![](README_files/figure-gfm/line-plots-all-1.png)<!-- -->
@@ -2390,6 +2471,24 @@ ggsave("output/mean-citizenship-norm-line-plot-by-year.png")
 ```
 
     ## Saving 10 x 5 in image
+
+If we want to do this in black and white, we can just add the
+`theme_bw()` option at the end. In addition, we’ll need to change the
+“color” aesthetic to something else. Switching it to `lty` gives a
+different line type for each `Indicator`.
+
+``` r
+plot_tbl %>% 
+  ggplot(aes(x = ICCS_year, y = mean, lty = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .3) +
+  geom_line() +
+  geom_point() +
+  lims(y = c(0, 1)) +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme_bw()
+```
+
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 The above plot includes all indicators on one plot, but the confidence
 intervals are so narrow they are hard to see for each individual
@@ -2499,7 +2598,7 @@ plot_tbl %>%
   labs(x = "Indicator", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 ``` r
 ggsave("output/mean-citizenship-norm-bar-plot-by-indicator.png")
@@ -2558,7 +2657,7 @@ country_plot_tbl %>%
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 ``` r
 ggsave("output/mean-citizenship-norm-bar-plot-by-country-by-indicator-2016-only.png")
@@ -2569,6 +2668,21 @@ ggsave("output/mean-citizenship-norm-bar-plot-by-country-by-indicator-2016-only.
 March 6, 2019: JO noting next steps for analysis now that LCA results
 are complete.
 
-\*\*JO next step coding task, merge LCA results back into R file: New
-dat file in “lcadata” folder JA advice: combine to LCA output to Rproj,
-follow R for data science book: “full\_join” c:\_14\_wclass.dat
+## Mixed Models
+
+Sample code for linear mixed model:
+
+``` r
+library(lme4)
+
+lin_mixed <- lmer(dv ~ iv1 + iv2 + (1 | COUNTRY), data = tbl)
+summary(lin_mixed)
+```
+
+Mixed effects
+logit:
+
+``` r
+lin_mixed <- glmer(dv ~ iv1 + iv2 + (1 | COUNTRY), data = tbl, family = binomial(link = "logit"))
+summary(lin_mixed)
+```
