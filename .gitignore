@@ -2,4 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 *.Rproj.user*
+=======
+*.Rproj.user*
+>>>>>>> master

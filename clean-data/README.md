@@ -41,7 +41,7 @@ tbl1 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, BS3B1, BS3B11, BS3B9, BS3B4, BS3B13,
-               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3,TOTWGT)) %>% 
+               BS3B2, BS3B6, BS3B10, BS3B8, BS3B5, BS3B12, BS3B3, GENDER,BSGBOOK, EXPEDUC, BSGEDUM, BSGEDUF, TOTWGT)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 1999) %>%     # add survey year variable
@@ -58,6 +58,42 @@ original_vars <- tbl1 %>%
 original_vars %>% 
   map(~ tbl1 %>% count(!!sym(.x)))
 ```
+
+    ## Warning: Factor `BS3B1` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B11` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B9` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B4` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B13` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B2` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B6` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B10` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B8` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B5` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B12` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B3` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
 
     ## [[1]]
     ## # A tibble: 5 x 2
@@ -193,6 +229,12 @@ tbl1 %>%
   count(BS3B1, BS3B1_binary) 
 ```
 
+    ## Warning: Factor `BS3B1` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B1_binary` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
     ## # A tibble: 5 x 3
     ##   BS3B1                    BS3B1_binary      n
     ##   <fct>                    <fct>         <int>
@@ -214,6 +256,16 @@ tbl1 <-tbl1 %>%
   )
 ```
 
+    ## Warning: funs() is soft deprecated as of dplyr 0.8.0
+    ## please use list() instead
+    ## 
+    ## # Before:
+    ## funs(name = f(.)
+    ## 
+    ## # After: 
+    ## list(name = ~f(.))
+    ## This warning is displayed once per session.
+
 BS3B12 error troubleshoot when included in prior chunk. Count table
 command below yields console output showing that string text of 1st
 category “importnat” spelled incorrectly, i.e. “a” and “n” transposed.
@@ -223,6 +275,9 @@ BS3B12 “mutate” command to correctly recode with this typo:
 # troubleshoot
 tbl1 %>% count(BS3B12) 
 ```
+
+    ## Warning: Factor `BS3B12` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
 
     ## # A tibble: 5 x 2
     ##   BS3B12                       n
@@ -242,7 +297,7 @@ tbl1 <- tbl1 %>%
   )
 ```
 
-Confirm successful mutates for all indicators.
+Confirm successful mutates for all cit norms indicators.
 
 ``` r
 bin_vars <- original_vars %>% 
@@ -250,6 +305,78 @@ bin_vars <- original_vars %>%
 
 map2(original_vars, bin_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
 ```
+
+    ## Warning: Factor `BS3B1` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B1_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B11` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B11_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B9` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B9_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B4` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B4_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B13` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B13_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B2` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B2_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B6` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B6_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B10` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B10_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B8` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B8_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B5` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B5_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B12` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B12_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B3` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BS3B3_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
 
     ## [[1]]
     ## # A tibble: 5 x 3
@@ -371,10 +498,130 @@ map2(original_vars, bin_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
     ## 4 (4) very important       important      6741
     ## 5 <NA>                     <NA>           7920
 
-Select for LCA vars tibble, including rename all 12 mutated variables
-and display first five lines of dataframe. Use “select” for key LCA
-variables to create reduced tbl that can be “binded” with other ICCS
-years.
+Recode of individual-level control vars
+
+``` r
+tbl1 <- tbl1 %>% 
+  mutate(female = ifelse(GENDER == "(0) Male", 0, 1),    # gender
+         books = case_when(                              # books in respondent's home
+           BSGBOOK == "(1) None"          ~ 0,
+           BSGBOOK == "(2) 1 - 10"        ~ 0,
+           BSGBOOK == "(3) 11 - 50"       ~ 1,
+           BSGBOOK == "(4) 51 - 100"      ~ 1,
+           BSGBOOK == "(5) 101 - 200"     ~ 2,
+           BSGBOOK == "(6) More than 200" ~ 3
+         ),
+         edexp = case_when(                              # expected number of additional educ years
+           EXPEDUC == "(0) 0"    ~ 0,
+           EXPEDUC == "(1) 1-2"  ~ 0,
+           EXPEDUC == "(2) 3-4"  ~ 0,
+           EXPEDUC == "(3) 5-6"  ~ 1,
+           EXPEDUC == "(4) 7-8"  ~ 1,
+           EXPEDUC == "(5) 9-10" ~ 2,
+           EXPEDUC == "(6) 10+"  ~ 2
+         ),
+         ed_mom = case_when(                             # mother education
+           BSGEDUM == "(1) no.elem.school"          ~ 0,
+           BSGEDUM == "(2) Fin. elem. sch."         ~ 0,
+           BSGEDUM == "(3) Fin.s.high sch."         ~ 0,
+           BSGEDUM == "(4) Fin.high sch."           ~ 1,
+           BSGEDUM == "(5) Sme technic.educ. after" ~ 2,
+           BSGEDUM == "(6) sme college,univ."       ~ 2,
+           BSGEDUM == "(7) bach. degree"            ~ 2
+         ),
+         ed_dad = case_when(                             # father education
+           BSGEDUF == "(1) No.elem.school"     ~ 0,
+           BSGEDUF == "(2) Fin. elem. sch."    ~ 0,
+           BSGEDUF == "(3) Fin.s.high sch."    ~ 0,
+           BSGEDUF == "(4) Fin.high sch."      ~ 1,
+           BSGEDUF == "(5) Sme techn.educ."    ~ 2,
+           BSGEDUF == "(6) Sme college, univ." ~ 2,
+           BSGEDUF == "(7) Bach. degree"       ~ 2
+         )) 
+
+# check recodes
+sociodem_vars <- c("GENDER", "BSGBOOK", "EXPEDUC", "BSGEDUM", "BSGEDUF")
+recoded_vars  <- c("female", "books", "edexp", "ed_mom", "ed_dad")
+
+map2(recoded_vars, sociodem_vars, ~ tbl1 %>% count(!!sym(.x), !!sym(.y)))
+```
+
+    ## Warning: Factor `GENDER` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BSGBOOK` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `EXPEDUC` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BSGEDUM` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `BSGEDUF` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## [[1]]
+    ## # A tibble: 3 x 3
+    ##   female GENDER         n
+    ##    <dbl> <fct>      <int>
+    ## 1      0 (0) Male   45214
+    ## 2      1 (1) Female 47882
+    ## 3     NA <NA>         786
+    ## 
+    ## [[2]]
+    ## # A tibble: 7 x 3
+    ##   books BSGBOOK               n
+    ##   <dbl> <fct>             <int>
+    ## 1     0 (1) None           1394
+    ## 2     0 (2) 1 - 10         8620
+    ## 3     1 (3) 11 - 50       21027
+    ## 4     1 (4) 51 - 100      21409
+    ## 5     2 (5) 101 - 200     17490
+    ## 6     3 (6) More than 200 22963
+    ## 7    NA <NA>                979
+    ## 
+    ## [[3]]
+    ## # A tibble: 8 x 3
+    ##   edexp EXPEDUC      n
+    ##   <dbl> <fct>    <int>
+    ## 1     0 (0) 0     1839
+    ## 2     0 (1) 1-2   6705
+    ## 3     0 (2) 3-4  23445
+    ## 4     1 (3) 5-6  20336
+    ## 5     1 (4) 7-8  19971
+    ## 6     2 (5) 9-10 13236
+    ## 7     2 (6) 10+   6931
+    ## 8    NA <NA>      1419
+    ## 
+    ## [[4]]
+    ## # A tibble: 8 x 3
+    ##   ed_mom BSGEDUM                         n
+    ##    <dbl> <fct>                       <int>
+    ## 1      0 (1) no.elem.school           4003
+    ## 2      0 (2) Fin. elem. sch.         10590
+    ## 3      0 (3) Fin.s.high sch.         13044
+    ## 4      1 (4) Fin.high sch.           20991
+    ## 5      2 (5) Sme technic.educ. after  8047
+    ## 6      2 (6) sme college,univ.        6366
+    ## 7      2 (7) bach. degree            14229
+    ## 8     NA <NA>                        16612
+    ## 
+    ## [[5]]
+    ## # A tibble: 8 x 3
+    ##   ed_dad BSGEDUF                    n
+    ##    <dbl> <fct>                  <int>
+    ## 1      0 (1) No.elem.school      3689
+    ## 2      0 (2) Fin. elem. sch.     9783
+    ## 3      0 (3) Fin.s.high sch.    12505
+    ## 4      1 (4) Fin.high sch.      17891
+    ## 5      2 (5) Sme techn.educ.     9309
+    ## 6      2 (6) Sme college, univ.  5137
+    ## 7      2 (7) Bach. degree       15120
+    ## 8     NA <NA>                   20448
+
+Select for LCA vars tibble, including rename all mutated variables and
+display first five lines of dataframe.
 
 ``` r
 tbl1 <- tbl1 %>%
@@ -393,12 +640,17 @@ tbl1 <- tbl1 %>%
          news    = BS3B8_bin,
          protest = BS3B5_bin,
          discuss = BS3B12_bin,
-         party   = BS3B3_bin)
+         party   = BS3B3_bin,
+         female,
+         books,
+         edexp,
+         ed_mom,
+         ed_dad)
 
 tbl1 %>% head()
 ```
 
-    ## # A tibble: 6 x 16
+    ## # A tibble: 6 x 21
     ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
     ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
     ## 1      1999 AUS      10302    57.2 impo~ not i~ impo~ impo~ impo~ impo~
@@ -407,8 +659,9 @@ tbl1 %>% head()
     ## 4      1999 AUS      10313    57.2 impo~ not i~ not ~ not ~ not ~ impo~
     ## 5      1999 AUS      10317    57.2 impo~ impor~ impo~ not ~ impo~ not ~
     ## 6      1999 AUS      10319    57.2 impo~ impor~ impo~ impo~ impo~ impo~
-    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
-    ## #   protest <fct>, discuss <fct>, party <fct>
+    ## # ... with 11 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>, female <dbl>, books <dbl>,
+    ## #   edexp <dbl>, ed_mom <dbl>, ed_dad <dbl>
 
 ## 2009 dataloading and merging
 
@@ -425,7 +678,7 @@ tbl2 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS2P21L, IS2P21I, IS2P21H, IS2P21K, IS2P21J, IS2P21A,
-               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B,TOTWGTS)) %>% 
+               IS2P21C, IS2P21E, IS2P21D, IS2P21G, IS2P21F, IS2P21B, SGENDER, IS2G11, IS2G03, IS2G07, IS2G09, TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble() %>% 
   mutate(`ICCS_year` = 2009) %>%     # survey year variable creation
@@ -442,6 +695,42 @@ original_vars <- tbl2 %>%
 original_vars %>% 
   map(~ tbl2 %>% count(!!sym(.x)))
 ```
+
+    ## Warning: Factor `IS2P21L` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21I` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21H` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21K` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21J` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21A` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21C` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21E` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21D` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21G` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21F` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21B` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
 
     ## [[1]]
     ## # A tibble: 5 x 2
@@ -583,6 +872,78 @@ bin_vars <- original_vars %>%
 map2(original_vars, bin_vars, ~ tbl2 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
+    ## Warning: Factor `IS2P21L` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21L_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21I` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21I_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21H` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21H_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21K` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21K_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21J` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21J_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21A` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21A_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21C` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21C_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21E` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21E_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21D` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21D_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21G` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21G_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21F` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21F_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21B` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2P21B_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
     ## [[1]]
     ## # A tibble: 5 x 3
     ##   IS2P21L                  IS2P21L_bin       n
@@ -703,10 +1064,122 @@ map2(original_vars, bin_vars, ~ tbl2 %>% count(!!sym(.x), !!sym(.y)))
     ## 4 (4) NOT IMPORTANT AT ALL not important 19402
     ## 5 <NA>                     <NA>           3883
 
-Select to rename all 12 mutated variables and display first five lines
-of dataframe - listed in order of 1999 descending means (IJCS article).
-Use “select” for key LCA variables to create reduced tbl that can be
-“binded” with other ICCS years.
+Recode of individual-level control vars
+
+``` r
+tbl2 <- tbl2 %>% 
+  mutate(female = ifelse(SGENDER == "(0) BOY", 0, 1),    # gender
+         books = case_when(                              # books in respondent's home
+           IS2G11 == "(1) 0-10 BOOKS"          ~ 0,
+           IS2G11 == "(2) 11-25 BOOKS"         ~ 1,
+           IS2G11 == "(3) 26-100 BOOKS"        ~ 1,
+           IS2G11 == "(4) 101-200 BOOKS"       ~ 2,
+           IS2G11 == "(5) 201-500 BOOKS"       ~ 3,
+           IS2G11 == "(6) MORE THAN 500 BOOKS" ~ 3
+         ),
+         edexp = case_when(                              # expected number of additional educ years
+           IS2G03 == "(1) <ISCED 5A OR 6>"      ~ 2,
+           IS2G03 == "(2) <ISCED 4 OR 5B>"      ~ 2,
+           IS2G03 == "(3) <ISCED 3>"            ~ 1,
+           IS2G03 == "(4) <ISCED 2>"            ~ 0,
+           IS2G03 == "(5) NOT EXPECT <ISCED 2>" ~ 0
+         ),
+         ed_mom = case_when(                             # mother education
+           IS2G07 == "(1) <ISCED 5A OR 6>"            ~ 2,
+           IS2G07 == "(2) <ISCED 4 OR 5B>"            ~ 2,
+           IS2G07 == "(3) <ISCED 3>"                  ~ 1,
+           IS2G07 == "(4) <ISCED 2>"                  ~ 0,
+           IS2G07 == "(5) <ISCED 1>"                  ~ 0,
+           IS2G07 == "(6) DID NOT COMPLETE <ISCED 1>" ~ 0
+         ),
+         ed_dad = case_when(                             # father education
+           IS2G09 == "(1) <ISCED 5A OR 6>"            ~ 2,
+           IS2G09 == "(2) <ISCED 4 OR 5B>"            ~ 2,
+           IS2G09 == "(3) <ISCED 3>"                  ~ 1,
+           IS2G09 == "(4) <ISCED 2>"                  ~ 0,
+           IS2G09 == "(5) <ISCED 1>"                  ~ 0,
+           IS2G09 == "(6) DID NOT COMPLETE <ISCED 1>" ~ 0
+         )) 
+
+# check recodes
+sociodem_vars <- c("SGENDER", "IS2G11", "IS2G03", "IS2G07", "IS2G09")
+recoded_vars  <- c("female", "books", "edexp", "ed_mom", "ed_dad")
+
+map2(recoded_vars, sociodem_vars, ~ tbl2 %>% count(!!sym(.x), !!sym(.y)))
+```
+
+    ## Warning: Factor `SGENDER` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2G11` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2G03` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2G07` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS2G09` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## [[1]]
+    ## # A tibble: 3 x 3
+    ##   female SGENDER      n
+    ##    <dbl> <fct>    <int>
+    ## 1      0 (0) BOY  68985
+    ## 2      1 (1) GIRL 70381
+    ## 3     NA <NA>      1284
+    ## 
+    ## [[2]]
+    ## # A tibble: 7 x 3
+    ##   books IS2G11                      n
+    ##   <dbl> <fct>                   <int>
+    ## 1     0 (1) 0-10 BOOKS          16694
+    ## 2     1 (2) 11-25 BOOKS         27373
+    ## 3     1 (3) 26-100 BOOKS        44544
+    ## 4     2 (4) 101-200 BOOKS       24736
+    ## 5     3 (5) 201-500 BOOKS       16316
+    ## 6     3 (6) MORE THAN 500 BOOKS  9471
+    ## 7    NA <NA>                     1516
+    ## 
+    ## [[3]]
+    ## # A tibble: 6 x 3
+    ##   edexp IS2G03                       n
+    ##   <dbl> <fct>                    <int>
+    ## 1     0 (4) <ISCED 2>             7846
+    ## 2     0 (5) NOT EXPECT <ISCED 2>  1120
+    ## 3     1 (3) <ISCED 3>            33166
+    ## 4     2 (1) <ISCED 5A OR 6>      72791
+    ## 5     2 (2) <ISCED 4 OR 5B>      23125
+    ## 6    NA <NA>                      2602
+    ## 
+    ## [[4]]
+    ## # A tibble: 7 x 3
+    ##   ed_mom IS2G07                             n
+    ##    <dbl> <fct>                          <int>
+    ## 1      0 (4) <ISCED 2>                  20080
+    ## 2      0 (5) <ISCED 1>                  11516
+    ## 3      0 (6) DID NOT COMPLETE <ISCED 1>  6096
+    ## 4      1 (3) <ISCED 3>                  48335
+    ## 5      2 (1) <ISCED 5A OR 6>            28234
+    ## 6      2 (2) <ISCED 4 OR 5B>            20989
+    ## 7     NA <NA>                            5400
+    ## 
+    ## [[5]]
+    ## # A tibble: 7 x 3
+    ##   ed_dad IS2G09                             n
+    ##    <dbl> <fct>                          <int>
+    ## 1      0 (4) <ISCED 2>                  20351
+    ## 2      0 (5) <ISCED 1>                  10892
+    ## 3      0 (6) DID NOT COMPLETE <ISCED 1>  5120
+    ## 4      1 (3) <ISCED 3>                  46879
+    ## 5      2 (1) <ISCED 5A OR 6>            27928
+    ## 6      2 (2) <ISCED 4 OR 5B>            21003
+    ## 7     NA <NA>                            8477
+
+Select for LCA vars tibble, including rename all mutated variables and
+display first five lines of dataframe.
 
 ``` r
 tbl2 <- tbl2 %>%
@@ -725,12 +1198,17 @@ tbl2 <- tbl2 %>%
          news    = IS2P21D_bin,
          protest = IS2P21G_bin,
          discuss = IS2P21F_bin,
-         party   = IS2P21B_bin) 
+         party   = IS2P21B_bin,
+         female,
+         books,
+         edexp,
+         ed_mom,
+         ed_dad) 
 
 tbl2 %>% head()
 ```
 
-    ## # A tibble: 6 x 16
+    ## # A tibble: 6 x 21
     ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
     ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
     ## 1      2009 AUT     1.00e7    26.6 not ~ impor~ impo~ not ~ impo~ impo~
@@ -739,8 +1217,9 @@ tbl2 %>% head()
     ## 4      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ not ~ impo~ impo~
     ## 5      2009 AUT     1.00e7    26.6 impo~ impor~ impo~ impo~ impo~ impo~
     ## 6      2009 AUT     1.00e7    26.6 impo~ impor~ not ~ impo~ impo~ impo~
-    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
-    ## #   protest <fct>, discuss <fct>, party <fct>
+    ## # ... with 11 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>, female <dbl>, books <dbl>,
+    ## #   edexp <dbl>, ed_mom <dbl>, ed_dad <dbl>
 
 ## 2016 data loading and merging
 
@@ -757,7 +1236,7 @@ tbl3 <- files %>%
   map(~ .x %>%
         load_files() %>%
         select(COUNTRY, IDCNTRY, IDSTUD, IS3G23L, IS3G23I, IS3G23H, IS3G23K, IS3G23J,
-               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B,TOTWGTS)) %>% 
+               IS3G23A, IS3G23C, IS3G23E, IS3G23D, IS3G23G, IS3G23F, IS3G23B, S_GENDER, IS3G11, IS3G03, IS3G07, IS3G09, TOTWGTS)) %>% 
   reduce(rbind) %>% 
   as_tibble()%>% 
   mutate(`ICCS_year` = 2016) %>%    # create survey year variable
@@ -774,6 +1253,42 @@ original_vars <- tbl3 %>%
 original_vars %>% 
   map(~ tbl3 %>% count(!!sym(.x)))
 ```
+
+    ## Warning: Factor `IS3G23L` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23I` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23H` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23K` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23J` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23A` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23C` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23E` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23D` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23G` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23F` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23B` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
 
     ## [[1]]
     ## # A tibble: 5 x 2
@@ -915,6 +1430,78 @@ bin_vars <- original_vars %>%
 map2(original_vars, bin_vars, ~ tbl3 %>% count(!!sym(.x), !!sym(.y)))
 ```
 
+    ## Warning: Factor `IS3G23L` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23L_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23I` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23I_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23H` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23H_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23K` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23K_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23J` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23J_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23A` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23A_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23C` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23C_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23E` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23E_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23D` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23D_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23G` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23G_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23F` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23F_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23B` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G23B_bin` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
     ## [[1]]
     ## # A tibble: 5 x 3
     ##   IS3G23L                  IS3G23L_bin       n
@@ -1035,10 +1622,114 @@ map2(original_vars, bin_vars, ~ tbl3 %>% count(!!sym(.x), !!sym(.y)))
     ## 4 (4) Not important at all not important 12187
     ## 5 <NA>                     <NA>           2360
 
-Select to rename all 12 mutated variables and display first five lines
-of dataframe - listed in order of 1999 descending means (IJCS article).
-Use “select” for key LCA variables to create reduced tbl that can be
-“binded” with other ICCS years.
+Recode of individual-level control vars
+
+``` r
+tbl3 <- tbl3 %>% 
+  mutate(female = ifelse(S_GENDER == "(0) BOY", 0, 1),   # gender
+         books = case_when(                              # books in respondent's home
+           IS3G11 == "(1) None or very few (0–10 books)"                                ~ 0,
+           IS3G11 == "(2) Enough to fill one shelf (11–25 books)"                       ~ 1,
+           IS3G11 == "(3) Enough to fill one bookcase (26–100 books)"                   ~ 1,
+           IS3G11 == "(4) Enough to fill two bookcase (101–200 books)"                  ~ 2,
+           IS3G11 == "(5) Enough to fill three or more bookcases (more than 200 books)" ~ 3
+         ),
+         edexp = case_when(                              # expected number of additional educ years
+           IS3G03 == "(1) <ISCED level 6, 7 or 8>"   ~ 2,
+           IS3G03 == "(2) <ISCED level 4 or 5>"      ~ 2,
+           IS3G03 == "(3) <ISCED level 3>"           ~ 1,
+           IS3G03 == "(4) <ISCED level 2> or below" ~ 0
+         ),
+         ed_mom = case_when(                             # mother education
+           IS3G07 == "(1) <ISCED level 6, 7 or 8>"              ~ 2,
+           IS3G07 == "(2) <ISCED level 4 or 5>"                 ~ 2,
+           IS3G07 == "(3) <ISCED level 3>"                      ~ 1,
+           IS3G07 == "(4) <ISCED level 2>"                      ~ 0,
+           IS3G07 == "(5) She did not complete <ISCED level 2>" ~ 0
+         ),
+         ed_dad = case_when(                             # father education
+           IS3G09 == "(1) <ISCED level 6, 7 or 8>"             ~ 2,
+           IS3G09 == "(2) <ISCED level 4 or 5>"                ~ 2,
+           IS3G09 == "(3) <ISCED level 3>"                     ~ 1,
+           IS3G09 == "(4) <ISCED level 2>"                     ~ 0,
+           IS3G09 == "(5) He did not complete <ISCED level 2>" ~ 0
+         )) 
+
+# check recodes
+sociodem_vars <- c("S_GENDER", "IS3G11", "IS3G03", "IS3G07", "IS3G09")
+recoded_vars  <- c("female", "books", "edexp", "ed_mom", "ed_dad")
+
+map2(recoded_vars, sociodem_vars, ~ tbl3 %>% count(!!sym(.x), !!sym(.y)))
+```
+
+    ## Warning: Factor `S_GENDER` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G11` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G03` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G07` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## Warning: Factor `IS3G09` contains implicit NA, consider using
+    ## `forcats::fct_explicit_na`
+
+    ## [[1]]
+    ## # A tibble: 3 x 3
+    ##   female S_GENDER     n
+    ##    <dbl> <fct>    <int>
+    ## 1      1 (0) Boy  47674
+    ## 2      1 (1) Girl 46903
+    ## 3     NA <NA>        26
+    ## 
+    ## [[2]]
+    ## # A tibble: 6 x 3
+    ##   books IS3G11                                                            n
+    ##   <dbl> <fct>                                                         <int>
+    ## 1     0 (1) None or very few (0–10 books)                             14514
+    ## 2     1 (2) Enough to fill one shelf (11–25 books)                    22778
+    ## 3     1 (3) Enough to fill one bookcase (26–100 books)                29001
+    ## 4     2 (4) Enough to fill two bookcase (101–200 books)               14512
+    ## 5     3 (5) Enough to fill three or more bookcases (more than 200 bo~ 12648
+    ## 6    NA <NA>                                                           1150
+    ## 
+    ## [[3]]
+    ## # A tibble: 5 x 3
+    ##   edexp IS3G03                           n
+    ##   <dbl> <fct>                        <int>
+    ## 1     0 (4) <ISCED level 2> or below  4116
+    ## 2     1 (3) <ISCED level 3>          17506
+    ## 3     2 (1) <ISCED level 6, 7 or 8>  52942
+    ## 4     2 (2) <ISCED level 4 or 5>     18254
+    ## 5    NA <NA>                          1785
+    ## 
+    ## [[4]]
+    ## # A tibble: 6 x 3
+    ##   ed_mom IS3G07                                       n
+    ##    <dbl> <fct>                                    <int>
+    ## 1      0 (4) <ISCED level 2>                      10256
+    ## 2      0 (5) She did not complete <ISCED level 2>  6781
+    ## 3      1 (3) <ISCED level 3>                      28161
+    ## 4      2 (1) <ISCED level 6, 7 or 8>              26871
+    ## 5      2 (2) <ISCED level 4 or 5>                 18886
+    ## 6     NA <NA>                                      3648
+    ## 
+    ## [[5]]
+    ## # A tibble: 6 x 3
+    ##   ed_dad IS3G09                                      n
+    ##    <dbl> <fct>                                   <int>
+    ## 1      0 (4) <ISCED level 2>                     10685
+    ## 2      0 (5) He did not complete <ISCED level 2>  6299
+    ## 3      1 (3) <ISCED level 3>                     28911
+    ## 4      2 (1) <ISCED level 6, 7 or 8>             23652
+    ## 5      2 (2) <ISCED level 4 or 5>                18945
+    ## 6     NA <NA>                                     6111
+
+Select for LCA vars tibble, including rename all mutated variables and
+display first five lines of dataframe.
 
 ``` r
 tbl3 <- tbl3 %>% 
@@ -1057,12 +1748,17 @@ tbl3 <- tbl3 %>%
          news    = IS3G23D_bin,
          protest = IS3G23G_bin,
          discuss = IS3G23F_bin,
-         party   = IS3G23B_bin)
+         party   = IS3G23B_bin,
+         female,
+         books,
+         edexp,
+         ed_mom,
+         ed_dad)
 
 tbl3 %>% head()
 ```
 
-    ## # A tibble: 6 x 16
+    ## # A tibble: 6 x 21
     ##   ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
     ##       <dbl> <fct>    <dbl>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
     ## 1      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
@@ -1071,8 +1767,9 @@ tbl3 %>% head()
     ## 4      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
     ## 5      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ impo~
     ## 6      2016 BFL     1.00e7    22.5 impo~ impor~ impo~ impo~ impo~ not ~
-    ## # ... with 6 more variables: history <fct>, respect <fct>, news <fct>,
-    ## #   protest <fct>, discuss <fct>, party <fct>
+    ## # ... with 11 more variables: history <fct>, respect <fct>, news <fct>,
+    ## #   protest <fct>, discuss <fct>, party <fct>, female <dbl>, books <dbl>,
+    ## #   edexp <dbl>, ed_mom <dbl>, ed_dad <dbl>
 
 ## Combining recoded 1999, 2009 and 2016 data frames
 
@@ -1112,33 +1809,33 @@ cit_norm_indicators <- vars(obey, rights, local, work, envir, vote, history, res
 
 tbl <- tbl %>% 
   mutate_at(cit_norm_indicators,
-            funs(case_when(
+            funs(as.integer(case_when(
               . == "not important" ~ 0,
               . == "important"     ~ 1
-            ))
+            )))
   ) %>% 
-  mutate_if(is.double, as.integer) %>% 
+  mutate_at(vars(ICCS_year, IDSTUD), as.integer) %>% 
   mutate(COUNTRY = as.character(COUNTRY))
 ```
 
-    ## Warning in evalq(as.integer(IDSTUD), <environment>): NAs introduced by
-    ## coercion to integer range
+    ## Warning: NAs introduced by coercion to integer range
 
 ``` r
 tbl %>% head()
 ```
 
-    ## # A tibble: 6 x 18
+    ## # A tibble: 6 x 23
     ##   ICCS_year COUNTRY IDSTUD TOTWGTS  obey rights local  work envir  vote
-    ##       <int> <chr>    <int>   <int> <int>  <int> <int> <int> <int> <int>
-    ## 1      1999 AUS      10302      57     1      0     1     1     1     1
-    ## 2      1999 AUS      10305      57     1      0     1     1     1     1
-    ## 3      1999 AUS      10311      57     1     NA    NA     1     1     0
-    ## 4      1999 AUS      10313      57     1      0     0     0     0     1
-    ## 5      1999 AUS      10317      57     1      1     1     0     1     0
-    ## 6      1999 AUS      10319      57     1      1     1     1     1     1
-    ## # ... with 8 more variables: history <int>, respect <int>, news <int>,
-    ## #   protest <int>, discuss <int>, party <int>, id <int>, id2 <chr>
+    ##       <int> <chr>    <int>   <dbl> <int>  <int> <int> <int> <int> <int>
+    ## 1      1999 AUS      10302    57.2     1      0     1     1     1     1
+    ## 2      1999 AUS      10305    57.2     1      0     1     1     1     1
+    ## 3      1999 AUS      10311    57.2     1     NA    NA     1     1     0
+    ## 4      1999 AUS      10313    57.2     1      0     0     0     0     1
+    ## 5      1999 AUS      10317    57.2     1      1     1     0     1     0
+    ## 6      1999 AUS      10319    57.2     1      1     1     1     1     1
+    ## # ... with 13 more variables: history <int>, respect <int>, news <int>,
+    ## #   protest <int>, discuss <int>, party <int>, female <dbl>, books <dbl>,
+    ## #   edexp <dbl>, ed_mom <dbl>, ed_dad <dbl>, id <int>, id2 <chr>
 
 We can also attach factor labels to the citizenship norm indicators for
 internal use in R, but won’t export the factor labels to the output text
@@ -1156,11 +1853,11 @@ example %>%
 ```
 
     ## Observations: 329,135
-    ## Variables: 18
+    ## Variables: 23
     ## $ ICCS_year <int> 1999, 1999, 1999, 1999, 1999, 1999, 1999, 1999, 1999...
     ## $ COUNTRY   <chr> "AUS", "AUS", "AUS", "AUS", "AUS", "AUS", "AUS", "AU...
     ## $ IDSTUD    <int> 10302, 10305, 10311, 10313, 10317, 10319, 10324, 103...
-    ## $ TOTWGTS   <int> 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 53, 53, 53, ...
+    ## $ TOTWGTS   <dbl> 57.18350, 57.18350, 57.18350, 57.18350, 57.18350, 57...
     ## $ obey      <int+lbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
     ## $ rights    <int+lbl> 0, 0, NA, 0, 1, 1, 1, NA, 1, 1, 1, 1, 1, 1, 1, 1...
     ## $ local     <int+lbl> 1, 1, NA, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
@@ -1173,6 +1870,11 @@ example %>%
     ## $ protest   <int+lbl> 0, 1, NA, 0, 1, 1, 0, NA, 1, 0, 1, 1, 1, 1, 1, 1...
     ## $ discuss   <int+lbl> 0, 0, NA, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,...
     ## $ party     <int+lbl> 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+    ## $ female    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+    ## $ books     <dbl> 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 1, 2, 3, 3, 1, 0, 2, 2...
+    ## $ edexp     <dbl> 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 1, 1, 0, 0, 1...
+    ## $ ed_mom    <dbl> 0, NA, 2, NA, 1, 2, 2, NA, 2, NA, 2, 2, 2, 2, 0, 2, ...
+    ## $ ed_dad    <dbl> 0, NA, 2, NA, 1, 2, 2, NA, 2, NA, NA, 2, 2, 2, 2, 2,...
     ## $ id        <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
     ## $ id2       <chr> "AUS10302", "AUS10305", "AUS10311", "AUS10313", "AUS...
 
@@ -1182,28 +1884,195 @@ example %>%
   mutate_at(cit_norm_indicators, funs(as_factor(.)))
 ```
 
-    ## # A tibble: 329,135 x 18
+    ## # A tibble: 329,135 x 23
     ##    ICCS_year COUNTRY IDSTUD TOTWGTS obey  rights local work  envir vote 
-    ##        <int> <chr>    <int>   <int> <fct> <fct>  <fct> <fct> <fct> <fct>
-    ##  1      1999 AUS      10302      57 impo~ not i~ impo~ impo~ impo~ impo~
-    ##  2      1999 AUS      10305      57 impo~ not i~ impo~ impo~ impo~ impo~
-    ##  3      1999 AUS      10311      57 impo~ <NA>   <NA>  impo~ impo~ not ~
-    ##  4      1999 AUS      10313      57 impo~ not i~ not ~ not ~ not ~ impo~
-    ##  5      1999 AUS      10317      57 impo~ impor~ impo~ not ~ impo~ not ~
-    ##  6      1999 AUS      10319      57 impo~ impor~ impo~ impo~ impo~ impo~
-    ##  7      1999 AUS      10324      57 impo~ impor~ impo~ impo~ impo~ impo~
-    ##  8      1999 AUS      10325      57 impo~ <NA>   impo~ impo~ impo~ impo~
-    ##  9      1999 AUS      10326      57 impo~ impor~ impo~ impo~ impo~ not ~
-    ## 10      1999 AUS      10327      57 impo~ impor~ impo~ impo~ impo~ impo~
-    ## # ... with 329,125 more rows, and 8 more variables: history <fct>,
+    ##        <int> <chr>    <int>   <dbl> <fct> <fct>  <fct> <fct> <fct> <fct>
+    ##  1      1999 AUS      10302    57.2 impo~ not i~ impo~ impo~ impo~ impo~
+    ##  2      1999 AUS      10305    57.2 impo~ not i~ impo~ impo~ impo~ impo~
+    ##  3      1999 AUS      10311    57.2 impo~ <NA>   <NA>  impo~ impo~ not ~
+    ##  4      1999 AUS      10313    57.2 impo~ not i~ not ~ not ~ not ~ impo~
+    ##  5      1999 AUS      10317    57.2 impo~ impor~ impo~ not ~ impo~ not ~
+    ##  6      1999 AUS      10319    57.2 impo~ impor~ impo~ impo~ impo~ impo~
+    ##  7      1999 AUS      10324    57.2 impo~ impor~ impo~ impo~ impo~ impo~
+    ##  8      1999 AUS      10325    57.2 impo~ <NA>   impo~ impo~ impo~ impo~
+    ##  9      1999 AUS      10326    57.2 impo~ impor~ impo~ impo~ impo~ not ~
+    ## 10      1999 AUS      10327    57.2 impo~ impor~ impo~ impo~ impo~ impo~
+    ## # ... with 329,125 more rows, and 13 more variables: history <fct>,
     ## #   respect <fct>, news <fct>, protest <fct>, discuss <fct>, party <fct>,
+    ## #   female <dbl>, books <dbl>, edexp <dbl>, ed_mom <dbl>, ed_dad <dbl>,
     ## #   id <int>, id2 <chr>
+
+Adding country-level (level-2) variables for multi-level regression. For
+1999 and 2009, includes all 21 countries from IJCS paper
+
+GDP 1998: gdp\_imf98
+
+``` r
+tbl <- tbl %>% 
+  mutate(gdp_imf98=case_when(
+    COUNTRY ==  "BGR"   &  ICCS_year == 1 ~ 1622.98,
+    COUNTRY ==  "CHE"   &  ICCS_year == 1 ~ 39304.07,
+    COUNTRY ==  "CHL"   &  ICCS_year == 1 ~ 5437.33,
+    COUNTRY ==  "COL"   &  ICCS_year == 1 ~ 2770.85,
+    COUNTRY ==  "CYP"   &  ICCS_year == 1 ~ 13829.8,
+    COUNTRY ==  "CZE"   &  ICCS_year == 1 ~ 6200.85,
+    COUNTRY ==  "DNK"   &  ICCS_year == 1 ~ 32796.45,
+    COUNTRY ==  "ENG"   &  ICCS_year == 1 ~ 25275.21,
+    COUNTRY ==  "EST"   &  ICCS_year == 1 ~ 4021.33,
+    COUNTRY ==  "FIN"   &  ICCS_year == 1 ~ 25184.63,
+    COUNTRY ==  "GRC"   &  ICCS_year == 1 ~ 12654.18,
+    COUNTRY ==  "HKG"   &  ICCS_year == 1 ~ 25734.93,
+    COUNTRY ==  "ITA"   &  ICCS_year == 1 ~ 21547.92,
+    COUNTRY ==  "LTU"   &  ICCS_year == 1 ~ 3170.75,
+    COUNTRY ==  "LVA"   &  ICCS_year == 1 ~ 2858.356,
+    COUNTRY ==  "NOR"   &  ICCS_year == 1 ~ 34036.022,
+    COUNTRY ==  "POL"   &  ICCS_year == 1 ~ 4448.938,
+    COUNTRY ==  "RUS"   &  ICCS_year == 1 ~ 1837.544,
+    COUNTRY ==  "SVK"   &  ICCS_year == 1 ~ 4177.291,
+    COUNTRY ==  "SVN"   &  ICCS_year == 1 ~ 11004.326,
+    COUNTRY ==  "SWE"   &  ICCS_year == 1 ~ 28768.349
+))
+
+tbl %>% 
+ count(gdp_imf98)
+```
+
+    ## # A tibble: 1 x 2
+    ##   gdp_imf98      n
+    ##       <dbl>  <int>
+    ## 1        NA 329135
+
+GDP 2008: gdp\_imf08
+
+``` r
+tbl <- tbl %>% 
+  mutate(gdp_imf08=case_when(
+  COUNTRY   ==  "BGR"   &  ICCS_year == 2 ~ 6849.48,
+  COUNTRY ==    "CHE"   &  ICCS_year == 2 ~ 67378.87,
+  COUNTRY ==    "CHL"   &  ICCS_year == 2 ~ 10813.74,
+  COUNTRY ==    "COL"   &  ICCS_year == 2 ~ 5174.09,
+  COUNTRY ==    "CYP"   &  ICCS_year == 2 ~ 32194.93,
+  COUNTRY ==    "CZE"   &  ICCS_year == 2 ~ 21040.64,
+  COUNTRY ==    "DNK"   &  ICCS_year == 2 ~ 67386.89,
+  COUNTRY ==    "ENG"   &  ICCS_year == 2 ~ 45681,
+  COUNTRY ==    "EST"   &  ICCS_year == 2 ~ 18809.06,
+  COUNTRY ==    "FIN"   &  ICCS_year == 2 ~ 54577.85,
+  COUNTRY ==    "GRC"   &  ICCS_year == 2 ~ 33433.84,
+  COUNTRY ==    "HKG"   &  ICCS_year == 2 ~ 31849.05,
+  COUNTRY ==    "ITA"   &  ICCS_year == 2 ~ 40449.6,
+  COUNTRY ==    "LTU"   &  ICCS_year == 2 ~ 14456.17,
+  COUNTRY ==    "LVA"   &  ICCS_year == 2 ~ 14930.12,
+  COUNTRY ==    "NOR"   &  ICCS_year == 2 ~ 102524.55,
+  COUNTRY ==    "POL"   &  ICCS_year == 2 ~ 14892.8,
+  COUNTRY ==    "RUS"   &  ICCS_year == 2 ~ 12578.52,
+  COUNTRY ==    "SVK"   &  ICCS_year == 2 ~ 18584.56,
+  COUNTRY ==    "SVN"   &  ICCS_year == 2 ~ 28328.22,
+  COUNTRY ==    "SWE"   &  ICCS_year == 2 ~ 55623.77
+  ))
+
+tbl %>% 
+ count(gdp_imf08)
+```
+
+    ## # A tibble: 1 x 2
+    ##   gdp_imf08      n
+    ##       <dbl>  <int>
+    ## 1        NA 329135
+
+\*\*JO noting additional stata code on this var: gen GDP08 =
+GDP\_IMF08/100 // divided by 100  
+egen GDP\_m08 = mean(GDP08)  
+gen GDP\_c08 = GDP08 - GDP\_m08
+
+Democracy 1998: demo\_98 Notes from stata do-file: Years of democracy
+based on POLITY IV dataset (2011)
+
+``` r
+tbl <- tbl %>% 
+  mutate(demo_98=case_when(
+    COUNTRY ==  "BGR"   &  ICCS_year == 1 ~ 10,
+    COUNTRY ==  "CHE"   &  ICCS_year == 1 ~ 82,
+    COUNTRY ==  "CHL"   &  ICCS_year == 1 ~ 11,
+    COUNTRY ==  "COL"   &  ICCS_year == 1 ~ 21,
+    COUNTRY ==  "CYP"   &  ICCS_year == 1 ~ 29,
+    COUNTRY ==  "CZE"   &  ICCS_year == 1 ~ 7,
+    COUNTRY ==  "DNK"   &  ICCS_year == 1 ~ 77,
+    COUNTRY ==  "ENG"   &  ICCS_year == 1 ~ 82,
+    COUNTRY ==  "EST"   &  ICCS_year == 1 ~ 15,
+    COUNTRY ==  "FIN"   &  ICCS_year == 1 ~ 68,
+    COUNTRY ==  "GRC"   &  ICCS_year == 1 ~ 40,
+    COUNTRY ==  "ITA"   &  ICCS_year == 1 ~ 52,
+    COUNTRY ==  "LTU"   &  ICCS_year == 1 ~ 9,
+    COUNTRY ==  "LVA"   &  ICCS_year == 1 ~ 14,
+    COUNTRY ==  "NOR"   &  ICCS_year == 1 ~ 77,
+    COUNTRY ==  "POL"   &  ICCS_year == 1 ~ 17,
+    COUNTRY ==  "RUS"   &  ICCS_year == 1 ~ 0,
+    COUNTRY ==  "SVK"   &  ICCS_year == 1 ~ 2,
+    COUNTRY ==  "SVN"   &  ICCS_year == 1 ~ 9,
+    COUNTRY ==  "SWE"   &  ICCS_year == 1 ~ 82
+  ))
+
+tbl %>% 
+ count(demo_98)
+```
+
+    ## # A tibble: 1 x 2
+    ##   demo_98      n
+    ##     <dbl>  <int>
+    ## 1      NA 329135
+
+Additional stata code for var used in ML reg: egen D\_m98 =
+mean(DEMO\_98) // center gen D\_c98 = DEMO\_98 - D\_m98 // center
+
+Democracy 2008: demo\_08 Notes from stata do-file: Years of democracy
+based on POLITY IV dataset (2011)
+
+``` r
+tbl <- tbl %>% 
+  mutate(demo_08=case_when(
+    COUNTRY ==  "BGR"   &  ICCS_year == 2 ~ 19,
+    COUNTRY ==  "CHE"   &  ICCS_year == 2 ~ 90,
+    COUNTRY ==  "CHL"   &  ICCS_year == 2 ~ 20,
+    COUNTRY ==  "COL"   &  ICCS_year == 2 ~ 21,
+    COUNTRY ==  "CYP"   &  ICCS_year == 2 ~ 38,
+    COUNTRY ==  "CZE"   &  ICCS_year == 2 ~ 16,
+    COUNTRY ==  "DNK"   &  ICCS_year == 2 ~ 85,
+    COUNTRY ==  "ENG"   &  ICCS_year == 2 ~ 90,
+    COUNTRY ==  "EST"   &  ICCS_year == 2 ~ 24,
+    COUNTRY ==  "FIN"   &  ICCS_year == 2 ~ 76,
+    COUNTRY ==  "GRC"   &  ICCS_year == 2 ~ 49,
+    COUNTRY ==  "ITA"   &  ICCS_year == 2 ~ 61,
+    COUNTRY ==  "LTU"   &  ICCS_year == 2 ~ 18,
+    COUNTRY ==  "LVA"   &  ICCS_year == 2 ~ 23,
+    COUNTRY ==  "NOR"   &  ICCS_year == 2 ~ 85,
+    COUNTRY ==  "POL"   &  ICCS_year == 2 ~ 26,
+    COUNTRY ==  "RUS"   &  ICCS_year == 2 ~ 0,
+    COUNTRY ==  "SVK"   &  ICCS_year == 2 ~ 11,
+    COUNTRY ==  "SVN"   &  ICCS_year == 2 ~ 18,
+    COUNTRY ==  "SWE"   &  ICCS_year == 2 ~ 90
+  ))
+
+tbl %>% 
+ count(demo_08)
+```
+
+    ## # A tibble: 1 x 2
+    ##   demo_08      n
+    ##     <dbl>  <int>
+    ## 1      NA 329135
+
+Additional stata code for var used in ML reg: egen D\_m08 =
+mean(DEMO\_08) // center gen D\_c08 = DEMO\_08 - D\_m08 // center
+
+\*\*JO Next step coding task, create variables for 2015 for “gdp\_imf15”
+and “demo\_15” Identify data on IMF site, and document in xls for all
+countries in the 2016 wave
 
 Export recoded data for LCA - RdM to current `ICCS-2019/clean-data`
 directory.
 
 ``` r
-write_delim(tbl, "output/clean_tbl.dat", na = ".")
+write_delim(tbl, "output/clean_tbl.dat", delim = ",")
 ```
 
 ## Tables:
@@ -1214,104 +2083,104 @@ Means of citizenship norm indicators by country and year.
 # count and percent of responses to "obey" grouped by year
 means <- tbl %>%
   group_by(COUNTRY, ICCS_year) %>% 
-  summarize_at(cit_norm_indicators, funs(mean(., na.rm = TRUE)))
+  summarize_at(cit_norm_indicators, funs(round(mean(., na.rm = TRUE), 3)))
 
 means %>% 
   knitr::kable()
 ```
 
-| COUNTRY | ICCS\_year |      obey |    rights |     local |      work |     envir |      vote |   history |   respect |      news |   protest |   discuss |     party |
-| :------ | ---------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: |
-| AUS     |       1999 | 0.9287573 | 0.6870358 | 0.7994714 | 0.8806166 | 0.7470647 | 0.8862080 | 0.5465386 | 0.6673333 | 0.5040053 | 0.5771955 | 0.3389423 | 0.1739425 |
-| AUT     |       2009 | 0.8398073 | 0.7592034 | 0.7545290 | 0.6304348 | 0.6721954 | 0.7343750 | 0.7719298 | 0.6792510 | 0.6869723 | 0.6140139 | 0.3621524 | 0.2765700 |
-| BFL     |       2009 | 0.8709239 | 0.7703300 | 0.7649660 | 0.7756280 | 0.7907609 | 0.8203999 | 0.4652589 | 0.8242877 | 0.6571816 | 0.4577250 | 0.3131793 | 0.1572348 |
-| BFL     |       2016 | 0.9343015 | 0.8141379 | 0.8035221 | 0.8631034 | 0.8645473 | 0.8457575 | 0.5680719 | 0.8785272 | 0.7107438 | 0.4960194 | 0.3777240 | 0.1596292 |
-| BFR     |       1999 | 0.9063765 | 0.7764645 | 0.5622407 | 0.5403599 | 0.7199587 | 0.8148893 | 0.4187817 | 0.5545503 | 0.5787863 | 0.5635479 | 0.3865285 | 0.2243724 |
-| BGR     |       1999 | 0.8667904 | 0.8225058 | 0.6767757 | 0.8159393 | 0.8146703 | 0.7074202 | 0.7993791 | 0.6759404 | 0.6757797 | 0.7089925 | 0.4818976 | 0.3926483 |
-| BGR     |       2009 | 0.8483789 | 0.9029064 | 0.8689413 | 0.8885705 | 0.8966177 | 0.6876972 | 0.8531379 | 0.6747372 | 0.6492846 | 0.7300672 | 0.3455128 | 0.2048920 |
-| BGR     |       2016 | 0.8366562 | 0.9015598 | 0.8735314 | 0.8941707 | 0.9038862 | 0.7594632 | 0.8880779 | 0.7230503 | 0.6394065 | 0.7603048 | 0.3681453 | 0.2313278 |
-| CHE     |       1999 | 0.9543364 | 0.8769334 | 0.7631579 | 0.6670065 | 0.6986532 | 0.6857996 | 0.6230331 | 0.7306080 | 0.7525569 | 0.6271605 | 0.4236135 | 0.2349914 |
-| CHE     |       2009 | 0.8852686 | 0.7328696 | 0.6455211 | 0.6738227 | 0.7133449 | 0.7164539 | 0.7409722 | 0.7966747 | 0.7461140 | 0.5076495 | 0.3642981 | 0.2957064 |
-| CHL     |       1999 | 0.9536101 | 0.8259359 | 0.8842719 | 0.8665441 | 0.8908662 | 0.9103722 | 0.8759273 | 0.8568522 | 0.7962360 | 0.6163928 | 0.3450361 | 0.4385491 |
-| CHL     |       2009 | 0.8891924 | 0.8838483 | 0.9030244 | 0.8043222 | 0.9025822 | 0.8281827 | 0.8514599 | 0.8489279 | 0.6773500 | 0.6610666 | 0.2981257 | 0.2998243 |
-| CHL     |       2016 | 0.8760529 | 0.8390920 | 0.8386774 | 0.7789198 | 0.8618131 | 0.7805317 | 0.8311245 | 0.7665533 | 0.6502699 | 0.6646611 | 0.4201445 | 0.3485485 |
-| COL     |       1999 | 0.9737226 | 0.9408348 | 0.9420320 | 0.8372605 | 0.9392670 | 0.8791631 | 0.8427437 | 0.8618322 | 0.6615143 | 0.8071099 | 0.5129084 | 0.5772507 |
-| COL     |       2009 | 0.8751908 | 0.9412559 | 0.8983767 | 0.8112245 | 0.9603121 | 0.8706667 | 0.8903479 | 0.8545669 | 0.6444594 | 0.7054118 | 0.2924640 | 0.3199392 |
-| COL     |       2016 | 0.8921386 | 0.9250832 | 0.8835096 | 0.8220292 | 0.9513143 | 0.8454097 | 0.9011931 | 0.8354618 | 0.6575797 | 0.7051424 | 0.3204225 | 0.3024885 |
-| CYP     |       1999 | 0.9739499 | 0.9372948 | 0.9148450 | 0.6816976 | 0.7931826 | 0.9135153 | 0.9256360 | 0.9088808 | 0.8600392 | 0.8521008 | 0.5591001 | 0.4752177 |
-| CYP     |       2009 | 0.8108817 | 0.8374710 | 0.7462834 | 0.7179993 | 0.8050875 | 0.8208809 | 0.8323985 | 0.7935780 | 0.7077326 | 0.7493421 | 0.5858086 | 0.4654212 |
-| CZE     |       1999 | 0.9739569 | 0.8229434 | 0.7886964 | 0.7724551 | 0.8161081 | 0.6797863 | 0.7157776 | 0.4272544 | 0.7276036 | 0.6704879 | 0.2812500 | 0.1356668 |
-| CZE     |       2009 | 0.9219565 | 0.8167287 | 0.7668348 | 0.9511983 | 0.8348283 | 0.6829533 | 0.6449782 | 0.4582698 | 0.6574417 | 0.5429696 | 0.3476460 | 0.1507297 |
-| DEU     |       1999 | 0.9478791 | 0.9020108 | 0.8421201 | 0.6601857 | 0.7166904 | 0.6974015 | 0.5846682 | 0.6880416 | 0.7032168 | 0.6850299 | 0.4328402 | 0.1857394 |
-| DNK     |       1999 | 0.9514781 | 0.7860852 | 0.8640553 | 0.5943869 | 0.8232558 | 0.6075949 | 0.4453561 | 0.6311447 | 0.6703801 | 0.5353241 | 0.4418195 | 0.1715353 |
-| DNK     |       2009 | 0.9430028 | 0.6881545 | 0.5543884 | 0.7497674 | 0.7629991 | 0.7908210 | 0.6774119 | 0.8826258 | 0.7760296 | 0.4191672 | 0.2552748 | 0.2153099 |
-| DNK     |       2016 | 0.9507480 | 0.7132973 | 0.5735269 | 0.8538513 | 0.7291737 | 0.8810720 | 0.7618808 | 0.9210615 | 0.8226510 | 0.4120518 | 0.3116271 | 0.2295413 |
-| DNW     |       2016 | 0.9501754 | 0.8787666 | 0.7987288 | 0.6311360 | 0.6713781 | 0.6592022 | 0.7291372 | 0.8335674 | 0.7700908 | 0.5400281 | 0.3494398 | 0.1635220 |
-| DOM     |       2009 | 0.9130784 | 0.9065725 | 0.8398374 | 0.9073673 | 0.9252108 | 0.8121994 | 0.9237197 | 0.8738715 | 0.7733192 | 0.6834115 | 0.3217107 | 0.5885624 |
-| DOM     |       2016 | 0.9385813 | 0.9194573 | 0.8915420 | 0.9252874 | 0.9514871 | 0.7702590 | 0.9425725 | 0.9162618 | 0.8358671 | 0.7259643 | 0.3893549 | 0.5888889 |
-| ENG     |       1999 | 0.9744219 | 0.7206045 | 0.7848620 | 0.9266643 | 0.7634566 | 0.7602983 | 0.4410293 | 0.7089552 | 0.5224383 | 0.5846283 | 0.4202955 | 0.2043366 |
-| ENG     |       2009 | 0.9237526 | 0.7638156 | 0.7985258 | 0.9356868 | 0.7884751 | 0.7903564 | 0.6283713 | 0.8008400 | 0.7120364 | 0.5774399 | 0.5063069 | 0.3192011 |
-| ESP     |       2009 | 0.9053889 | 0.8541155 | 0.8671587 | 0.7930717 | 0.8802947 | 0.7610159 | 0.6894219 | 0.7867647 | 0.6967188 | 0.7120515 | 0.4192756 | 0.3617087 |
-| EST     |       1999 | 0.9319482 | 0.7806552 | 0.8133536 | 0.8272395 | 0.6806877 | 0.7010495 | 0.7104946 | 0.5869969 | 0.6853293 | 0.5882930 | 0.2829728 | 0.1677215 |
-| EST     |       2009 | 0.8501292 | 0.8205033 | 0.8635190 | 0.8420664 | 0.7677253 | 0.6685103 | 0.8048871 | 0.7311669 | 0.8290251 | 0.5011078 | 0.2986677 | 0.1566888 |
-| EST     |       2016 | 0.8662196 | 0.8328622 | 0.8691655 | 0.7892882 | 0.7802897 | 0.6699577 | 0.7918137 | 0.8085482 | 0.7992237 | 0.5155367 | 0.3526912 | 0.1425044 |
-| FIN     |       1999 | 0.9734159 | 0.8299734 | 0.6103501 | 0.9316587 | 0.7419476 | 0.5915649 | 0.6864188 | 0.5932663 | 0.6707544 | 0.3559936 | 0.2367206 | 0.1376949 |
-| FIN     |       2009 | 0.9143469 | 0.7342743 | 0.7624885 | 0.9195473 | 0.7983476 | 0.7333333 | 0.6299816 | 0.6524801 | 0.7062424 | 0.4236196 | 0.2511485 | 0.1711574 |
-| FIN     |       2016 | 0.9452099 | 0.7930039 | 0.7878691 | 0.9481268 | 0.8213256 | 0.7733376 | 0.7253205 | 0.7473549 | 0.7963555 | 0.4710983 | 0.3532992 | 0.2423951 |
-| GRC     |       1999 | 0.9555950 | 0.9181216 | 0.8995172 | 0.8101922 | 0.8879233 | 0.9428741 | 0.8808955 | 0.8212560 | 0.7670901 | 0.8620582 | 0.5933190 | 0.4895961 |
-| GRC     |       2009 | 0.8436991 | 0.8476128 | 0.8313174 | 0.6507988 | 0.8686704 | 0.7471600 | 0.8179428 | 0.7176815 | 0.6565558 | 0.7780679 | 0.5677883 | 0.2674494 |
-| GTM     |       2009 | 0.9317531 | 0.9363589 | 0.9502734 | 0.8718016 | 0.9664658 | 0.9220444 | 0.9261409 | 0.8995040 | 0.7202194 | 0.6866335 | 0.3546359 | 0.4289075 |
-| HKG     |       1999 | 0.9444683 | 0.8014233 | 0.8520499 | 0.9044822 | 0.8251842 | 0.8400262 | 0.6979261 | 0.8071688 | 0.7258212 | 0.6006471 | 0.5395819 | 0.2771790 |
-| HKG     |       2009 | 0.9637784 | 0.7845990 | 0.8430398 | 0.9087682 | 0.8839191 | 0.8586648 | 0.7871357 | 0.8931487 | 0.8959886 | 0.6462851 | 0.5688920 | 0.2039076 |
-| HKG     |       2016 | 0.9303578 | 0.7728148 | 0.8096339 | 0.8830116 | 0.8521371 | 0.8374327 | 0.7395152 | 0.7960754 | 0.8597843 | 0.6562620 | 0.6138117 | 0.2603846 |
-| HRV     |       2016 | 0.9415281 | 0.9071950 | 0.8660063 | 0.9525169 | 0.9269751 | 0.9001035 | 0.8976234 | 0.8642746 | 0.7951245 | 0.7294975 | 0.4784988 | 0.3675591 |
-| HUN     |       1999 | 0.9762056 | 0.8925040 | 0.8947704 | 0.8953935 | 0.7654598 | 0.8152967 | 0.8575072 | 0.7377102 | 0.7832857 | 0.6413570 | 0.2091755 | 0.2851625 |
-| IDN     |       2009 | 0.9629555 | 0.8574615 | 0.9307272 | 0.9393081 | 0.9359676 | 0.9709911 | 0.9606571 | 0.9474965 | 0.7430598 | 0.8061826 | 0.4824294 | 0.5514795 |
-| IRL     |       2009 | 0.9149066 | 0.8344512 | 0.8418477 | 0.9348554 | 0.8532194 | 0.8904027 | 0.7358145 | 0.7928615 | 0.7228476 | 0.6479607 | 0.5289079 | 0.3024954 |
-| ITA     |       1999 | 0.9688664 | 0.8677455 | 0.8288845 | 0.8351917 | 0.7930848 | 0.8370650 | 0.6629579 | 0.7607482 | 0.7683057 | 0.7580645 | 0.4909647 | 0.3168678 |
-| ITA     |       2009 | 0.9695704 | 0.9062313 | 0.7790105 | 0.8453270 | 0.8896861 | 0.9063995 | 0.9098262 | 0.8574843 | 0.9097699 | 0.7301349 | 0.6036494 | 0.3540670 |
-| ITA     |       2016 | 0.9692533 | 0.9157864 | 0.8371614 | 0.8752562 | 0.9024963 | 0.9100467 | 0.9276297 | 0.8278184 | 0.9078717 | 0.7488277 | 0.6400351 | 0.4166423 |
-| KOR     |       2009 | 0.9321872 | 0.8376673 | 0.8377965 | 0.9243697 | 0.8792280 | 0.9677358 | 0.7519572 | 0.4255685 | 0.9199771 | 0.9019870 | 0.7585613 | 0.6104318 |
-| KOR     |       2016 | 0.9391709 | 0.8357226 | 0.8639007 | 0.9236730 | 0.8980225 | 0.9259977 | 0.8206816 | 0.4418605 | 0.8797984 | 0.8503296 | 0.6396431 | 0.4875969 |
-| LIE     |       2009 | 0.8845070 | 0.7138810 | 0.6807910 | 0.6257143 | 0.6524217 | 0.6901408 | 0.7542373 | 0.7806268 | 0.6440678 | 0.4573864 | 0.2991453 | 0.3286119 |
-| LTU     |       1999 | 0.9276786 | 0.9030984 | 0.8544957 | 0.7817901 | 0.7951474 | 0.8393598 | 0.8056473 | 0.7598160 | 0.7410955 | 0.7214612 | 0.5653003 | 0.3873285 |
-| LTU     |       2009 | 0.9004642 | 0.7648579 | 0.8145078 | 0.7449664 | 0.7713769 | 0.8060356 | 0.8908432 | 0.8222222 | 0.7652062 | 0.7009056 | 0.4276112 | 0.2751227 |
-| LTU     |       2016 | 0.9314302 | 0.7544793 | 0.8003908 | 0.7642458 | 0.8087783 | 0.7889321 | 0.8851541 | 0.9075677 | 0.7509066 | 0.6631226 | 0.4679720 | 0.2977716 |
-| LUX     |       2009 | 0.8821556 | 0.7499473 | 0.6653302 | 0.6792096 | 0.7476301 | 0.7716618 | 0.7264885 | 0.8067298 | 0.6701593 | 0.6146557 | 0.3764978 | 0.3105407 |
-| LVA     |       1999 | 0.9088700 | 0.7932773 | 0.7258065 | 0.8013923 | 0.7608786 | 0.7649919 | 0.7223587 | 0.6655546 | 0.6704684 | 0.6434109 | 0.4361839 | 0.3020426 |
-| LVA     |       2009 | 0.8116048 | 0.8422214 | 0.7986009 | 0.7215888 | 0.7937385 | 0.8252107 | 0.7012509 | 0.6595588 | 0.8202494 | 0.6589147 | 0.5486953 | 0.3718704 |
-| LVA     |       2016 | 0.8837726 | 0.8236976 | 0.7839821 | 0.7328051 | 0.8401652 | 0.7910872 | 0.8046925 | 0.8168835 | 0.7845374 | 0.5207933 | 0.4704198 | 0.3299460 |
-| MEX     |       2009 | 0.8710834 | 0.8632276 | 0.8407513 | 0.8796642 | 0.9030837 | 0.8698566 | 0.8161414 | 0.7844001 | 0.7379235 | 0.6685588 | 0.5155633 | 0.4135220 |
-| MEX     |       2016 | 0.8753982 | 0.8852336 | 0.8744151 | 0.8596886 | 0.9166511 | 0.8487941 | 0.8362231 | 0.7963241 | 0.7782552 | 0.7045497 | 0.5881690 | 0.4674501 |
-| MLT     |       2009 | 0.9172217 | 0.8250478 | 0.7951173 | 0.8608987 | 0.8273553 | 0.8312796 | 0.7382550 | 0.8277011 | 0.6641185 | 0.6208712 | 0.3741007 | 0.3579952 |
-| MLT     |       2016 | 0.9234807 | 0.8486860 | 0.8026024 | 0.8342557 | 0.8338870 | 0.7894160 | 0.7243963 | 0.8370554 | 0.6873278 | 0.6326135 | 0.4276188 | 0.3303005 |
-| NLD     |       2009 | 0.7315011 | 0.7231907 | 0.7053524 | 0.7761352 | 0.7186674 | 0.7547368 | 0.4604847 | 0.8048652 | 0.6684238 | 0.3824934 | 0.3909139 | 0.3178947 |
-| NLD     |       2016 | 0.8548154 | 0.7204924 | 0.7119506 | 0.8529518 | 0.7043478 | 0.7356446 | 0.5394642 | 0.8547688 | 0.7061800 | 0.3560551 | 0.4002169 | 0.2811143 |
-| NOR     |       1999 | 0.9477124 | 0.9029281 | 0.8271208 | 0.7797525 | 0.9056604 | 0.7137059 | 0.4971483 | 0.6473803 | 0.6705220 | 0.6759411 | 0.3618926 | 0.2097235 |
-| NOR     |       2009 | 0.8836071 | 0.8673647 | 0.8749563 | 0.8561453 | 0.8966237 | 0.8795014 | 0.7300314 | 0.8598815 | 0.8009709 | 0.6973822 | 0.5019211 | 0.4025748 |
-| NOR     |       2016 | 0.9283479 | 0.8106411 | 0.8550629 | 0.8520231 | 0.8560106 | 0.8694226 | 0.7471511 | 0.8714144 | 0.7368940 | 0.6092297 | 0.4791942 | 0.2943309 |
-| NZL     |       2009 | 0.8979010 | 0.7352788 | 0.7816332 | 0.9237947 | 0.7808433 | 0.8358325 | 0.7019506 | 0.7878473 | 0.6916883 | 0.5292581 | 0.4427640 | 0.2609261 |
-| PER     |       2016 | 0.9235541 | 0.9250100 | 0.8835494 | 0.8211788 | 0.9490815 | 0.9512724 | 0.9401198 | 0.9197138 | 0.7755467 | 0.7080088 | 0.4772546 | 0.5582920 |
-| POL     |       1999 | 0.9608669 | 0.8171943 | 0.9069343 | 0.7495350 | 0.7827819 | 0.9138452 | 0.8984185 | 0.8164400 | 0.8605711 | 0.7660550 | 0.5531848 | 0.3867299 |
-| POL     |       2009 | 0.8504788 | 0.8506211 | 0.7593798 | 0.6411765 | 0.8170845 | 0.8906733 | 0.9129894 | 0.7638502 | 0.7949985 | 0.6870938 | 0.4342716 | 0.2694926 |
-| PRT     |       1999 | 0.9698018 | 0.8832621 | 0.9395952 | 0.8163001 | 0.9213448 | 0.7138728 | 0.7227025 | 0.8279085 | 0.8154331 | 0.7336038 | 0.3985626 | 0.3622246 |
-| PRY     |       2009 | 0.9099187 | 0.9140345 | 0.8426047 | 0.8778576 | 0.9595960 | 0.7626360 | 0.9360878 | 0.8495146 | 0.6118485 | 0.6528953 | 0.2667104 | 0.5268088 |
-| ROM     |       1999 | 0.9359283 | 0.8858965 | 0.9009585 | 0.8077795 | 0.8786920 | 0.9205298 | 0.8747361 | 0.8478731 | 0.7816609 | 0.6804781 | 0.5632745 | 0.5421779 |
-| RUS     |       1999 | 0.9354685 | 0.7842466 | 0.8254581 | 0.8865930 | 0.8015304 | 0.7910519 | 0.7476008 | 0.5004941 | 0.7252274 | 0.8368447 | 0.2684291 | 0.2048314 |
-| RUS     |       2009 | 0.8663064 | 0.8267012 | 0.8011310 | 0.8209586 | 0.8772385 | 0.8305640 | 0.8945489 | 0.8487059 | 0.8049412 | 0.6799341 | 0.4535790 | 0.4493299 |
-| RUS     |       2016 | 0.9070827 | 0.8081548 | 0.8144159 | 0.8363687 | 0.8868159 | 0.7604296 | 0.9319972 | 0.8816952 | 0.8068338 | 0.6356354 | 0.4916263 | 0.4973779 |
-| SVK     |       1999 | 0.9848573 | 0.9313090 | 0.8721068 | 0.9680726 | 0.8593978 | 0.9074993 | 0.7254038 | 0.6987699 | 0.7960681 | 0.7226455 | 0.4955726 | 0.2097310 |
-| SVK     |       2009 | 0.9114566 | 0.8438031 | 0.7548321 | 0.6990521 | 0.8443540 | 0.7813450 | 0.6682529 | 0.5335366 | 0.6926995 | 0.5355080 | 0.3421589 | 0.1357481 |
-| SVN     |       1999 | 0.9478925 | 0.7758204 | 0.7837370 | 0.6537936 | 0.7309524 | 0.7981439 | 0.7200000 | 0.6871315 | 0.6249156 | 0.5886681 | 0.3781919 | 0.2943562 |
-| SVN     |       2009 | 0.9071452 | 0.8073486 | 0.7491738 | 0.7134850 | 0.8242664 | 0.7455621 | 0.6601717 | 0.7246042 | 0.5702044 | 0.5556657 | 0.3439974 | 0.2537019 |
-| SVN     |       2016 | 0.9199858 | 0.8463180 | 0.7949358 | 0.8526166 | 0.8557178 | 0.7963945 | 0.6846815 | 0.7608541 | 0.6567164 | 0.5693405 | 0.4024347 | 0.2613475 |
-| SWE     |       1999 | 0.9596532 | 0.7816901 | 0.8206107 | 0.7841727 | 0.8069993 | 0.7922428 | 0.6244870 | 0.6427815 | 0.5616580 | 0.6883636 | 0.3889479 | 0.2114187 |
-| SWE     |       2009 | 0.8792085 | 0.7608052 | 0.7822104 | 0.8229566 | 0.8079646 | 0.7647059 | 0.4511943 | 0.8114827 | 0.6202830 | 0.5948429 | 0.3406333 | 0.2272995 |
-| SWE     |       2016 | 0.9450304 | 0.8214628 | 0.8126598 | 0.8442179 | 0.8383061 | 0.8633207 | 0.4833440 | 0.8774589 | 0.7314195 | 0.6527023 | 0.4766026 | 0.2199488 |
-| THA     |       2009 | 0.9486445 | 0.9261103 | 0.9328358 | 0.5644946 | 0.9493017 | 0.9727255 | 0.9295450 | 0.8251147 | 0.9111239 | 0.6480490 | 0.7105666 | 0.6748948 |
-| TWN     |       2009 | 0.9634170 | 0.9047341 | 0.8897116 | 0.9451041 | 0.8872005 | 0.7482967 | 0.7900585 | 0.7191274 | 0.8743914 | 0.6419103 | 0.5105263 | 0.1662773 |
-| TWN     |       2016 | 0.9802131 | 0.8734145 | 0.8688816 | 0.9436834 | 0.8929206 | 0.7793558 | 0.8180894 | 0.7716316 | 0.8985544 | 0.6809754 | 0.5946701 | 0.2106599 |
-| USA     |       1999 | 0.9520826 | 0.8316679 | 0.8808989 | 0.9123134 | 0.8316190 | 0.8303571 | 0.7301168 | 0.7950170 | 0.6398014 | 0.7223127 | 0.5806709 | 0.4737461 |
+| COUNTRY | ICCS\_year |  obey | rights | local |  work | envir |  vote | history | respect |  news | protest | discuss | party |
+| :------ | ---------: | ----: | -----: | ----: | ----: | ----: | ----: | ------: | ------: | ----: | ------: | ------: | ----: |
+| AUS     |       1999 | 0.929 |  0.687 | 0.799 | 0.881 | 0.747 | 0.886 |   0.547 |   0.667 | 0.504 |   0.577 |   0.339 | 0.174 |
+| AUT     |       2009 | 0.840 |  0.759 | 0.755 | 0.630 | 0.672 | 0.734 |   0.772 |   0.679 | 0.687 |   0.614 |   0.362 | 0.277 |
+| BFL     |       2009 | 0.871 |  0.770 | 0.765 | 0.776 | 0.791 | 0.820 |   0.465 |   0.824 | 0.657 |   0.458 |   0.313 | 0.157 |
+| BFL     |       2016 | 0.934 |  0.814 | 0.804 | 0.863 | 0.865 | 0.846 |   0.568 |   0.879 | 0.711 |   0.496 |   0.378 | 0.160 |
+| BFR     |       1999 | 0.906 |  0.776 | 0.562 | 0.540 | 0.720 | 0.815 |   0.419 |   0.555 | 0.579 |   0.564 |   0.387 | 0.224 |
+| BGR     |       1999 | 0.867 |  0.823 | 0.677 | 0.816 | 0.815 | 0.707 |   0.799 |   0.676 | 0.676 |   0.709 |   0.482 | 0.393 |
+| BGR     |       2009 | 0.848 |  0.903 | 0.869 | 0.889 | 0.897 | 0.688 |   0.853 |   0.675 | 0.649 |   0.730 |   0.346 | 0.205 |
+| BGR     |       2016 | 0.837 |  0.902 | 0.874 | 0.894 | 0.904 | 0.759 |   0.888 |   0.723 | 0.639 |   0.760 |   0.368 | 0.231 |
+| CHE     |       1999 | 0.954 |  0.877 | 0.763 | 0.667 | 0.699 | 0.686 |   0.623 |   0.731 | 0.753 |   0.627 |   0.424 | 0.235 |
+| CHE     |       2009 | 0.885 |  0.733 | 0.646 | 0.674 | 0.713 | 0.716 |   0.741 |   0.797 | 0.746 |   0.508 |   0.364 | 0.296 |
+| CHL     |       1999 | 0.954 |  0.826 | 0.884 | 0.867 | 0.891 | 0.910 |   0.876 |   0.857 | 0.796 |   0.616 |   0.345 | 0.439 |
+| CHL     |       2009 | 0.889 |  0.884 | 0.903 | 0.804 | 0.903 | 0.828 |   0.851 |   0.849 | 0.677 |   0.661 |   0.298 | 0.300 |
+| CHL     |       2016 | 0.876 |  0.839 | 0.839 | 0.779 | 0.862 | 0.781 |   0.831 |   0.767 | 0.650 |   0.665 |   0.420 | 0.349 |
+| COL     |       1999 | 0.974 |  0.941 | 0.942 | 0.837 | 0.939 | 0.879 |   0.843 |   0.862 | 0.662 |   0.807 |   0.513 | 0.577 |
+| COL     |       2009 | 0.875 |  0.941 | 0.898 | 0.811 | 0.960 | 0.871 |   0.890 |   0.855 | 0.644 |   0.705 |   0.292 | 0.320 |
+| COL     |       2016 | 0.892 |  0.925 | 0.884 | 0.822 | 0.951 | 0.845 |   0.901 |   0.835 | 0.658 |   0.705 |   0.320 | 0.302 |
+| CYP     |       1999 | 0.974 |  0.937 | 0.915 | 0.682 | 0.793 | 0.914 |   0.926 |   0.909 | 0.860 |   0.852 |   0.559 | 0.475 |
+| CYP     |       2009 | 0.811 |  0.837 | 0.746 | 0.718 | 0.805 | 0.821 |   0.832 |   0.794 | 0.708 |   0.749 |   0.586 | 0.465 |
+| CZE     |       1999 | 0.974 |  0.823 | 0.789 | 0.772 | 0.816 | 0.680 |   0.716 |   0.427 | 0.728 |   0.670 |   0.281 | 0.136 |
+| CZE     |       2009 | 0.922 |  0.817 | 0.767 | 0.951 | 0.835 | 0.683 |   0.645 |   0.458 | 0.657 |   0.543 |   0.348 | 0.151 |
+| DEU     |       1999 | 0.948 |  0.902 | 0.842 | 0.660 | 0.717 | 0.697 |   0.585 |   0.688 | 0.703 |   0.685 |   0.433 | 0.186 |
+| DNK     |       1999 | 0.951 |  0.786 | 0.864 | 0.594 | 0.823 | 0.608 |   0.445 |   0.631 | 0.670 |   0.535 |   0.442 | 0.172 |
+| DNK     |       2009 | 0.943 |  0.688 | 0.554 | 0.750 | 0.763 | 0.791 |   0.677 |   0.883 | 0.776 |   0.419 |   0.255 | 0.215 |
+| DNK     |       2016 | 0.951 |  0.713 | 0.574 | 0.854 | 0.729 | 0.881 |   0.762 |   0.921 | 0.823 |   0.412 |   0.312 | 0.230 |
+| DNW     |       2016 | 0.950 |  0.879 | 0.799 | 0.631 | 0.671 | 0.659 |   0.729 |   0.834 | 0.770 |   0.540 |   0.349 | 0.164 |
+| DOM     |       2009 | 0.913 |  0.907 | 0.840 | 0.907 | 0.925 | 0.812 |   0.924 |   0.874 | 0.773 |   0.683 |   0.322 | 0.589 |
+| DOM     |       2016 | 0.939 |  0.919 | 0.892 | 0.925 | 0.951 | 0.770 |   0.943 |   0.916 | 0.836 |   0.726 |   0.389 | 0.589 |
+| ENG     |       1999 | 0.974 |  0.721 | 0.785 | 0.927 | 0.763 | 0.760 |   0.441 |   0.709 | 0.522 |   0.585 |   0.420 | 0.204 |
+| ENG     |       2009 | 0.924 |  0.764 | 0.799 | 0.936 | 0.788 | 0.790 |   0.628 |   0.801 | 0.712 |   0.577 |   0.506 | 0.319 |
+| ESP     |       2009 | 0.905 |  0.854 | 0.867 | 0.793 | 0.880 | 0.761 |   0.689 |   0.787 | 0.697 |   0.712 |   0.419 | 0.362 |
+| EST     |       1999 | 0.932 |  0.781 | 0.813 | 0.827 | 0.681 | 0.701 |   0.710 |   0.587 | 0.685 |   0.588 |   0.283 | 0.168 |
+| EST     |       2009 | 0.850 |  0.821 | 0.864 | 0.842 | 0.768 | 0.669 |   0.805 |   0.731 | 0.829 |   0.501 |   0.299 | 0.157 |
+| EST     |       2016 | 0.866 |  0.833 | 0.869 | 0.789 | 0.780 | 0.670 |   0.792 |   0.809 | 0.799 |   0.516 |   0.353 | 0.143 |
+| FIN     |       1999 | 0.973 |  0.830 | 0.610 | 0.932 | 0.742 | 0.592 |   0.686 |   0.593 | 0.671 |   0.356 |   0.237 | 0.138 |
+| FIN     |       2009 | 0.914 |  0.734 | 0.762 | 0.920 | 0.798 | 0.733 |   0.630 |   0.652 | 0.706 |   0.424 |   0.251 | 0.171 |
+| FIN     |       2016 | 0.945 |  0.793 | 0.788 | 0.948 | 0.821 | 0.773 |   0.725 |   0.747 | 0.796 |   0.471 |   0.353 | 0.242 |
+| GRC     |       1999 | 0.956 |  0.918 | 0.900 | 0.810 | 0.888 | 0.943 |   0.881 |   0.821 | 0.767 |   0.862 |   0.593 | 0.490 |
+| GRC     |       2009 | 0.844 |  0.848 | 0.831 | 0.651 | 0.869 | 0.747 |   0.818 |   0.718 | 0.657 |   0.778 |   0.568 | 0.267 |
+| GTM     |       2009 | 0.932 |  0.936 | 0.950 | 0.872 | 0.966 | 0.922 |   0.926 |   0.900 | 0.720 |   0.687 |   0.355 | 0.429 |
+| HKG     |       1999 | 0.944 |  0.801 | 0.852 | 0.904 | 0.825 | 0.840 |   0.698 |   0.807 | 0.726 |   0.601 |   0.540 | 0.277 |
+| HKG     |       2009 | 0.964 |  0.785 | 0.843 | 0.909 | 0.884 | 0.859 |   0.787 |   0.893 | 0.896 |   0.646 |   0.569 | 0.204 |
+| HKG     |       2016 | 0.930 |  0.773 | 0.810 | 0.883 | 0.852 | 0.837 |   0.740 |   0.796 | 0.860 |   0.656 |   0.614 | 0.260 |
+| HRV     |       2016 | 0.942 |  0.907 | 0.866 | 0.953 | 0.927 | 0.900 |   0.898 |   0.864 | 0.795 |   0.729 |   0.478 | 0.368 |
+| HUN     |       1999 | 0.976 |  0.893 | 0.895 | 0.895 | 0.765 | 0.815 |   0.858 |   0.738 | 0.783 |   0.641 |   0.209 | 0.285 |
+| IDN     |       2009 | 0.963 |  0.857 | 0.931 | 0.939 | 0.936 | 0.971 |   0.961 |   0.947 | 0.743 |   0.806 |   0.482 | 0.551 |
+| IRL     |       2009 | 0.915 |  0.834 | 0.842 | 0.935 | 0.853 | 0.890 |   0.736 |   0.793 | 0.723 |   0.648 |   0.529 | 0.302 |
+| ITA     |       1999 | 0.969 |  0.868 | 0.829 | 0.835 | 0.793 | 0.837 |   0.663 |   0.761 | 0.768 |   0.758 |   0.491 | 0.317 |
+| ITA     |       2009 | 0.970 |  0.906 | 0.779 | 0.845 | 0.890 | 0.906 |   0.910 |   0.857 | 0.910 |   0.730 |   0.604 | 0.354 |
+| ITA     |       2016 | 0.969 |  0.916 | 0.837 | 0.875 | 0.902 | 0.910 |   0.928 |   0.828 | 0.908 |   0.749 |   0.640 | 0.417 |
+| KOR     |       2009 | 0.932 |  0.838 | 0.838 | 0.924 | 0.879 | 0.968 |   0.752 |   0.426 | 0.920 |   0.902 |   0.759 | 0.610 |
+| KOR     |       2016 | 0.939 |  0.836 | 0.864 | 0.924 | 0.898 | 0.926 |   0.821 |   0.442 | 0.880 |   0.850 |   0.640 | 0.488 |
+| LIE     |       2009 | 0.885 |  0.714 | 0.681 | 0.626 | 0.652 | 0.690 |   0.754 |   0.781 | 0.644 |   0.457 |   0.299 | 0.329 |
+| LTU     |       1999 | 0.928 |  0.903 | 0.854 | 0.782 | 0.795 | 0.839 |   0.806 |   0.760 | 0.741 |   0.721 |   0.565 | 0.387 |
+| LTU     |       2009 | 0.900 |  0.765 | 0.815 | 0.745 | 0.771 | 0.806 |   0.891 |   0.822 | 0.765 |   0.701 |   0.428 | 0.275 |
+| LTU     |       2016 | 0.931 |  0.754 | 0.800 | 0.764 | 0.809 | 0.789 |   0.885 |   0.908 | 0.751 |   0.663 |   0.468 | 0.298 |
+| LUX     |       2009 | 0.882 |  0.750 | 0.665 | 0.679 | 0.748 | 0.772 |   0.726 |   0.807 | 0.670 |   0.615 |   0.376 | 0.311 |
+| LVA     |       1999 | 0.909 |  0.793 | 0.726 | 0.801 | 0.761 | 0.765 |   0.722 |   0.666 | 0.670 |   0.643 |   0.436 | 0.302 |
+| LVA     |       2009 | 0.812 |  0.842 | 0.799 | 0.722 | 0.794 | 0.825 |   0.701 |   0.660 | 0.820 |   0.659 |   0.549 | 0.372 |
+| LVA     |       2016 | 0.884 |  0.824 | 0.784 | 0.733 | 0.840 | 0.791 |   0.805 |   0.817 | 0.785 |   0.521 |   0.470 | 0.330 |
+| MEX     |       2009 | 0.871 |  0.863 | 0.841 | 0.880 | 0.903 | 0.870 |   0.816 |   0.784 | 0.738 |   0.669 |   0.516 | 0.414 |
+| MEX     |       2016 | 0.875 |  0.885 | 0.874 | 0.860 | 0.917 | 0.849 |   0.836 |   0.796 | 0.778 |   0.705 |   0.588 | 0.467 |
+| MLT     |       2009 | 0.917 |  0.825 | 0.795 | 0.861 | 0.827 | 0.831 |   0.738 |   0.828 | 0.664 |   0.621 |   0.374 | 0.358 |
+| MLT     |       2016 | 0.923 |  0.849 | 0.803 | 0.834 | 0.834 | 0.789 |   0.724 |   0.837 | 0.687 |   0.633 |   0.428 | 0.330 |
+| NLD     |       2009 | 0.732 |  0.723 | 0.705 | 0.776 | 0.719 | 0.755 |   0.460 |   0.805 | 0.668 |   0.382 |   0.391 | 0.318 |
+| NLD     |       2016 | 0.855 |  0.720 | 0.712 | 0.853 | 0.704 | 0.736 |   0.539 |   0.855 | 0.706 |   0.356 |   0.400 | 0.281 |
+| NOR     |       1999 | 0.948 |  0.903 | 0.827 | 0.780 | 0.906 | 0.714 |   0.497 |   0.647 | 0.671 |   0.676 |   0.362 | 0.210 |
+| NOR     |       2009 | 0.884 |  0.867 | 0.875 | 0.856 | 0.897 | 0.880 |   0.730 |   0.860 | 0.801 |   0.697 |   0.502 | 0.403 |
+| NOR     |       2016 | 0.928 |  0.811 | 0.855 | 0.852 | 0.856 | 0.869 |   0.747 |   0.871 | 0.737 |   0.609 |   0.479 | 0.294 |
+| NZL     |       2009 | 0.898 |  0.735 | 0.782 | 0.924 | 0.781 | 0.836 |   0.702 |   0.788 | 0.692 |   0.529 |   0.443 | 0.261 |
+| PER     |       2016 | 0.924 |  0.925 | 0.884 | 0.821 | 0.949 | 0.951 |   0.940 |   0.920 | 0.776 |   0.708 |   0.477 | 0.558 |
+| POL     |       1999 | 0.961 |  0.817 | 0.907 | 0.750 | 0.783 | 0.914 |   0.898 |   0.816 | 0.861 |   0.766 |   0.553 | 0.387 |
+| POL     |       2009 | 0.850 |  0.851 | 0.759 | 0.641 | 0.817 | 0.891 |   0.913 |   0.764 | 0.795 |   0.687 |   0.434 | 0.269 |
+| PRT     |       1999 | 0.970 |  0.883 | 0.940 | 0.816 | 0.921 | 0.714 |   0.723 |   0.828 | 0.815 |   0.734 |   0.399 | 0.362 |
+| PRY     |       2009 | 0.910 |  0.914 | 0.843 | 0.878 | 0.960 | 0.763 |   0.936 |   0.850 | 0.612 |   0.653 |   0.267 | 0.527 |
+| ROM     |       1999 | 0.936 |  0.886 | 0.901 | 0.808 | 0.879 | 0.921 |   0.875 |   0.848 | 0.782 |   0.680 |   0.563 | 0.542 |
+| RUS     |       1999 | 0.935 |  0.784 | 0.825 | 0.887 | 0.802 | 0.791 |   0.748 |   0.500 | 0.725 |   0.837 |   0.268 | 0.205 |
+| RUS     |       2009 | 0.866 |  0.827 | 0.801 | 0.821 | 0.877 | 0.831 |   0.895 |   0.849 | 0.805 |   0.680 |   0.454 | 0.449 |
+| RUS     |       2016 | 0.907 |  0.808 | 0.814 | 0.836 | 0.887 | 0.760 |   0.932 |   0.882 | 0.807 |   0.636 |   0.492 | 0.497 |
+| SVK     |       1999 | 0.985 |  0.931 | 0.872 | 0.968 | 0.859 | 0.907 |   0.725 |   0.699 | 0.796 |   0.723 |   0.496 | 0.210 |
+| SVK     |       2009 | 0.911 |  0.844 | 0.755 | 0.699 | 0.844 | 0.781 |   0.668 |   0.534 | 0.693 |   0.536 |   0.342 | 0.136 |
+| SVN     |       1999 | 0.948 |  0.776 | 0.784 | 0.654 | 0.731 | 0.798 |   0.720 |   0.687 | 0.625 |   0.589 |   0.378 | 0.294 |
+| SVN     |       2009 | 0.907 |  0.807 | 0.749 | 0.713 | 0.824 | 0.746 |   0.660 |   0.725 | 0.570 |   0.556 |   0.344 | 0.254 |
+| SVN     |       2016 | 0.920 |  0.846 | 0.795 | 0.853 | 0.856 | 0.796 |   0.685 |   0.761 | 0.657 |   0.569 |   0.402 | 0.261 |
+| SWE     |       1999 | 0.960 |  0.782 | 0.821 | 0.784 | 0.807 | 0.792 |   0.624 |   0.643 | 0.562 |   0.688 |   0.389 | 0.211 |
+| SWE     |       2009 | 0.879 |  0.761 | 0.782 | 0.823 | 0.808 | 0.765 |   0.451 |   0.811 | 0.620 |   0.595 |   0.341 | 0.227 |
+| SWE     |       2016 | 0.945 |  0.821 | 0.813 | 0.844 | 0.838 | 0.863 |   0.483 |   0.877 | 0.731 |   0.653 |   0.477 | 0.220 |
+| THA     |       2009 | 0.949 |  0.926 | 0.933 | 0.564 | 0.949 | 0.973 |   0.930 |   0.825 | 0.911 |   0.648 |   0.711 | 0.675 |
+| TWN     |       2009 | 0.963 |  0.905 | 0.890 | 0.945 | 0.887 | 0.748 |   0.790 |   0.719 | 0.874 |   0.642 |   0.511 | 0.166 |
+| TWN     |       2016 | 0.980 |  0.873 | 0.869 | 0.944 | 0.893 | 0.779 |   0.818 |   0.772 | 0.899 |   0.681 |   0.595 | 0.211 |
+| USA     |       1999 | 0.952 |  0.832 | 0.881 | 0.912 | 0.832 | 0.830 |   0.730 |   0.795 | 0.640 |   0.722 |   0.581 | 0.474 |
 
 Count and percentage of missing values for each indicator by country and
 year.
@@ -1428,42 +2297,93 @@ write_xlsx(list(means = means, missing = missing), "output/citizenship-norm-indi
 
 ## Figures:
 
-Means for twelve citizenship norm indicators for only the 14 countries
-that are included in all three waves of the survey.
+#### Means for twelve citizenship norm indicators for only the 14 countries that are included in all three waves of the survey.
+
+First, create the table to be used for plotting.
 
 ``` r
 all_wave_countries <- tbl %>%
   count(COUNTRY, ICCS_year) %>% 
   count(COUNTRY) %>%
-  filter(nn == 3) %>% 
+  filter(n == 3) %>% 
   pull(COUNTRY)
 
+# table with lower and upper limits for error bars
 plot_tbl <- tbl %>% 
   filter(COUNTRY %in% all_wave_countries) %>% 
   group_by(ICCS_year) %>% 
-  summarize_at(cit_norm_indicators, funs(mean(., na.rm = TRUE)))
+  summarize_at(cit_norm_indicators, funs(t.test(.) %>%
+                                           broom::tidy() %>%
+                                           mutate(mean_ci = paste(estimate, conf.low, conf.high)) %>%
+                                           pull(mean_ci))) %>% 
+  gather(Indicator, value, -ICCS_year) %>% 
+  mutate(value = str_split(value, " "),
+         cols = map(value, ~ data.frame(t(.)))) %>% 
+  unnest(cols) %>% 
+  select(-value) %>% 
+  mutate(mean  = as.numeric(X1),
+         lower = as.numeric(X2),
+         upper = as.numeric(X3)) %>% 
+  select(-c(X1, X2, X3))
 
 plot_tbl %>% 
+  mutate_if(is.numeric, round, 3) %>% 
   knitr::kable()
 ```
 
-| ICCS\_year |      obey |    rights |     local |      work |     envir |      vote |   history |   respect |      news |   protest |   discuss |     party |
-| ---------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: |
-|       1999 | 0.9452247 | 0.8342748 | 0.8227005 | 0.8128673 | 0.8184639 | 0.7851758 | 0.7135590 | 0.7160464 | 0.6967499 | 0.6548606 | 0.4185249 | 0.3091457 |
-|       2009 | 0.8934649 | 0.8283053 | 0.8085325 | 0.8148389 | 0.8519541 | 0.8056155 | 0.7781203 | 0.8042819 | 0.7393888 | 0.6256544 | 0.3823448 | 0.2841477 |
-|       2016 | 0.9140386 | 0.8223837 | 0.8041600 | 0.8356167 | 0.8508127 | 0.8138835 | 0.8068230 | 0.8360684 | 0.7560593 | 0.6108746 | 0.4350790 | 0.3075041 |
+| ICCS\_year | Indicator |  mean | lower | upper |
+| ---------: | :-------- | ----: | ----: | ----: |
+|       1999 | obey      | 0.945 | 0.943 | 0.947 |
+|       2009 | obey      | 0.893 | 0.891 | 0.896 |
+|       2016 | obey      | 0.914 | 0.912 | 0.916 |
+|       1999 | rights    | 0.834 | 0.831 | 0.838 |
+|       2009 | rights    | 0.828 | 0.825 | 0.832 |
+|       2016 | rights    | 0.822 | 0.819 | 0.826 |
+|       1999 | local     | 0.823 | 0.819 | 0.826 |
+|       2009 | local     | 0.809 | 0.805 | 0.812 |
+|       2016 | local     | 0.804 | 0.801 | 0.807 |
+|       1999 | work      | 0.813 | 0.809 | 0.816 |
+|       2009 | work      | 0.815 | 0.811 | 0.818 |
+|       2016 | work      | 0.836 | 0.833 | 0.839 |
+|       1999 | envir     | 0.818 | 0.815 | 0.822 |
+|       2009 | envir     | 0.852 | 0.849 | 0.855 |
+|       2016 | envir     | 0.851 | 0.848 | 0.854 |
+|       1999 | vote      | 0.785 | 0.781 | 0.789 |
+|       2009 | vote      | 0.806 | 0.802 | 0.809 |
+|       2016 | vote      | 0.814 | 0.811 | 0.817 |
+|       1999 | history   | 0.714 | 0.709 | 0.718 |
+|       2009 | history   | 0.778 | 0.774 | 0.782 |
+|       2016 | history   | 0.807 | 0.804 | 0.810 |
+|       1999 | respect   | 0.716 | 0.712 | 0.720 |
+|       2009 | respect   | 0.804 | 0.801 | 0.808 |
+|       2016 | respect   | 0.836 | 0.833 | 0.839 |
+|       1999 | news      | 0.697 | 0.693 | 0.701 |
+|       2009 | news      | 0.739 | 0.736 | 0.743 |
+|       2016 | news      | 0.756 | 0.753 | 0.760 |
+|       1999 | protest   | 0.655 | 0.650 | 0.659 |
+|       2009 | protest   | 0.626 | 0.621 | 0.630 |
+|       2016 | protest   | 0.611 | 0.607 | 0.615 |
+|       1999 | discuss   | 0.419 | 0.414 | 0.423 |
+|       2009 | discuss   | 0.382 | 0.378 | 0.387 |
+|       2016 | discuss   | 0.435 | 0.431 | 0.439 |
+|       1999 | party     | 0.309 | 0.305 | 0.313 |
+|       2009 | party     | 0.284 | 0.280 | 0.288 |
+|       2016 | party     | 0.308 | 0.304 | 0.311 |
+
+Line plots:
 
 ``` r
 # line plot with year on x-axis, lines colored by indicator type
 plot_tbl %>% 
-  gather(Indicator, value, -ICCS_year) %>% 
-  ggplot(aes(x = ICCS_year, y = value, group = Indicator, colour = Indicator)) +
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .3) +
   geom_line() +
   geom_point() +
+  lims(y = c(0, 1)) +
   labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
 ```
 
-![](README_files/figure-gfm/plots-1.png)<!-- -->
+![](README_files/figure-gfm/line-plots-all-1.png)<!-- -->
 
 ``` r
 ggsave("output/mean-citizenship-norm-line-plot-by-year.png")
@@ -1471,22 +2391,184 @@ ggsave("output/mean-citizenship-norm-line-plot-by-year.png")
 
     ## Saving 10 x 5 in image
 
+The above plot includes all indicators on one plot, but the confidence
+intervals are so narrow they are hard to see for each individual
+indicator. An alternative way to present the same data is to plot them
+separately and `facet_wrap()` the plots so they are all in one image.
+
+``` r
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "free") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none")
+```
+
+![](README_files/figure-gfm/line-plots-facet-1-1.png)<!-- -->
+
+``` r
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+    ## Saving 10 x 5 in image
+
+Adapting y-axis to consistent
+
+``` r
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none")
+```
+
+![](README_files/figure-gfm/line-plots-facet-2-1.png)<!-- -->
+
+``` r
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+    ## Saving 10 x 5 in image
+
+Re-ordering to highest mean top left
+
+``` r
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  mutate(Indicator=fct_relevel(Indicator,c("obey", "rights", "local", "work", "envir", "vote", "history", "respect", "news", "protest", "discuss", "party"))) %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none")
+```
+
+![](README_files/figure-gfm/line-plots-facet-3-1.png)<!-- -->
+
+``` r
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+    ## Saving 10 x 5 in image
+
+Adding specific years on x-axis
+
+``` r
+# line plot with year on x-axis, lines colored by indicator type
+plot_tbl %>% 
+  mutate(Indicator=fct_relevel(Indicator,c("obey", "rights", "local", "work", "envir", "vote", "history", "respect", "news", "protest", "discuss", "party"))) %>% 
+  ggplot(aes(x = ICCS_year, y = mean, group = Indicator, colour = Indicator)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~Indicator, scales = "fixed") +
+  labs(x = "Year", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year") +
+  theme(legend.position = "none", axis.text.x = element_text(size=7)) +
+  scale_x_continuous(breaks=c(1999, 2009, 2016))
+```
+
+![](README_files/figure-gfm/line-plots-facet-4-1.png)<!-- -->
+
+``` r
+ggsave("output/mean-citizenship-norm-line-plot-by-year-facet.png")
+```
+
+    ## Saving 10 x 5 in image
+
+Bar plots:
+
 ``` r
 # bar plot with indicators on x-axis, lines colored by year
 plot_tbl %>% 
-  gather(Indicator, value, -ICCS_year) %>% 
-  mutate(Year = as.factor(ICCS_year),
+  mutate(Year      = as.factor(ICCS_year),
          Indicator = factor(Indicator, ordered = TRUE, levels = c("obey", "rights", "local", "work", "envir", "vote", "history",
                                                                   "respect", "news", "protest", "discuss", "party"))) %>% 
-  ggplot(aes(x = Indicator, y = value, fill = Year)) +
+  ggplot(aes(x = Indicator, y = mean, fill = Year)) +
   geom_bar(stat = "identity", position = position_dodge()) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5, position = position_dodge(.9)) +
   labs(x = "Indicator", y = "Mean", title = "Mean Citizenship Norm Indicators By Survey Year")
 ```
 
-![](README_files/figure-gfm/plots-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 ggsave("output/mean-citizenship-norm-bar-plot-by-indicator.png")
 ```
 
     ## Saving 10 x 5 in image
+
+#### Means for twelve citizenship norm indicators in 2016 by country
+
+Looking at 2016 data only, plot means for all cit norm indicators by
+country.
+
+``` r
+country_plot_tbl <- tbl %>% 
+  filter(ICCS_year == 2016) %>% 
+  group_by(COUNTRY) %>% 
+  summarize_at(cit_norm_indicators, funs(t.test(.) %>%
+                                           broom::tidy() %>%
+                                           mutate(mean_ci = paste(estimate, conf.low, conf.high)) %>%
+                                           pull(mean_ci))) %>% 
+  gather(Indicator, value, -COUNTRY) %>% 
+  mutate(value = str_split(value, " "),
+         cols = map(value, ~ data.frame(t(.)))) %>% 
+  unnest(cols) %>% 
+  select(-value) %>% 
+  mutate(mean  = as.numeric(X1),
+         lower = as.numeric(X2),
+         upper = as.numeric(X3),
+         Indicator = factor(Indicator, ordered = TRUE, levels = c("obey", "rights", "local", "work", "envir", "vote", "history",
+                                                                  "respect", "news", "protest", "discuss", "party"))) %>% 
+  select(-c(X1, X2, X3))
+
+country_plot_tbl %>% 
+  head()
+```
+
+    ## # A tibble: 6 x 5
+    ##   COUNTRY Indicator  mean lower upper
+    ##   <chr>   <ord>     <dbl> <dbl> <dbl>
+    ## 1 BFL     obey      0.934 0.925 0.943
+    ## 2 BGR     obey      0.837 0.823 0.850
+    ## 3 CHL     obey      0.876 0.867 0.885
+    ## 4 COL     obey      0.892 0.884 0.900
+    ## 5 DNK     obey      0.951 0.945 0.956
+    ## 6 DNW     obey      0.950 0.939 0.961
+
+Plot with countries on x-axis, `facet_wrap` by indicator.
+
+``` r
+country_plot_tbl %>% 
+  ggplot(aes(x = COUNTRY, y = mean, fill = COUNTRY)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .5, position = position_dodge(.9)) +
+  facet_wrap(~Indicator, scales = "free", ncol = 1) +
+  labs(x = "Indicator", y = "Mean", title = "Mean Citizenship Norm Indicators in 2016 By Country") +
+  theme(legend.position = "none")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+
+``` r
+ggsave("output/mean-citizenship-norm-bar-plot-by-country-by-indicator-2016-only.png")
+```
+
+    ## Saving 10 x 35 in image
+
+March 6, 2019: JO noting next steps for analysis now that LCA results
+are complete.
+
+\*\*JO next step coding task, merge LCA results back into R file: New
+dat file in “lcadata” folder JA advice: combine to LCA output to Rproj,
+follow R for data science book: “full\_join” c:\_14\_wclass.dat

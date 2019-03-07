@@ -1,5 +1,10 @@
 {
     "chunk_output_type" : "console",
+<<<<<<< HEAD
     "cursorPosition" : "16,16",
     "scrollLine" : "0"
+=======
+    "cursorPosition" : "686,22",
+    "scrollLine" : "670"
+>>>>>>> master
 }
