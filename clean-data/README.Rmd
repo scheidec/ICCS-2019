@@ -530,6 +530,23 @@ Export recoded data for LCA - RdM to current `ICCS-2019/clean-data` directory.
 write_delim(tbl, "output/clean_tbl.dat", delim = ",")
 ```
 
+Separate into different country-year `.dat` files for separate LG analysis.  There are 90 different country-year combinations.  We will save these files in `/output/country-year/`.
+
+```{r}
+tbl %>% 
+  mutate(country_year = paste0(COUNTRY, "-", ICCS_year)) %>% 
+  group_by(country_year) %>% 
+  group_walk(~ write_delim(.x, paste0("output/country-year/", .y$country_year, ".dat"), delim = ","))
+```
+
+Quick check files contain what we expect.
+
+```{r}
+all.equal(tbl %>% filter(COUNTRY == "AUS", ICCS_year == 1999) %>% mutate_if(is.integer, as.numeric),
+          read_delim("output/country-year/AUS-1999.dat", delim = ",") %>% mutate_if(is.integer, as.numeric))
+```
+
+
 ## Tables:
 
 Means of citizenship norm indicators by country and year.
@@ -576,7 +593,7 @@ First, create the table to be used for plotting.
 all_wave_countries <- tbl %>%
   count(COUNTRY, ICCS_year) %>% 
   count(COUNTRY) %>%
-  filter(nn == 3) %>% 
+  filter(n == 3) %>% 
   pull(COUNTRY)
 
 # table with lower and upper limits for error bars
