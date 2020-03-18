@@ -497,8 +497,8 @@ tbl %>%
 Quick check files contain what we expect.
 
 ```{r}
-all.equal(tbl %>% filter(COUNTRY == "AUS", ICCS_year == 1999) %>% mutate_if(is.integer, as.numeric),
-          read_delim("output/country-year/AUS-1999.dat", delim = ",") %>% mutate_if(is.integer, as.numeric))
+all.equal(tbl %>% filter(COUNTRY == "AUS", ICCS_year == 1999) %>% mutate_if(is.integer, as.numeric) %>% mutate_if(is.factor, as.character),
+          read_delim("output/country-year/AUS-1999.dat", delim = ",") %>% mutate_if(is.integer, as.numeric) %>% mutate_if(is.factor, as.character))
 ```
 
 
